@@ -1,0 +1,6767 @@
+{
+  "meta": {
+    "found": 130
+  },
+  "results": [
+    {
+      "value": 156.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2021-12-31T23:30:00Z",
+          "local": "2022-01-01T05:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T00:30:00Z",
+          "local": "2022-01-01T06:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 156.0,
+        "q02": 156.0,
+        "q25": 156.0,
+        "median": 156.0,
+        "q75": 156.0,
+        "q98": 156.0,
+        "max": 156.0,
+        "avg": 156.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2021-12-31T22:45:00Z",
+          "local": "2022-01-01T04:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2021-12-31T23:45:00Z",
+          "local": "2022-01-01T05:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 124.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-01T06:30:00Z",
+          "local": "2022-01-01T12:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T07:30:00Z",
+          "local": "2022-01-01T13:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 124.0,
+        "q02": 124.0,
+        "q25": 124.0,
+        "median": 124.0,
+        "q75": 124.0,
+        "q98": 124.0,
+        "max": 124.0,
+        "avg": 124.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-01T06:15:00Z",
+          "local": "2022-01-01T11:45:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T07:15:00Z",
+          "local": "2022-01-01T12:45:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 124.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-01T07:00:00Z",
+          "local": "2022-01-01T12:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T08:00:00Z",
+          "local": "2022-01-01T13:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 124.0,
+        "q02": 124.0,
+        "q25": 124.0,
+        "median": 124.0,
+        "q75": 124.0,
+        "q98": 124.0,
+        "max": 124.0,
+        "avg": 124.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-01T07:00:00Z",
+          "local": "2022-01-01T12:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T08:00:00Z",
+          "local": "2022-01-01T13:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 88.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-01T11:00:00Z",
+          "local": "2022-01-01T16:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T12:00:00Z",
+          "local": "2022-01-01T17:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 88.0,
+        "q02": 88.0,
+        "q25": 88.0,
+        "median": 88.0,
+        "q75": 88.0,
+        "q98": 88.0,
+        "max": 88.0,
+        "avg": 88.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-01T11:00:00Z",
+          "local": "2022-01-01T16:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T12:00:00Z",
+          "local": "2022-01-01T17:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 88.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-01T11:30:00Z",
+          "local": "2022-01-01T17:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T12:30:00Z",
+          "local": "2022-01-01T18:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 88.0,
+        "q02": 88.0,
+        "q25": 88.0,
+        "median": 88.0,
+        "q75": 88.0,
+        "q98": 88.0,
+        "max": 88.0,
+        "avg": 88.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-01T10:45:00Z",
+          "local": "2022-01-01T16:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T11:45:00Z",
+          "local": "2022-01-01T17:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 372.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-01T16:30:00Z",
+          "local": "2022-01-01T22:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T17:30:00Z",
+          "local": "2022-01-01T23:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 372.0,
+        "q02": 372.0,
+        "q25": 372.0,
+        "median": 372.0,
+        "q75": 372.0,
+        "q98": 372.0,
+        "max": 372.0,
+        "avg": 372.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-01T16:30:00Z",
+          "local": "2022-01-01T22:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T17:30:00Z",
+          "local": "2022-01-01T23:00:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 372.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-01T17:00:00Z",
+          "local": "2022-01-01T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T18:00:00Z",
+          "local": "2022-01-01T23:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 372.0,
+        "q02": 372.0,
+        "q25": 372.0,
+        "median": 372.0,
+        "q75": 372.0,
+        "q98": 372.0,
+        "max": 372.0,
+        "avg": 372.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-01T17:00:00Z",
+          "local": "2022-01-01T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-01T18:00:00Z",
+          "local": "2022-01-01T23:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 78.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-02T10:00:00Z",
+          "local": "2022-01-02T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T11:00:00Z",
+          "local": "2022-01-02T16:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 78.0,
+        "q02": 78.0,
+        "q25": 78.0,
+        "median": 78.0,
+        "q75": 78.0,
+        "q98": 78.0,
+        "max": 78.0,
+        "avg": 78.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-02T10:00:00Z",
+          "local": "2022-01-02T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T11:00:00Z",
+          "local": "2022-01-02T16:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 78.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-02T10:30:00Z",
+          "local": "2022-01-02T16:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T11:30:00Z",
+          "local": "2022-01-02T17:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 78.0,
+        "q02": 78.0,
+        "q25": 78.0,
+        "median": 78.0,
+        "q75": 78.0,
+        "q98": 78.0,
+        "max": 78.0,
+        "avg": 78.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-02T09:45:00Z",
+          "local": "2022-01-02T15:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T10:45:00Z",
+          "local": "2022-01-02T16:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 198.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-02T15:00:00Z",
+          "local": "2022-01-02T20:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T16:00:00Z",
+          "local": "2022-01-02T21:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 198.0,
+        "q02": 198.0,
+        "q25": 198.0,
+        "median": 198.0,
+        "q75": 198.0,
+        "q98": 198.0,
+        "max": 198.0,
+        "avg": 198.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-02T15:00:00Z",
+          "local": "2022-01-02T20:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T16:00:00Z",
+          "local": "2022-01-02T21:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 198.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-02T15:30:00Z",
+          "local": "2022-01-02T21:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T16:30:00Z",
+          "local": "2022-01-02T22:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 198.0,
+        "q02": 198.0,
+        "q25": 198.0,
+        "median": 198.0,
+        "q75": 198.0,
+        "q98": 198.0,
+        "max": 198.0,
+        "avg": 198.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-02T14:45:00Z",
+          "local": "2022-01-02T20:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T15:45:00Z",
+          "local": "2022-01-02T21:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 220.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-02T16:30:00Z",
+          "local": "2022-01-02T22:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T17:30:00Z",
+          "local": "2022-01-02T23:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 220.0,
+        "q02": 220.0,
+        "q25": 220.0,
+        "median": 220.0,
+        "q75": 220.0,
+        "q98": 220.0,
+        "max": 220.0,
+        "avg": 220.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-02T16:30:00Z",
+          "local": "2022-01-02T22:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T17:30:00Z",
+          "local": "2022-01-02T23:00:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 220.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-02T17:00:00Z",
+          "local": "2022-01-02T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T18:00:00Z",
+          "local": "2022-01-02T23:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 220.0,
+        "q02": 220.0,
+        "q25": 220.0,
+        "median": 220.0,
+        "q75": 220.0,
+        "q98": 220.0,
+        "max": 220.0,
+        "avg": 220.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-02T17:00:00Z",
+          "local": "2022-01-02T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T18:00:00Z",
+          "local": "2022-01-02T23:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 192.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-02T18:00:00Z",
+          "local": "2022-01-02T23:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T19:00:00Z",
+          "local": "2022-01-03T00:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 192.0,
+        "q02": 192.0,
+        "q25": 192.0,
+        "median": 192.0,
+        "q75": 192.0,
+        "q98": 192.0,
+        "max": 192.0,
+        "avg": 192.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-02T18:00:00Z",
+          "local": "2022-01-02T23:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T19:00:00Z",
+          "local": "2022-01-03T00:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 192.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-02T18:30:00Z",
+          "local": "2022-01-03T00:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T19:30:00Z",
+          "local": "2022-01-03T01:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 192.0,
+        "q02": 192.0,
+        "q25": 192.0,
+        "median": 192.0,
+        "q75": 192.0,
+        "q98": 192.0,
+        "max": 192.0,
+        "avg": 192.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-02T17:45:00Z",
+          "local": "2022-01-02T23:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T18:45:00Z",
+          "local": "2022-01-03T00:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 164.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-02T22:00:00Z",
+          "local": "2022-01-03T03:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T23:00:00Z",
+          "local": "2022-01-03T04:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 164.0,
+        "q02": 164.0,
+        "q25": 164.0,
+        "median": 164.0,
+        "q75": 164.0,
+        "q98": 164.0,
+        "max": 164.0,
+        "avg": 164.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-02T22:00:00Z",
+          "local": "2022-01-03T03:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T23:00:00Z",
+          "local": "2022-01-03T04:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 164.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-02T22:30:00Z",
+          "local": "2022-01-03T04:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T23:30:00Z",
+          "local": "2022-01-03T05:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 164.0,
+        "q02": 164.0,
+        "q25": 164.0,
+        "median": 164.0,
+        "q75": 164.0,
+        "q98": 164.0,
+        "max": 164.0,
+        "avg": 164.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-02T21:45:00Z",
+          "local": "2022-01-03T03:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-02T22:45:00Z",
+          "local": "2022-01-03T04:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 52.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-05T10:00:00Z",
+          "local": "2022-01-05T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T11:00:00Z",
+          "local": "2022-01-05T16:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 52.0,
+        "q02": 52.0,
+        "q25": 52.0,
+        "median": 52.0,
+        "q75": 52.0,
+        "q98": 52.0,
+        "max": 52.0,
+        "avg": 52.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-05T10:00:00Z",
+          "local": "2022-01-05T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T11:00:00Z",
+          "local": "2022-01-05T16:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 52.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-05T10:30:00Z",
+          "local": "2022-01-05T16:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T11:30:00Z",
+          "local": "2022-01-05T17:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 52.0,
+        "q02": 52.0,
+        "q25": 52.0,
+        "median": 52.0,
+        "q75": 52.0,
+        "q98": 52.0,
+        "max": 52.0,
+        "avg": 52.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-05T09:45:00Z",
+          "local": "2022-01-05T15:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T10:45:00Z",
+          "local": "2022-01-05T16:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 102.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-05T12:00:00Z",
+          "local": "2022-01-05T17:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T13:00:00Z",
+          "local": "2022-01-05T18:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 102.0,
+        "q02": 102.0,
+        "q25": 102.0,
+        "median": 102.0,
+        "q75": 102.0,
+        "q98": 102.0,
+        "max": 102.0,
+        "avg": 102.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-05T12:00:00Z",
+          "local": "2022-01-05T17:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T13:00:00Z",
+          "local": "2022-01-05T18:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 102.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-05T12:30:00Z",
+          "local": "2022-01-05T18:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T13:30:00Z",
+          "local": "2022-01-05T19:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 102.0,
+        "q02": 102.0,
+        "q25": 102.0,
+        "median": 102.0,
+        "q75": 102.0,
+        "q98": 102.0,
+        "max": 102.0,
+        "avg": 102.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-05T11:45:00Z",
+          "local": "2022-01-05T17:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T12:45:00Z",
+          "local": "2022-01-05T18:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 97.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-05T22:00:00Z",
+          "local": "2022-01-06T03:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T23:00:00Z",
+          "local": "2022-01-06T04:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 97.0,
+        "q02": 97.0,
+        "q25": 97.0,
+        "median": 97.0,
+        "q75": 97.0,
+        "q98": 97.0,
+        "max": 97.0,
+        "avg": 97.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-05T22:00:00Z",
+          "local": "2022-01-06T03:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T23:00:00Z",
+          "local": "2022-01-06T04:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 97.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-05T22:30:00Z",
+          "local": "2022-01-06T04:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T23:30:00Z",
+          "local": "2022-01-06T05:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 97.0,
+        "q02": 97.0,
+        "q25": 97.0,
+        "median": 97.0,
+        "q75": 97.0,
+        "q98": 97.0,
+        "max": 97.0,
+        "avg": 97.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-05T21:45:00Z",
+          "local": "2022-01-06T03:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-05T22:45:00Z",
+          "local": "2022-01-06T04:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 53.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-07T00:00:00Z",
+          "local": "2022-01-07T05:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-07T01:00:00Z",
+          "local": "2022-01-07T06:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 53.0,
+        "q02": 53.0,
+        "q25": 53.0,
+        "median": 53.0,
+        "q75": 53.0,
+        "q98": 53.0,
+        "max": 53.0,
+        "avg": 53.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-07T00:00:00Z",
+          "local": "2022-01-07T05:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-07T01:00:00Z",
+          "local": "2022-01-07T06:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 53.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-07T00:30:00Z",
+          "local": "2022-01-07T06:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-07T01:30:00Z",
+          "local": "2022-01-07T07:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 53.0,
+        "q02": 53.0,
+        "q25": 53.0,
+        "median": 53.0,
+        "q75": 53.0,
+        "q98": 53.0,
+        "max": 53.0,
+        "avg": 53.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-06T23:45:00Z",
+          "local": "2022-01-07T05:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-07T00:45:00Z",
+          "local": "2022-01-07T06:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 32.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-08T23:00:00Z",
+          "local": "2022-01-09T04:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-09T00:00:00Z",
+          "local": "2022-01-09T05:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 32.0,
+        "q02": 32.0,
+        "q25": 32.0,
+        "median": 32.0,
+        "q75": 32.0,
+        "q98": 32.0,
+        "max": 32.0,
+        "avg": 32.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-08T23:00:00Z",
+          "local": "2022-01-09T04:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-09T00:00:00Z",
+          "local": "2022-01-09T05:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 32.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-08T23:30:00Z",
+          "local": "2022-01-09T05:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-09T00:30:00Z",
+          "local": "2022-01-09T06:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 32.0,
+        "q02": 32.0,
+        "q25": 32.0,
+        "median": 32.0,
+        "q75": 32.0,
+        "q98": 32.0,
+        "max": 32.0,
+        "avg": 32.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-08T22:45:00Z",
+          "local": "2022-01-09T04:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-08T23:45:00Z",
+          "local": "2022-01-09T05:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 36.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-09T02:30:00Z",
+          "local": "2022-01-09T08:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-09T03:30:00Z",
+          "local": "2022-01-09T09:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 36.0,
+        "q02": 36.0,
+        "q25": 36.0,
+        "median": 36.0,
+        "q75": 36.0,
+        "q98": 36.0,
+        "max": 36.0,
+        "avg": 36.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-09T02:30:00Z",
+          "local": "2022-01-09T08:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-09T03:30:00Z",
+          "local": "2022-01-09T09:00:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 36.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-09T03:00:00Z",
+          "local": "2022-01-09T08:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-09T04:00:00Z",
+          "local": "2022-01-09T09:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 36.0,
+        "q02": 36.0,
+        "q25": 36.0,
+        "median": 36.0,
+        "q75": 36.0,
+        "q98": 36.0,
+        "max": 36.0,
+        "avg": 36.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-09T03:00:00Z",
+          "local": "2022-01-09T08:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-09T04:00:00Z",
+          "local": "2022-01-09T09:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 66.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-09T23:30:00Z",
+          "local": "2022-01-10T05:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-10T00:30:00Z",
+          "local": "2022-01-10T06:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 66.0,
+        "q02": 66.0,
+        "q25": 66.0,
+        "median": 66.0,
+        "q75": 66.0,
+        "q98": 66.0,
+        "max": 66.0,
+        "avg": 66.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-09T23:30:00Z",
+          "local": "2022-01-10T05:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-10T00:30:00Z",
+          "local": "2022-01-10T06:00:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 66.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-10T00:00:00Z",
+          "local": "2022-01-10T05:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-10T01:00:00Z",
+          "local": "2022-01-10T06:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 66.0,
+        "q02": 66.0,
+        "q25": 66.0,
+        "median": 66.0,
+        "q75": 66.0,
+        "q98": 66.0,
+        "max": 66.0,
+        "avg": 66.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-10T00:00:00Z",
+          "local": "2022-01-10T05:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-10T01:00:00Z",
+          "local": "2022-01-10T06:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 148.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-15T10:00:00Z",
+          "local": "2022-01-15T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-15T11:00:00Z",
+          "local": "2022-01-15T16:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 148.0,
+        "q02": 148.0,
+        "q25": 148.0,
+        "median": 148.0,
+        "q75": 148.0,
+        "q98": 148.0,
+        "max": 148.0,
+        "avg": 148.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-15T10:00:00Z",
+          "local": "2022-01-15T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-15T11:00:00Z",
+          "local": "2022-01-15T16:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 148.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-15T10:30:00Z",
+          "local": "2022-01-15T16:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-15T11:30:00Z",
+          "local": "2022-01-15T17:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 148.0,
+        "q02": 148.0,
+        "q25": 148.0,
+        "median": 148.0,
+        "q75": 148.0,
+        "q98": 148.0,
+        "max": 148.0,
+        "avg": 148.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-15T09:45:00Z",
+          "local": "2022-01-15T15:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-15T10:45:00Z",
+          "local": "2022-01-15T16:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 130.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-16T12:00:00Z",
+          "local": "2022-01-16T17:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-16T13:00:00Z",
+          "local": "2022-01-16T18:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 130.0,
+        "q02": 130.0,
+        "q25": 130.0,
+        "median": 130.0,
+        "q75": 130.0,
+        "q98": 130.0,
+        "max": 130.0,
+        "avg": 130.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-16T12:00:00Z",
+          "local": "2022-01-16T17:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-16T13:00:00Z",
+          "local": "2022-01-16T18:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 130.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-16T12:30:00Z",
+          "local": "2022-01-16T18:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-16T13:30:00Z",
+          "local": "2022-01-16T19:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 130.0,
+        "q02": 130.0,
+        "q25": 130.0,
+        "median": 130.0,
+        "q75": 130.0,
+        "q98": 130.0,
+        "max": 130.0,
+        "avg": 130.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-16T11:45:00Z",
+          "local": "2022-01-16T17:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-16T12:45:00Z",
+          "local": "2022-01-16T18:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 114.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-17T01:00:00Z",
+          "local": "2022-01-17T06:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-17T02:00:00Z",
+          "local": "2022-01-17T07:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 114.0,
+        "q02": 114.0,
+        "q25": 114.0,
+        "median": 114.0,
+        "q75": 114.0,
+        "q98": 114.0,
+        "max": 114.0,
+        "avg": 114.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-17T01:00:00Z",
+          "local": "2022-01-17T06:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-17T02:00:00Z",
+          "local": "2022-01-17T07:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 114.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-17T01:30:00Z",
+          "local": "2022-01-17T07:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-17T02:30:00Z",
+          "local": "2022-01-17T08:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 114.0,
+        "q02": 114.0,
+        "q25": 114.0,
+        "median": 114.0,
+        "q75": 114.0,
+        "q98": 114.0,
+        "max": 114.0,
+        "avg": 114.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-17T01:00:00Z",
+          "local": "2022-01-17T06:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-17T02:00:00Z",
+          "local": "2022-01-17T07:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 114.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-17T02:30:00Z",
+          "local": "2022-01-17T08:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-17T03:30:00Z",
+          "local": "2022-01-17T09:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 114.0,
+        "q02": 114.0,
+        "q25": 114.0,
+        "median": 114.0,
+        "q75": 114.0,
+        "q98": 114.0,
+        "max": 114.0,
+        "avg": 114.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-17T02:15:00Z",
+          "local": "2022-01-17T07:45:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-17T03:15:00Z",
+          "local": "2022-01-17T08:45:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 114.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-17T03:00:00Z",
+          "local": "2022-01-17T08:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-17T04:00:00Z",
+          "local": "2022-01-17T09:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 114.0,
+        "q02": 114.0,
+        "q25": 114.0,
+        "median": 114.0,
+        "q75": 114.0,
+        "q98": 114.0,
+        "max": 114.0,
+        "avg": 114.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-17T03:00:00Z",
+          "local": "2022-01-17T08:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-17T04:00:00Z",
+          "local": "2022-01-17T09:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 179.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-20T10:00:00Z",
+          "local": "2022-01-20T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-20T11:00:00Z",
+          "local": "2022-01-20T16:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 179.0,
+        "q02": 179.0,
+        "q25": 179.0,
+        "median": 179.0,
+        "q75": 179.0,
+        "q98": 179.0,
+        "max": 179.0,
+        "avg": 179.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-20T10:00:00Z",
+          "local": "2022-01-20T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-20T11:00:00Z",
+          "local": "2022-01-20T16:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 179.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-20T10:30:00Z",
+          "local": "2022-01-20T16:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-20T11:30:00Z",
+          "local": "2022-01-20T17:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 179.0,
+        "q02": 179.0,
+        "q25": 179.0,
+        "median": 179.0,
+        "q75": 179.0,
+        "q98": 179.0,
+        "max": 179.0,
+        "avg": 179.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-20T09:45:00Z",
+          "local": "2022-01-20T15:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-20T10:45:00Z",
+          "local": "2022-01-20T16:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 188.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-20T17:00:00Z",
+          "local": "2022-01-20T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-20T18:00:00Z",
+          "local": "2022-01-20T23:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 188.0,
+        "q02": 188.0,
+        "q25": 188.0,
+        "median": 188.0,
+        "q75": 188.0,
+        "q98": 188.0,
+        "max": 188.0,
+        "avg": 188.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-20T17:00:00Z",
+          "local": "2022-01-20T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-20T18:00:00Z",
+          "local": "2022-01-20T23:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 188.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-20T17:30:00Z",
+          "local": "2022-01-20T23:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-20T18:30:00Z",
+          "local": "2022-01-21T00:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 188.0,
+        "q02": 188.0,
+        "q25": 188.0,
+        "median": 188.0,
+        "q75": 188.0,
+        "q98": 188.0,
+        "max": 188.0,
+        "avg": 188.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-20T16:45:00Z",
+          "local": "2022-01-20T22:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-20T17:45:00Z",
+          "local": "2022-01-20T23:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 174.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-21T09:00:00Z",
+          "local": "2022-01-21T14:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T10:00:00Z",
+          "local": "2022-01-21T15:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 174.0,
+        "q02": 174.0,
+        "q25": 174.0,
+        "median": 174.0,
+        "q75": 174.0,
+        "q98": 174.0,
+        "max": 174.0,
+        "avg": 174.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-21T09:00:00Z",
+          "local": "2022-01-21T14:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T10:00:00Z",
+          "local": "2022-01-21T15:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 174.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-21T09:30:00Z",
+          "local": "2022-01-21T15:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T10:30:00Z",
+          "local": "2022-01-21T16:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 174.0,
+        "q02": 174.0,
+        "q25": 174.0,
+        "median": 174.0,
+        "q75": 174.0,
+        "q98": 174.0,
+        "max": 174.0,
+        "avg": 174.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-21T08:45:00Z",
+          "local": "2022-01-21T14:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T09:45:00Z",
+          "local": "2022-01-21T15:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 187.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-21T14:00:00Z",
+          "local": "2022-01-21T19:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T15:00:00Z",
+          "local": "2022-01-21T20:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 187.0,
+        "q02": 187.0,
+        "q25": 187.0,
+        "median": 187.0,
+        "q75": 187.0,
+        "q98": 187.0,
+        "max": 187.0,
+        "avg": 187.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-21T14:00:00Z",
+          "local": "2022-01-21T19:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T15:00:00Z",
+          "local": "2022-01-21T20:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 88.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-21T21:00:00Z",
+          "local": "2022-01-22T02:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T22:00:00Z",
+          "local": "2022-01-22T03:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 88.0,
+        "q02": 88.0,
+        "q25": 88.0,
+        "median": 88.0,
+        "q75": 88.0,
+        "q98": 88.0,
+        "max": 88.0,
+        "avg": 88.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-21T21:00:00Z",
+          "local": "2022-01-22T02:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T22:00:00Z",
+          "local": "2022-01-22T03:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 88.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-21T21:30:00Z",
+          "local": "2022-01-22T03:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T22:30:00Z",
+          "local": "2022-01-22T04:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 88.0,
+        "q02": 88.0,
+        "q25": 88.0,
+        "median": 88.0,
+        "q75": 88.0,
+        "q98": 88.0,
+        "max": 88.0,
+        "avg": 88.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-21T20:45:00Z",
+          "local": "2022-01-22T02:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T21:45:00Z",
+          "local": "2022-01-22T03:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 74.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-21T22:00:00Z",
+          "local": "2022-01-22T03:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T23:00:00Z",
+          "local": "2022-01-22T04:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 74.0,
+        "q02": 74.0,
+        "q25": 74.0,
+        "median": 74.0,
+        "q75": 74.0,
+        "q98": 74.0,
+        "max": 74.0,
+        "avg": 74.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-21T22:00:00Z",
+          "local": "2022-01-22T03:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T23:00:00Z",
+          "local": "2022-01-22T04:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 74.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-21T22:30:00Z",
+          "local": "2022-01-22T04:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T23:30:00Z",
+          "local": "2022-01-22T05:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 74.0,
+        "q02": 74.0,
+        "q25": 74.0,
+        "median": 74.0,
+        "q75": 74.0,
+        "q98": 74.0,
+        "max": 74.0,
+        "avg": 74.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-21T21:45:00Z",
+          "local": "2022-01-22T03:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-21T22:45:00Z",
+          "local": "2022-01-22T04:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 80.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-22T02:00:00Z",
+          "local": "2022-01-22T07:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-22T03:00:00Z",
+          "local": "2022-01-22T08:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 80.0,
+        "q02": 80.0,
+        "q25": 80.0,
+        "median": 80.0,
+        "q75": 80.0,
+        "q98": 80.0,
+        "max": 80.0,
+        "avg": 80.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-22T02:00:00Z",
+          "local": "2022-01-22T07:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-22T03:00:00Z",
+          "local": "2022-01-22T08:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 80.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-22T02:30:00Z",
+          "local": "2022-01-22T08:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-22T03:30:00Z",
+          "local": "2022-01-22T09:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 80.0,
+        "q02": 80.0,
+        "q25": 80.0,
+        "median": 80.0,
+        "q75": 80.0,
+        "q98": 80.0,
+        "max": 80.0,
+        "avg": 80.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-22T01:45:00Z",
+          "local": "2022-01-22T07:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-22T02:45:00Z",
+          "local": "2022-01-22T08:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 155.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-23T19:00:00Z",
+          "local": "2022-01-24T00:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-23T20:00:00Z",
+          "local": "2022-01-24T01:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 155.0,
+        "q02": 155.0,
+        "q25": 155.0,
+        "median": 155.0,
+        "q75": 155.0,
+        "q98": 155.0,
+        "max": 155.0,
+        "avg": 155.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-23T19:00:00Z",
+          "local": "2022-01-24T00:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-23T20:00:00Z",
+          "local": "2022-01-24T01:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 155.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-23T19:30:00Z",
+          "local": "2022-01-24T01:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-23T20:30:00Z",
+          "local": "2022-01-24T02:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 155.0,
+        "q02": 155.0,
+        "q25": 155.0,
+        "median": 155.0,
+        "q75": 155.0,
+        "q98": 155.0,
+        "max": 155.0,
+        "avg": 155.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-23T18:45:00Z",
+          "local": "2022-01-24T00:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-23T19:45:00Z",
+          "local": "2022-01-24T01:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 65.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-23T21:00:00Z",
+          "local": "2022-01-24T02:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-23T22:00:00Z",
+          "local": "2022-01-24T03:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 65.0,
+        "q02": 65.0,
+        "q25": 65.0,
+        "median": 65.0,
+        "q75": 65.0,
+        "q98": 65.0,
+        "max": 65.0,
+        "avg": 65.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-23T21:00:00Z",
+          "local": "2022-01-24T02:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-23T22:00:00Z",
+          "local": "2022-01-24T03:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 65.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-23T21:30:00Z",
+          "local": "2022-01-24T03:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-23T22:30:00Z",
+          "local": "2022-01-24T04:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 65.0,
+        "q02": 65.0,
+        "q25": 65.0,
+        "median": 65.0,
+        "q75": 65.0,
+        "q98": 65.0,
+        "max": 65.0,
+        "avg": 65.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-23T20:45:00Z",
+          "local": "2022-01-24T02:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-23T21:45:00Z",
+          "local": "2022-01-24T03:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 195.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-24T16:00:00Z",
+          "local": "2022-01-24T21:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-24T17:00:00Z",
+          "local": "2022-01-24T22:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 195.0,
+        "q02": 195.0,
+        "q25": 195.0,
+        "median": 195.0,
+        "q75": 195.0,
+        "q98": 195.0,
+        "max": 195.0,
+        "avg": 195.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-24T16:00:00Z",
+          "local": "2022-01-24T21:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-24T17:00:00Z",
+          "local": "2022-01-24T22:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 68.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-24T23:00:00Z",
+          "local": "2022-01-25T04:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-25T00:00:00Z",
+          "local": "2022-01-25T05:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 68.0,
+        "q02": 68.0,
+        "q25": 68.0,
+        "median": 68.0,
+        "q75": 68.0,
+        "q98": 68.0,
+        "max": 68.0,
+        "avg": 68.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-24T23:00:00Z",
+          "local": "2022-01-25T04:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-25T00:00:00Z",
+          "local": "2022-01-25T05:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 68.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-24T23:30:00Z",
+          "local": "2022-01-25T05:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-25T00:30:00Z",
+          "local": "2022-01-25T06:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 68.0,
+        "q02": 68.0,
+        "q25": 68.0,
+        "median": 68.0,
+        "q75": 68.0,
+        "q98": 68.0,
+        "max": 68.0,
+        "avg": 68.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-24T22:45:00Z",
+          "local": "2022-01-25T04:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-24T23:45:00Z",
+          "local": "2022-01-25T05:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 86.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-26T00:00:00Z",
+          "local": "2022-01-26T05:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T01:00:00Z",
+          "local": "2022-01-26T06:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 86.0,
+        "q02": 86.0,
+        "q25": 86.0,
+        "median": 86.0,
+        "q75": 86.0,
+        "q98": 86.0,
+        "max": 86.0,
+        "avg": 86.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-26T00:00:00Z",
+          "local": "2022-01-26T05:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T01:00:00Z",
+          "local": "2022-01-26T06:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 86.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-26T00:30:00Z",
+          "local": "2022-01-26T06:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T01:30:00Z",
+          "local": "2022-01-26T07:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 86.0,
+        "q02": 86.0,
+        "q25": 86.0,
+        "median": 86.0,
+        "q75": 86.0,
+        "q98": 86.0,
+        "max": 86.0,
+        "avg": 86.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-25T23:45:00Z",
+          "local": "2022-01-26T05:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T00:45:00Z",
+          "local": "2022-01-26T06:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 76.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-26T03:00:00Z",
+          "local": "2022-01-26T08:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T04:00:00Z",
+          "local": "2022-01-26T09:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 76.0,
+        "q02": 76.0,
+        "q25": 76.0,
+        "median": 76.0,
+        "q75": 76.0,
+        "q98": 76.0,
+        "max": 76.0,
+        "avg": 76.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-26T03:00:00Z",
+          "local": "2022-01-26T08:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T04:00:00Z",
+          "local": "2022-01-26T09:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 68.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-26T07:00:00Z",
+          "local": "2022-01-26T12:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T08:00:00Z",
+          "local": "2022-01-26T13:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 68.0,
+        "q02": 68.0,
+        "q25": 68.0,
+        "median": 68.0,
+        "q75": 68.0,
+        "q98": 68.0,
+        "max": 68.0,
+        "avg": 68.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-26T07:00:00Z",
+          "local": "2022-01-26T12:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T08:00:00Z",
+          "local": "2022-01-26T13:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 68.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-26T07:30:00Z",
+          "local": "2022-01-26T13:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T08:30:00Z",
+          "local": "2022-01-26T14:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 68.0,
+        "q02": 68.0,
+        "q25": 68.0,
+        "median": 68.0,
+        "q75": 68.0,
+        "q98": 68.0,
+        "max": 68.0,
+        "avg": 68.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-26T06:45:00Z",
+          "local": "2022-01-26T12:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T07:45:00Z",
+          "local": "2022-01-26T13:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 56.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-26T10:00:00Z",
+          "local": "2022-01-26T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T11:00:00Z",
+          "local": "2022-01-26T16:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 56.0,
+        "q02": 56.0,
+        "q25": 56.0,
+        "median": 56.0,
+        "q75": 56.0,
+        "q98": 56.0,
+        "max": 56.0,
+        "avg": 56.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-26T10:00:00Z",
+          "local": "2022-01-26T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-26T11:00:00Z",
+          "local": "2022-01-26T16:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 61.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-28T04:00:00Z",
+          "local": "2022-01-28T09:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-28T05:00:00Z",
+          "local": "2022-01-28T10:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 61.0,
+        "q02": 61.0,
+        "q25": 61.0,
+        "median": 61.0,
+        "q75": 61.0,
+        "q98": 61.0,
+        "max": 61.0,
+        "avg": 61.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-28T04:00:00Z",
+          "local": "2022-01-28T09:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-28T05:00:00Z",
+          "local": "2022-01-28T10:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 34.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T12:00:00Z",
+          "local": "2022-01-29T17:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T13:00:00Z",
+          "local": "2022-01-29T18:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 34.0,
+        "q02": 34.0,
+        "q25": 34.0,
+        "median": 34.0,
+        "q75": 34.0,
+        "q98": 34.0,
+        "max": 34.0,
+        "avg": 34.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T12:00:00Z",
+          "local": "2022-01-29T17:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T13:00:00Z",
+          "local": "2022-01-29T18:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 34.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T12:30:00Z",
+          "local": "2022-01-29T18:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T13:30:00Z",
+          "local": "2022-01-29T19:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 34.0,
+        "q02": 34.0,
+        "q25": 34.0,
+        "median": 34.0,
+        "q75": 34.0,
+        "q98": 34.0,
+        "max": 34.0,
+        "avg": 34.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T11:45:00Z",
+          "local": "2022-01-29T17:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T12:45:00Z",
+          "local": "2022-01-29T18:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 52.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T13:00:00Z",
+          "local": "2022-01-29T18:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T14:00:00Z",
+          "local": "2022-01-29T19:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 52.0,
+        "q02": 52.0,
+        "q25": 52.0,
+        "median": 52.0,
+        "q75": 52.0,
+        "q98": 52.0,
+        "max": 52.0,
+        "avg": 52.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T13:00:00Z",
+          "local": "2022-01-29T18:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T14:00:00Z",
+          "local": "2022-01-29T19:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 52.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T13:30:00Z",
+          "local": "2022-01-29T19:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T14:30:00Z",
+          "local": "2022-01-29T20:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 52.0,
+        "q02": 52.0,
+        "q25": 52.0,
+        "median": 52.0,
+        "q75": 52.0,
+        "q98": 52.0,
+        "max": 52.0,
+        "avg": 52.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T12:45:00Z",
+          "local": "2022-01-29T18:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T13:45:00Z",
+          "local": "2022-01-29T19:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 121.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T14:30:00Z",
+          "local": "2022-01-29T20:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T15:30:00Z",
+          "local": "2022-01-29T21:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 121.0,
+        "q02": 121.0,
+        "q25": 121.0,
+        "median": 121.0,
+        "q75": 121.0,
+        "q98": 121.0,
+        "max": 121.0,
+        "avg": 121.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T14:30:00Z",
+          "local": "2022-01-29T20:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T15:30:00Z",
+          "local": "2022-01-29T21:00:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 121.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T15:00:00Z",
+          "local": "2022-01-29T20:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T16:00:00Z",
+          "local": "2022-01-29T21:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 121.0,
+        "q02": 121.0,
+        "q25": 121.0,
+        "median": 121.0,
+        "q75": 121.0,
+        "q98": 121.0,
+        "max": 121.0,
+        "avg": 121.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T15:00:00Z",
+          "local": "2022-01-29T20:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T16:00:00Z",
+          "local": "2022-01-29T21:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 176.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T16:00:00Z",
+          "local": "2022-01-29T21:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T17:00:00Z",
+          "local": "2022-01-29T22:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 176.0,
+        "q02": 176.0,
+        "q25": 176.0,
+        "median": 176.0,
+        "q75": 176.0,
+        "q98": 176.0,
+        "max": 176.0,
+        "avg": 176.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T16:00:00Z",
+          "local": "2022-01-29T21:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T17:00:00Z",
+          "local": "2022-01-29T22:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 176.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T16:30:00Z",
+          "local": "2022-01-29T22:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T17:30:00Z",
+          "local": "2022-01-29T23:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 176.0,
+        "q02": 176.0,
+        "q25": 176.0,
+        "median": 176.0,
+        "q75": 176.0,
+        "q98": 176.0,
+        "max": 176.0,
+        "avg": 176.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T15:45:00Z",
+          "local": "2022-01-29T21:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T16:45:00Z",
+          "local": "2022-01-29T22:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 139.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T17:00:00Z",
+          "local": "2022-01-29T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T18:00:00Z",
+          "local": "2022-01-29T23:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 139.0,
+        "q02": 139.0,
+        "q25": 139.0,
+        "median": 139.0,
+        "q75": 139.0,
+        "q98": 139.0,
+        "max": 139.0,
+        "avg": 139.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T17:00:00Z",
+          "local": "2022-01-29T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T18:00:00Z",
+          "local": "2022-01-29T23:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 139.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T17:30:00Z",
+          "local": "2022-01-29T23:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T18:30:00Z",
+          "local": "2022-01-30T00:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 139.0,
+        "q02": 139.0,
+        "q25": 139.0,
+        "median": 139.0,
+        "q75": 139.0,
+        "q98": 139.0,
+        "max": 139.0,
+        "avg": 139.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T16:45:00Z",
+          "local": "2022-01-29T22:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T17:45:00Z",
+          "local": "2022-01-29T23:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 123.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T18:00:00Z",
+          "local": "2022-01-29T23:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T19:00:00Z",
+          "local": "2022-01-30T00:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 123.0,
+        "q02": 123.0,
+        "q25": 123.0,
+        "median": 123.0,
+        "q75": 123.0,
+        "q98": 123.0,
+        "max": 123.0,
+        "avg": 123.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T18:00:00Z",
+          "local": "2022-01-29T23:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T19:00:00Z",
+          "local": "2022-01-30T00:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 123.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T18:30:00Z",
+          "local": "2022-01-30T00:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T19:30:00Z",
+          "local": "2022-01-30T01:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 123.0,
+        "q02": 123.0,
+        "q25": 123.0,
+        "median": 123.0,
+        "q75": 123.0,
+        "q98": 123.0,
+        "max": 123.0,
+        "avg": 123.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T17:45:00Z",
+          "local": "2022-01-29T23:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T18:45:00Z",
+          "local": "2022-01-30T00:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 105.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T19:00:00Z",
+          "local": "2022-01-30T00:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T20:00:00Z",
+          "local": "2022-01-30T01:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 105.0,
+        "q02": 105.0,
+        "q25": 105.0,
+        "median": 105.0,
+        "q75": 105.0,
+        "q98": 105.0,
+        "max": 105.0,
+        "avg": 105.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T19:00:00Z",
+          "local": "2022-01-30T00:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T20:00:00Z",
+          "local": "2022-01-30T01:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 105.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T19:30:00Z",
+          "local": "2022-01-30T01:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T20:30:00Z",
+          "local": "2022-01-30T02:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 105.0,
+        "q02": 105.0,
+        "q25": 105.0,
+        "median": 105.0,
+        "q75": 105.0,
+        "q98": 105.0,
+        "max": 105.0,
+        "avg": 105.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T18:45:00Z",
+          "local": "2022-01-30T00:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T19:45:00Z",
+          "local": "2022-01-30T01:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 112.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T20:00:00Z",
+          "local": "2022-01-30T01:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T21:00:00Z",
+          "local": "2022-01-30T02:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 112.0,
+        "q02": 112.0,
+        "q25": 112.0,
+        "median": 112.0,
+        "q75": 112.0,
+        "q98": 112.0,
+        "max": 112.0,
+        "avg": 112.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T20:00:00Z",
+          "local": "2022-01-30T01:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T21:00:00Z",
+          "local": "2022-01-30T02:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 112.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T20:30:00Z",
+          "local": "2022-01-30T02:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T21:30:00Z",
+          "local": "2022-01-30T03:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 112.0,
+        "q02": 112.0,
+        "q25": 112.0,
+        "median": 112.0,
+        "q75": 112.0,
+        "q98": 112.0,
+        "max": 112.0,
+        "avg": 112.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T19:45:00Z",
+          "local": "2022-01-30T01:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T20:45:00Z",
+          "local": "2022-01-30T02:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 108.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T21:00:00Z",
+          "local": "2022-01-30T02:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T22:00:00Z",
+          "local": "2022-01-30T03:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 108.0,
+        "q02": 108.0,
+        "q25": 108.0,
+        "median": 108.0,
+        "q75": 108.0,
+        "q98": 108.0,
+        "max": 108.0,
+        "avg": 108.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T21:00:00Z",
+          "local": "2022-01-30T02:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T22:00:00Z",
+          "local": "2022-01-30T03:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 108.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T21:30:00Z",
+          "local": "2022-01-30T03:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T22:30:00Z",
+          "local": "2022-01-30T04:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 108.0,
+        "q02": 108.0,
+        "q25": 108.0,
+        "median": 108.0,
+        "q75": 108.0,
+        "q98": 108.0,
+        "max": 108.0,
+        "avg": 108.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T20:45:00Z",
+          "local": "2022-01-30T02:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T21:45:00Z",
+          "local": "2022-01-30T03:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 111.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T23:00:00Z",
+          "local": "2022-01-30T04:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T00:00:00Z",
+          "local": "2022-01-30T05:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 111.0,
+        "q02": 111.0,
+        "q25": 111.0,
+        "median": 111.0,
+        "q75": 111.0,
+        "q98": 111.0,
+        "max": 111.0,
+        "avg": 111.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T23:00:00Z",
+          "local": "2022-01-30T04:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T00:00:00Z",
+          "local": "2022-01-30T05:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 111.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-29T23:30:00Z",
+          "local": "2022-01-30T05:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T00:30:00Z",
+          "local": "2022-01-30T06:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 111.0,
+        "q02": 111.0,
+        "q25": 111.0,
+        "median": 111.0,
+        "q75": 111.0,
+        "q98": 111.0,
+        "max": 111.0,
+        "avg": 111.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T22:45:00Z",
+          "local": "2022-01-30T04:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-29T23:45:00Z",
+          "local": "2022-01-30T05:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 116.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T00:00:00Z",
+          "local": "2022-01-30T05:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T01:00:00Z",
+          "local": "2022-01-30T06:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 116.0,
+        "q02": 116.0,
+        "q25": 116.0,
+        "median": 116.0,
+        "q75": 116.0,
+        "q98": 116.0,
+        "max": 116.0,
+        "avg": 116.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T00:00:00Z",
+          "local": "2022-01-30T05:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T01:00:00Z",
+          "local": "2022-01-30T06:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 116.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T00:30:00Z",
+          "local": "2022-01-30T06:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T01:30:00Z",
+          "local": "2022-01-30T07:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 116.0,
+        "q02": 116.0,
+        "q25": 116.0,
+        "median": 116.0,
+        "q75": 116.0,
+        "q98": 116.0,
+        "max": 116.0,
+        "avg": 116.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-29T23:45:00Z",
+          "local": "2022-01-30T05:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T00:45:00Z",
+          "local": "2022-01-30T06:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 102.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T01:00:00Z",
+          "local": "2022-01-30T06:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T02:00:00Z",
+          "local": "2022-01-30T07:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 102.0,
+        "q02": 102.0,
+        "q25": 102.0,
+        "median": 102.0,
+        "q75": 102.0,
+        "q98": 102.0,
+        "max": 102.0,
+        "avg": 102.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T01:00:00Z",
+          "local": "2022-01-30T06:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T02:00:00Z",
+          "local": "2022-01-30T07:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 102.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T01:30:00Z",
+          "local": "2022-01-30T07:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T02:30:00Z",
+          "local": "2022-01-30T08:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 102.0,
+        "q02": 102.0,
+        "q25": 102.0,
+        "median": 102.0,
+        "q75": 102.0,
+        "q98": 102.0,
+        "max": 102.0,
+        "avg": 102.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T00:45:00Z",
+          "local": "2022-01-30T06:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T01:45:00Z",
+          "local": "2022-01-30T07:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 104.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T02:00:00Z",
+          "local": "2022-01-30T07:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T03:00:00Z",
+          "local": "2022-01-30T08:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 104.0,
+        "q02": 104.0,
+        "q25": 104.0,
+        "median": 104.0,
+        "q75": 104.0,
+        "q98": 104.0,
+        "max": 104.0,
+        "avg": 104.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T02:00:00Z",
+          "local": "2022-01-30T07:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T03:00:00Z",
+          "local": "2022-01-30T08:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 104.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T02:30:00Z",
+          "local": "2022-01-30T08:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T03:30:00Z",
+          "local": "2022-01-30T09:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 104.0,
+        "q02": 104.0,
+        "q25": 104.0,
+        "median": 104.0,
+        "q75": 104.0,
+        "q98": 104.0,
+        "max": 104.0,
+        "avg": 104.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T01:45:00Z",
+          "local": "2022-01-30T07:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T02:45:00Z",
+          "local": "2022-01-30T08:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 107.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T03:00:00Z",
+          "local": "2022-01-30T08:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T04:00:00Z",
+          "local": "2022-01-30T09:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 107.0,
+        "q02": 107.0,
+        "q25": 107.0,
+        "median": 107.0,
+        "q75": 107.0,
+        "q98": 107.0,
+        "max": 107.0,
+        "avg": 107.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T03:00:00Z",
+          "local": "2022-01-30T08:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T04:00:00Z",
+          "local": "2022-01-30T09:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 107.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T03:30:00Z",
+          "local": "2022-01-30T09:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T04:30:00Z",
+          "local": "2022-01-30T10:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 107.0,
+        "q02": 107.0,
+        "q25": 107.0,
+        "median": 107.0,
+        "q75": 107.0,
+        "q98": 107.0,
+        "max": 107.0,
+        "avg": 107.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T02:45:00Z",
+          "local": "2022-01-30T08:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T03:45:00Z",
+          "local": "2022-01-30T09:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 107.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T04:00:00Z",
+          "local": "2022-01-30T09:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T05:00:00Z",
+          "local": "2022-01-30T10:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 107.0,
+        "q02": 107.0,
+        "q25": 107.0,
+        "median": 107.0,
+        "q75": 107.0,
+        "q98": 107.0,
+        "max": 107.0,
+        "avg": 107.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T04:00:00Z",
+          "local": "2022-01-30T09:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T05:00:00Z",
+          "local": "2022-01-30T10:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 103.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T04:30:00Z",
+          "local": "2022-01-30T10:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T05:30:00Z",
+          "local": "2022-01-30T11:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 99.0,
+        "q02": 99.16,
+        "q25": 101.0,
+        "median": 103.0,
+        "q75": 105.0,
+        "q98": 106.84,
+        "max": 107.0,
+        "avg": 103.0,
+        "sd": 5.656854249492381
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 2,
+        "observedInterval": "00:30:00",
+        "percentComplete": 50.0,
+        "percentCoverage": 50.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T03:45:00Z",
+          "local": "2022-01-30T09:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T05:30:00Z",
+          "local": "2022-01-30T11:00:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 99.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T05:00:00Z",
+          "local": "2022-01-30T10:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T06:00:00Z",
+          "local": "2022-01-30T11:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 99.0,
+        "q02": 99.0,
+        "q25": 99.0,
+        "median": 99.0,
+        "q75": 99.0,
+        "q98": 99.0,
+        "max": 99.0,
+        "avg": 99.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T05:00:00Z",
+          "local": "2022-01-30T10:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T06:00:00Z",
+          "local": "2022-01-30T11:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 65.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T09:00:00Z",
+          "local": "2022-01-30T14:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T10:00:00Z",
+          "local": "2022-01-30T15:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 65.0,
+        "q02": 65.0,
+        "q25": 65.0,
+        "median": 65.0,
+        "q75": 65.0,
+        "q98": 65.0,
+        "max": 65.0,
+        "avg": 65.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T09:00:00Z",
+          "local": "2022-01-30T14:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T10:00:00Z",
+          "local": "2022-01-30T15:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 65.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T09:30:00Z",
+          "local": "2022-01-30T15:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T10:30:00Z",
+          "local": "2022-01-30T16:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 65.0,
+        "q02": 65.0,
+        "q25": 65.0,
+        "median": 65.0,
+        "q75": 65.0,
+        "q98": 65.0,
+        "max": 65.0,
+        "avg": 65.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T08:45:00Z",
+          "local": "2022-01-30T14:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T09:45:00Z",
+          "local": "2022-01-30T15:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 59.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T10:00:00Z",
+          "local": "2022-01-30T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T11:00:00Z",
+          "local": "2022-01-30T16:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 59.0,
+        "q02": 59.0,
+        "q25": 59.0,
+        "median": 59.0,
+        "q75": 59.0,
+        "q98": 59.0,
+        "max": 59.0,
+        "avg": 59.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T10:00:00Z",
+          "local": "2022-01-30T15:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T11:00:00Z",
+          "local": "2022-01-30T16:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 59.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T10:30:00Z",
+          "local": "2022-01-30T16:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T11:30:00Z",
+          "local": "2022-01-30T17:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 59.0,
+        "q02": 59.0,
+        "q25": 59.0,
+        "median": 59.0,
+        "q75": 59.0,
+        "q98": 59.0,
+        "max": 59.0,
+        "avg": 59.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T09:45:00Z",
+          "local": "2022-01-30T15:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T10:45:00Z",
+          "local": "2022-01-30T16:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 56.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T12:00:00Z",
+          "local": "2022-01-30T17:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T13:00:00Z",
+          "local": "2022-01-30T18:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 56.0,
+        "q02": 56.0,
+        "q25": 56.0,
+        "median": 56.0,
+        "q75": 56.0,
+        "q98": 56.0,
+        "max": 56.0,
+        "avg": 56.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T12:00:00Z",
+          "local": "2022-01-30T17:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T13:00:00Z",
+          "local": "2022-01-30T18:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 56.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T12:30:00Z",
+          "local": "2022-01-30T18:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T13:30:00Z",
+          "local": "2022-01-30T19:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 56.0,
+        "q02": 56.0,
+        "q25": 56.0,
+        "median": 56.0,
+        "q75": 56.0,
+        "q98": 56.0,
+        "max": 56.0,
+        "avg": 56.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T11:45:00Z",
+          "local": "2022-01-30T17:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T12:45:00Z",
+          "local": "2022-01-30T18:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 119.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T14:00:00Z",
+          "local": "2022-01-30T19:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T15:00:00Z",
+          "local": "2022-01-30T20:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 119.0,
+        "q02": 119.0,
+        "q25": 119.0,
+        "median": 119.0,
+        "q75": 119.0,
+        "q98": 119.0,
+        "max": 119.0,
+        "avg": 119.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T14:00:00Z",
+          "local": "2022-01-30T19:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T15:00:00Z",
+          "local": "2022-01-30T20:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 119.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T14:30:00Z",
+          "local": "2022-01-30T20:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T15:30:00Z",
+          "local": "2022-01-30T21:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 119.0,
+        "q02": 119.0,
+        "q25": 119.0,
+        "median": 119.0,
+        "q75": 119.0,
+        "q98": 119.0,
+        "max": 119.0,
+        "avg": 119.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T13:45:00Z",
+          "local": "2022-01-30T19:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T14:45:00Z",
+          "local": "2022-01-30T20:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 119.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T16:00:00Z",
+          "local": "2022-01-30T21:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T17:00:00Z",
+          "local": "2022-01-30T22:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 119.0,
+        "q02": 119.0,
+        "q25": 119.0,
+        "median": 119.0,
+        "q75": 119.0,
+        "q98": 119.0,
+        "max": 119.0,
+        "avg": 119.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T16:00:00Z",
+          "local": "2022-01-30T21:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T17:00:00Z",
+          "local": "2022-01-30T22:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 119.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T16:30:00Z",
+          "local": "2022-01-30T22:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T17:30:00Z",
+          "local": "2022-01-30T23:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 119.0,
+        "q02": 119.0,
+        "q25": 119.0,
+        "median": 119.0,
+        "q75": 119.0,
+        "q98": 119.0,
+        "max": 119.0,
+        "avg": 119.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T15:45:00Z",
+          "local": "2022-01-30T21:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T16:45:00Z",
+          "local": "2022-01-30T22:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 130.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T17:00:00Z",
+          "local": "2022-01-30T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T18:00:00Z",
+          "local": "2022-01-30T23:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 130.0,
+        "q02": 130.0,
+        "q25": 130.0,
+        "median": 130.0,
+        "q75": 130.0,
+        "q98": 130.0,
+        "max": 130.0,
+        "avg": 130.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T17:00:00Z",
+          "local": "2022-01-30T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T18:00:00Z",
+          "local": "2022-01-30T23:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 130.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T17:30:00Z",
+          "local": "2022-01-30T23:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T18:30:00Z",
+          "local": "2022-01-31T00:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 130.0,
+        "q02": 130.0,
+        "q25": 130.0,
+        "median": 130.0,
+        "q75": 130.0,
+        "q98": 130.0,
+        "max": 130.0,
+        "avg": 130.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T16:45:00Z",
+          "local": "2022-01-30T22:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T17:45:00Z",
+          "local": "2022-01-30T23:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 125.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T18:00:00Z",
+          "local": "2022-01-30T23:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T19:00:00Z",
+          "local": "2022-01-31T00:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 125.0,
+        "q02": 125.0,
+        "q25": 125.0,
+        "median": 125.0,
+        "q75": 125.0,
+        "q98": 125.0,
+        "max": 125.0,
+        "avg": 125.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T18:00:00Z",
+          "local": "2022-01-30T23:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T19:00:00Z",
+          "local": "2022-01-31T00:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 125.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T18:30:00Z",
+          "local": "2022-01-31T00:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T19:30:00Z",
+          "local": "2022-01-31T01:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 125.0,
+        "q02": 125.0,
+        "q25": 125.0,
+        "median": 125.0,
+        "q75": 125.0,
+        "q98": 125.0,
+        "max": 125.0,
+        "avg": 125.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T17:45:00Z",
+          "local": "2022-01-30T23:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T18:45:00Z",
+          "local": "2022-01-31T00:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 122.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T19:00:00Z",
+          "local": "2022-01-31T00:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T20:00:00Z",
+          "local": "2022-01-31T01:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 122.0,
+        "q02": 122.0,
+        "q25": 122.0,
+        "median": 122.0,
+        "q75": 122.0,
+        "q98": 122.0,
+        "max": 122.0,
+        "avg": 122.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T19:00:00Z",
+          "local": "2022-01-31T00:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T20:00:00Z",
+          "local": "2022-01-31T01:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 122.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T19:30:00Z",
+          "local": "2022-01-31T01:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T20:30:00Z",
+          "local": "2022-01-31T02:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 122.0,
+        "q02": 122.0,
+        "q25": 122.0,
+        "median": 122.0,
+        "q75": 122.0,
+        "q98": 122.0,
+        "max": 122.0,
+        "avg": 122.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T18:45:00Z",
+          "local": "2022-01-31T00:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T19:45:00Z",
+          "local": "2022-01-31T01:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 132.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T22:00:00Z",
+          "local": "2022-01-31T03:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T23:00:00Z",
+          "local": "2022-01-31T04:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 132.0,
+        "q02": 132.0,
+        "q25": 132.0,
+        "median": 132.0,
+        "q75": 132.0,
+        "q98": 132.0,
+        "max": 132.0,
+        "avg": 132.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T22:00:00Z",
+          "local": "2022-01-31T03:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T23:00:00Z",
+          "local": "2022-01-31T04:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 132.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-30T22:30:00Z",
+          "local": "2022-01-31T04:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T23:30:00Z",
+          "local": "2022-01-31T05:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 132.0,
+        "q02": 132.0,
+        "q25": 132.0,
+        "median": 132.0,
+        "q75": 132.0,
+        "q98": 132.0,
+        "max": 132.0,
+        "avg": 132.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T21:45:00Z",
+          "local": "2022-01-31T03:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-30T22:45:00Z",
+          "local": "2022-01-31T04:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 138.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T00:00:00Z",
+          "local": "2022-01-31T05:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T01:00:00Z",
+          "local": "2022-01-31T06:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 138.0,
+        "q02": 138.0,
+        "q25": 138.0,
+        "median": 138.0,
+        "q75": 138.0,
+        "q98": 138.0,
+        "max": 138.0,
+        "avg": 138.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T00:00:00Z",
+          "local": "2022-01-31T05:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T01:00:00Z",
+          "local": "2022-01-31T06:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 138.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T00:30:00Z",
+          "local": "2022-01-31T06:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T01:30:00Z",
+          "local": "2022-01-31T07:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 138.0,
+        "q02": 138.0,
+        "q25": 138.0,
+        "median": 138.0,
+        "q75": 138.0,
+        "q98": 138.0,
+        "max": 138.0,
+        "avg": 138.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-30T23:45:00Z",
+          "local": "2022-01-31T05:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T00:45:00Z",
+          "local": "2022-01-31T06:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 158.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T01:00:00Z",
+          "local": "2022-01-31T06:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T02:00:00Z",
+          "local": "2022-01-31T07:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 158.0,
+        "q02": 158.0,
+        "q25": 158.0,
+        "median": 158.0,
+        "q75": 158.0,
+        "q98": 158.0,
+        "max": 158.0,
+        "avg": 158.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T01:00:00Z",
+          "local": "2022-01-31T06:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T02:00:00Z",
+          "local": "2022-01-31T07:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 158.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T01:30:00Z",
+          "local": "2022-01-31T07:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T02:30:00Z",
+          "local": "2022-01-31T08:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 158.0,
+        "q02": 158.0,
+        "q25": 158.0,
+        "median": 158.0,
+        "q75": 158.0,
+        "q98": 158.0,
+        "max": 158.0,
+        "avg": 158.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T00:45:00Z",
+          "local": "2022-01-31T06:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T01:45:00Z",
+          "local": "2022-01-31T07:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 181.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T02:00:00Z",
+          "local": "2022-01-31T07:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T03:00:00Z",
+          "local": "2022-01-31T08:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 181.0,
+        "q02": 181.0,
+        "q25": 181.0,
+        "median": 181.0,
+        "q75": 181.0,
+        "q98": 181.0,
+        "max": 181.0,
+        "avg": 181.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T02:00:00Z",
+          "local": "2022-01-31T07:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T03:00:00Z",
+          "local": "2022-01-31T08:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 181.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T02:30:00Z",
+          "local": "2022-01-31T08:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T03:30:00Z",
+          "local": "2022-01-31T09:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 181.0,
+        "q02": 181.0,
+        "q25": 181.0,
+        "median": 181.0,
+        "q75": 181.0,
+        "q98": 181.0,
+        "max": 181.0,
+        "avg": 181.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T01:45:00Z",
+          "local": "2022-01-31T07:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T02:45:00Z",
+          "local": "2022-01-31T08:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 216.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T05:00:00Z",
+          "local": "2022-01-31T10:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T06:00:00Z",
+          "local": "2022-01-31T11:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 216.0,
+        "q02": 216.0,
+        "q25": 216.0,
+        "median": 216.0,
+        "q75": 216.0,
+        "q98": 216.0,
+        "max": 216.0,
+        "avg": 216.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T05:00:00Z",
+          "local": "2022-01-31T10:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T06:00:00Z",
+          "local": "2022-01-31T11:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 216.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T05:30:00Z",
+          "local": "2022-01-31T11:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T06:30:00Z",
+          "local": "2022-01-31T12:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 216.0,
+        "q02": 216.0,
+        "q25": 216.0,
+        "median": 216.0,
+        "q75": 216.0,
+        "q98": 216.0,
+        "max": 216.0,
+        "avg": 216.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T04:45:00Z",
+          "local": "2022-01-31T10:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T05:45:00Z",
+          "local": "2022-01-31T11:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 220.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T06:00:00Z",
+          "local": "2022-01-31T11:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T07:00:00Z",
+          "local": "2022-01-31T12:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 220.0,
+        "q02": 220.0,
+        "q25": 220.0,
+        "median": 220.0,
+        "q75": 220.0,
+        "q98": 220.0,
+        "max": 220.0,
+        "avg": 220.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T06:00:00Z",
+          "local": "2022-01-31T11:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T07:00:00Z",
+          "local": "2022-01-31T12:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 220.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T06:30:00Z",
+          "local": "2022-01-31T12:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T07:30:00Z",
+          "local": "2022-01-31T13:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 220.0,
+        "q02": 220.0,
+        "q25": 220.0,
+        "median": 220.0,
+        "q75": 220.0,
+        "q98": 220.0,
+        "max": 220.0,
+        "avg": 220.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T05:45:00Z",
+          "local": "2022-01-31T11:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T06:45:00Z",
+          "local": "2022-01-31T12:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 167.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T07:00:00Z",
+          "local": "2022-01-31T12:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T08:00:00Z",
+          "local": "2022-01-31T13:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 167.0,
+        "q02": 167.0,
+        "q25": 167.0,
+        "median": 167.0,
+        "q75": 167.0,
+        "q98": 167.0,
+        "max": 167.0,
+        "avg": 167.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T07:00:00Z",
+          "local": "2022-01-31T12:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T08:00:00Z",
+          "local": "2022-01-31T13:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 167.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T07:30:00Z",
+          "local": "2022-01-31T13:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T08:30:00Z",
+          "local": "2022-01-31T14:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 167.0,
+        "q02": 167.0,
+        "q25": 167.0,
+        "median": 167.0,
+        "q75": 167.0,
+        "q98": 167.0,
+        "max": 167.0,
+        "avg": 167.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T06:45:00Z",
+          "local": "2022-01-31T12:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T07:45:00Z",
+          "local": "2022-01-31T13:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 149.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T08:00:00Z",
+          "local": "2022-01-31T13:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T09:00:00Z",
+          "local": "2022-01-31T14:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 149.0,
+        "q02": 149.0,
+        "q25": 149.0,
+        "median": 149.0,
+        "q75": 149.0,
+        "q98": 149.0,
+        "max": 149.0,
+        "avg": 149.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T08:00:00Z",
+          "local": "2022-01-31T13:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T09:00:00Z",
+          "local": "2022-01-31T14:30:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 149.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T08:30:00Z",
+          "local": "2022-01-31T14:00:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T09:30:00Z",
+          "local": "2022-01-31T15:00:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 149.0,
+        "q02": 149.0,
+        "q25": 149.0,
+        "median": 149.0,
+        "q75": 149.0,
+        "q98": 149.0,
+        "max": 149.0,
+        "avg": 149.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T07:45:00Z",
+          "local": "2022-01-31T13:15:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T08:45:00Z",
+          "local": "2022-01-31T14:15:00+05:30"
+        }
+      }
+    },
+    {
+      "value": 176.0,
+      "flagInfo": {
+        "hasFlags": false
+      },
+      "parameter": {
+        "id": 2,
+        "name": "pm25",
+        "units": "\u00b5g/m\u00b3",
+        "displayName": null
+      },
+      "period": {
+        "label": "1hour",
+        "interval": "01:00:00",
+        "datetimeFrom": {
+          "utc": "2022-01-31T17:00:00Z",
+          "local": "2022-01-31T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T18:00:00Z",
+          "local": "2022-01-31T23:30:00+05:30"
+        }
+      },
+      "coordinates": null,
+      "summary": {
+        "min": 176.0,
+        "q02": 176.0,
+        "q25": 176.0,
+        "median": 176.0,
+        "q75": 176.0,
+        "q98": 176.0,
+        "max": 176.0,
+        "avg": 176.0,
+        "sd": null
+      },
+      "coverage": {
+        "expectedCount": 4,
+        "expectedInterval": "01:00:00",
+        "observedCount": 1,
+        "observedInterval": "00:15:00",
+        "percentComplete": 25.0,
+        "percentCoverage": 25.0,
+        "datetimeFrom": {
+          "utc": "2022-01-31T17:00:00Z",
+          "local": "2022-01-31T22:30:00+05:30"
+        },
+        "datetimeTo": {
+          "utc": "2022-01-31T18:00:00Z",
+          "local": "2022-01-31T23:30:00+05:30"
+        }
+      }
+    }
+  ]
+}
