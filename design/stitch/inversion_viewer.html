@@ -1,0 +1,491 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>Inversion Viewer — VAAYU Lite Atmospheric Observatory</title>
+<!-- Typography: Serif headlines (EB Garamond), clean sans body (Inter), technical mono (JetBrains Mono / monospace) -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {},
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          spacing: {},
+          fontFamily: {
+            headline: ["EB Garamond", "serif"],
+            display: ["EB Garamond", "serif"],
+            body: ["Inter", "sans-serif"],
+            label: ["Public Sans", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          fontSize: {}
+        }
+      }
+    }
+  </script>
+<style>
+    /* Scientific Grid and Calibration Textures */
+    .bg-obs-slate {
+      background-color: #1e2a35;
+    }
+    .scientific-grid {
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+      background-size: 24px 24px;
+    }
+    .border-scientific {
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 20;
+    }
+    .trapping-hatch {
+      background: repeating-linear-gradient(
+        -45deg,
+        rgba(201, 136, 79, 0.18),
+        rgba(201, 136, 79, 0.18) 6px,
+        rgba(139, 28, 44, 0.22) 6px,
+        rgba(139, 28, 44, 0.22) 12px
+      );
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-obs-slate text-[#f5f5f0] font-body min-h-screen flex flex-col antialiased selection:bg-[#c9884f] selection:text-black">
+<!-- ================= TOP INSTITUTIONAL BAR (Shared Anchor Component) ================= -->
+<header class="bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-md w-full px-6 py-3 flex flex-wrap justify-between items-center border-b border-white/10 sticky top-0 z-50">
+<div class="flex items-center space-x-3">
+<div class="h-6 w-1.5 bg-[#c9884f]"></div>
+<span class="font-headline text-lg md:text-xl font-bold tracking-widest text-slate-100 uppercase">
+        VAAYU Lite — Atmospheric Observatory NCR
+      </span>
+<span class="hidden xl:inline-block px-2 py-0.5 text-[10px] tracking-wider uppercase font-mono bg-[#2f6f73]/40 border border-[#2f6f73] text-teal-200">
+        SYS_NODE_{{station_node}}
+      </span>
+</div>
+<!-- Global Top Nav Links with Semantic Active State -->
+<nav class="hidden md:flex items-center space-x-6 text-sm">
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Observatory</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Station Metrics</a>
+<a class="border-b-2 border-amber-600 dark:border-amber-500 text-amber-500 dark:text-amber-400 font-medium py-1" href="#">Inversion Viewer</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Architecture Matrix</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Alert Protocol</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">API Specs</a>
+</nav>
+<!-- Trailing Actions and Status Cluster -->
+<div class="flex items-center space-x-4">
+<div class="hidden sm:flex items-center space-x-2 text-xs font-mono text-slate-300 bg-black/40 px-3 py-1.5 border-scientific">
+<span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span>Telemetry: {{status}}</span>
+</div>
+<button class="text-xs uppercase tracking-wider px-3 py-1.5 bg-[#c9884f]/20 hover:bg-[#c9884f]/30 text-[#c9884f] border border-[#c9884f]/50 font-mono transition-colors">
+        Export Data
+      </button>
+<div class="flex items-center space-x-2 text-slate-400 border-l border-white/10 pl-3">
+<button class="hover:text-amber-400 transition-colors" title="Alerts"><span class="material-symbols-outlined text-[18px]">notifications_active</span></button>
+<button class="hover:text-amber-400 transition-colors" title="Sensors"><span class="material-symbols-outlined text-[18px]">sensors</span></button>
+<button class="hover:text-amber-400 transition-colors" title="Docs &amp; Help"><span class="material-symbols-outlined text-[18px]">help_outline</span></button>
+</div>
+</div>
+</header>
+<!-- ================= MAIN OBSERVATORY CONTENT CANVAS ================= -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+<!-- 1. Header & Radiosonde Diagnostic Eyebrow -->
+<section class="border-b border-white/10 pb-5">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+<div>
+<div class="flex items-center space-x-2 mb-2">
+<span class="px-2 py-0.5 text-[11px] font-mono tracking-widest uppercase bg-[#c9884f]/15 text-[#c9884f] border border-[#c9884f]/30">
+              BOUNDARY LAYER METEOROLOGY &amp; RADIOSONDE DIAGNOSTICS
+            </span>
+<span class="text-slate-500 text-xs font-mono">•</span>
+<span class="text-xs font-mono text-slate-400 uppercase tracking-wider">NCR VERTICAL COLUMN #{{column_id}}</span>
+</div>
+<h1 class="font-headline text-3xl sm:text-4xl text-slate-50 font-normal tracking-tight">
+            Atmospheric Inversion Viewer
+          </h1>
+<p class="text-sm text-slate-400 mt-1 max-w-3xl font-body leading-relaxed">
+            Vertical temperature-height sounding profile diagnostic engine identifying nocturnal surface-based and elevated thermal trapping layers.
+          </p>
+</div>
+<!-- Telemetry Badges Strip -->
+<div class="flex flex-wrap items-center gap-2 font-mono text-xs">
+<div class="px-3 py-1.5 bg-black/30 border-scientific text-slate-300">
+<span class="text-slate-500">REGIME:</span> WMO-{{wmo_code}} RADIOSONDE
+          </div>
+<div class="px-3 py-1.5 bg-black/30 border-scientific text-slate-300">
+<span class="text-slate-500">COMPUTED AT:</span> {{run_timestamp}} UTC
+          </div>
+<div class="px-3 py-1.5 bg-[#2f6f73]/20 border border-[#2f6f73]/50 text-teal-300 flex items-center gap-1.5">
+<span class="w-1.5 h-1.5 bg-teal-400 rounded-full"></span>
+<span>STATUS: {{engine_status}}</span>
+</div>
+</div>
+</div>
+</section>
+<!-- 2. Profile Selector & Sounding Reference Strip -->
+<section class="bg-black/25 border-scientific p-4 space-y-3">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-3">
+<div class="text-xs uppercase font-mono tracking-wider text-slate-400 flex items-center gap-2">
+<span class="material-symbols-outlined text-[16px] text-[#c9884f]">layers</span>
+<span>Sounding Profile Benchmark:</span>
+</div>
+<!-- Profile Pills -->
+<div class="flex flex-wrap gap-2">
+<button class="px-3 py-2 text-xs font-mono bg-[#c9884f]/20 border border-[#c9884f] text-[#f5f5f0] shadow-sm flex items-center gap-2 text-left">
+<span class="w-2 h-2 rounded-full bg-[#c9884f]"></span>
+<span>Surface-Based Radiation Inversion <span class="text-slate-400 font-light">(Ground Nocturnal)</span></span>
+<span class="text-[10px] text-amber-300/80 bg-black/40 px-1.5 py-0.5 border border-white/10 ml-1">ID: {{profile_id_surface}}</span>
+</button>
+<button class="px-3 py-2 text-xs font-mono bg-black/30 hover:bg-black/50 border-scientific text-slate-300 hover:text-slate-100 flex items-center gap-2 text-left transition-colors">
+<span class="w-2 h-2 rounded-full bg-slate-600"></span>
+<span>Elevated Subsidence Inversion <span class="text-slate-400 font-light">(Sinking Aloft)</span></span>
+<span class="text-[10px] text-slate-400 bg-black/40 px-1.5 py-0.5 border border-white/10 ml-1">ID: {{profile_id_elevated}}</span>
+</button>
+<button class="px-3 py-2 text-xs font-mono bg-black/30 hover:bg-black/50 border-scientific text-slate-300 hover:text-slate-100 flex items-center gap-2 text-left transition-colors">
+<span class="w-2 h-2 rounded-full bg-slate-600"></span>
+<span>Standard Uncapped Lapse Rate <span class="text-slate-400 font-light">(Convective)</span></span>
+<span class="text-[10px] text-slate-400 bg-black/40 px-1.5 py-0.5 border border-white/10 ml-1">ID: {{profile_id_normal}}</span>
+</button>
+</div>
+</div>
+<!-- Selected Profile Metadata Strip -->
+<div class="pt-3 border-t border-white/5 flex flex-wrap items-center justify-between text-xs font-mono text-slate-400 gap-y-2">
+<div><span class="text-slate-500">Sounding Source:</span> {{sounding_source}}</div>
+<div><span class="text-slate-500">Sounding Time:</span> {{sounding_time}} UTC</div>
+<div><span class="text-slate-500">Surface Temp (T₀):</span> <span class="text-slate-200">{{t_surface}} °C</span></div>
+<div><span class="text-slate-500">Surface Pressure:</span> <span class="text-slate-200">{{p_surface}} hPa</span></div>
+<div><span class="text-slate-500">Geopotential Ref:</span> <span class="text-slate-200">{{geopotential_ref}}</span></div>
+</div>
+</section>
+<!-- 3. Scientific Sounding Chart & Diagnostic Readout Grid -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-6">
+<!-- Left Column (~60%): High Fidelity Sounding Diagram -->
+<div class="lg:col-span-7 bg-slate-900/60 border-scientific p-5 flex flex-col justify-between relative overflow-hidden">
+<!-- Header -->
+<div class="flex items-start justify-between pb-3 border-b border-white/10 mb-4">
+<div>
+<h2 class="font-headline text-xl text-slate-100 font-semibold tracking-wide flex items-center gap-2">
+<span class="material-symbols-outlined text-[#c9884f] text-[20px]">ssid_chart</span>
+              Vertical Sounding: Temperature vs. Altitude
+            </h2>
+<p class="text-xs font-mono text-slate-400 mt-0.5">
+              dT/dz &gt; {{zero_threshold}} indicates thermodynamic inversion layer preventing vertical air parcel ascent.
+            </p>
+</div>
+<span class="text-[11px] font-mono px-2 py-1 bg-black/40 border border-white/10 text-slate-300 uppercase">
+            UNITS: m AGL / °C
+          </span>
+</div>
+<!-- Chart Graphic Container -->
+<div class="w-full relative h-[440px] scientific-grid border-scientific bg-black/40 p-4 select-none">
+<!-- Inversion Trapping Shaded Zone Background -->
+<div class="absolute left-14 right-8 bottom-12 h-36 trapping-hatch border-y border-[#c9884f]/60 flex items-center justify-end pr-4 pointer-events-none">
+<div class="bg-black/85 border border-[#c9884f] px-2.5 py-1 text-[11px] font-mono text-[#c9884f] tracking-wider uppercase">
+              THERMAL TRAPPING CAP [Δz: {{depth_m}} m]
+            </div>
+</div>
+<!-- Y-Axis Vertical Line & Ticks (Height m AGL) -->
+<div class="absolute left-14 top-6 bottom-12 border-l border-white/20 flex flex-col justify-between text-[11px] font-mono text-slate-400 pr-2">
+<div class="relative -top-2 flex items-center -ml-12"><span class="w-10 text-right">{{h_level_3}}</span><span class="w-2 h-[1px] bg-white/40 ml-1"></span></div>
+<div class="relative flex items-center -ml-12"><span class="w-10 text-right">{{h_level_2}}</span><span class="w-2 h-[1px] bg-white/40 ml-1"></span></div>
+<div class="relative flex items-center -ml-12 text-[#c9884f] font-semibold"><span class="w-10 text-right">{{top_m}}</span><span class="w-2 h-[1px] bg-[#c9884f] ml-1"></span></div>
+<div class="relative flex items-center -ml-12 text-[#c9884f] font-semibold"><span class="w-10 text-right">{{base_m}}</span><span class="w-2 h-[1px] bg-[#c9884f] ml-1"></span></div>
+<div class="relative -bottom-2 flex items-center -ml-12"><span class="w-10 text-right">{{h_level_0}}</span><span class="w-2 h-[1px] bg-white/40 ml-1"></span></div>
+</div>
+<div class="absolute left-2 top-2 text-[10px] font-mono uppercase text-slate-500 tracking-wider">
+            Z (m AGL)
+          </div>
+<!-- Horizontal Guide Lines for Base and Top -->
+<div class="absolute left-14 right-8 bottom-[188px] border-b border-dashed border-[#c9884f] opacity-80 pointer-events-none">
+<span class="absolute right-0 -top-5 text-[10px] font-mono text-[#c9884f] bg-black/80 px-1 border border-[#c9884f]/40">
+              INVERSION TOP: {{top_m}} m AGL
+            </span>
+</div>
+<div class="absolute left-14 right-8 bottom-12 border-b border-dashed border-[#c9884f] opacity-80 pointer-events-none">
+<span class="absolute right-0 -bottom-5 text-[10px] font-mono text-[#c9884f] bg-black/80 px-1 border border-[#c9884f]/40">
+              INVERSION BASE: {{base_m}} m AGL
+            </span>
+</div>
+<!-- X-Axis Bottom Line & Ticks (Air Temp °C) -->
+<div class="absolute left-14 right-8 bottom-12 border-b border-white/20 flex justify-between text-[11px] font-mono text-slate-400 pt-2">
+<div class="flex flex-col items-center"><span class="h-2 w-[1px] bg-white/40 -mt-2"></span><span>{{t_mark_0}}°C</span></div>
+<div class="flex flex-col items-center"><span class="h-2 w-[1px] bg-white/40 -mt-2"></span><span>{{t_mark_1}}°C</span></div>
+<div class="flex flex-col items-center"><span class="h-2 w-[1px] bg-white/40 -mt-2"></span><span>{{t_mark_2}}°C</span></div>
+<div class="flex flex-col items-center"><span class="h-2 w-[1px] bg-white/40 -mt-2"></span><span>{{t_mark_3}}°C</span></div>
+</div>
+<div class="absolute right-8 bottom-4 text-[10px] font-mono uppercase text-slate-500 tracking-wider">
+            T (°C) →
+          </div>
+<!-- SVG Profile Vector Trace Overlay -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" preserveaspectratio="none" viewbox="0 0 540 440">
+<!-- Dry Adiabatic Lapse Rate Reference Line (DALR Γd) -->
+<line opacity="0.8" stroke="#2f6f73" stroke-dasharray="5 4" stroke-width="1.5" x1="320" x2="160" y1="388" y2="40"></line>
+<text fill="#2f6f73" font-family="JetBrains Mono" font-size="10" font-weight="600" x="170" y="55">Γd = {{gamma_d}} °C/km</text>
+<!-- Sounding Trace Curve -->
+<!-- Surface cooling -> Warm nose aloft (Inversion) -> Normal tropospheric cooling -->
+<path d="M 230 388 Q 370 300 370 244 Q 370 200 240 50" fill="none" stroke="#c9884f" stroke-linecap="round" stroke-width="3"></path>
+<!-- Discrete Radiosonde Nodes along path -->
+<circle cx="230" cy="388" fill="#1e2a35" r="4.5" stroke="#c9884f" stroke-width="2.5"></circle>
+<circle cx="370" cy="244" fill="#8b1c2c" r="5" stroke="#f5f5f0" stroke-width="2"></circle>
+<circle cx="310" cy="140" fill="#1e2a35" r="4" stroke="#c9884f" stroke-width="2"></circle>
+<circle cx="240" cy="50" fill="#1e2a35" r="4" stroke="#c9884f" stroke-width="2"></circle>
+</svg>
+<!-- Dynamic Callout Pin on Maximum Inversion Point -->
+<div class="absolute top-[215px] left-[350px] transform -translate-y-full bg-black/90 border border-[#8b1c2c] px-3 py-1.5 shadow-xl text-left pointer-events-auto">
+<div class="text-[10px] font-mono text-red-400 font-bold uppercase tracking-wider flex items-center gap-1">
+<span class="w-1.5 h-1.5 bg-red-500 rounded-full"></span>
+              Peak Thermal Inversion
+            </div>
+<div class="text-xs font-mono text-slate-100 mt-0.5">
+              dT/dz = +{{inversion_grad}} °C/100m
+            </div>
+<div class="text-[10px] font-mono text-slate-400">
+              Trapping cap at z = {{top_m}} m
+            </div>
+</div>
+</div>
+<!-- Legend and Diagnostic Notes footer -->
+<div class="mt-4 pt-3 border-t border-white/10 flex flex-wrap items-center justify-between gap-3 text-xs font-mono">
+<div class="flex items-center space-x-4">
+<span class="flex items-center gap-1.5">
+<span class="w-3.5 h-0.5 bg-[#c9884f]"></span>
+<span class="text-slate-300">Observed Radiosonde T(z)</span>
+</span>
+<span class="flex items-center gap-1.5">
+<span class="w-3.5 h-0.5 bg-[#2f6f73] border-b border-dashed border-[#2f6f73]"></span>
+<span class="text-slate-400">Dry Adiabat (Γd)</span>
+</span>
+<span class="flex items-center gap-1.5">
+<span class="w-3 h-3 trapping-hatch border border-[#c9884f]/60"></span>
+<span class="text-slate-300">Confinement Boundary</span>
+</span>
+</div>
+<span class="text-slate-500 text-[11px]">Sensor Node: {{sounding_station_id}}</span>
+</div>
+</div>
+<!-- Right Column (~40%): Analytical Diagnostic Readout Card -->
+<div class="lg:col-span-5 flex flex-col space-y-4">
+<div class="bg-slate-900/60 border-scientific p-5 flex flex-col justify-between h-full">
+<div>
+<!-- Card Header -->
+<div class="flex items-center justify-between pb-3 border-b border-white/10 mb-4">
+<div>
+<h3 class="font-headline text-lg text-slate-100 font-semibold tracking-wide">
+                  Sounding Diagnostic Dossier
+                </h3>
+<div class="text-[11px] font-mono text-slate-400">THERMODYNAMIC LAYER ANALYSIS</div>
+</div>
+<!-- Trapping Severity Classification Badge -->
+<span class="px-2.5 py-1 text-xs font-mono font-bold tracking-wider uppercase bg-[#8b1c2c] text-white border border-red-400/40">
+                {{trapping_severity}}
+              </span>
+</div>
+<!-- Inversion Classification Row -->
+<div class="bg-black/30 border-scientific p-3 mb-4 flex items-center justify-between">
+<div>
+<span class="text-[10px] font-mono uppercase text-slate-400">Classified Regime</span>
+<div class="font-headline text-lg text-[#c9884f] font-medium leading-tight">{{inversion_type}}</div>
+</div>
+<span class="material-symbols-outlined text-[#c9884f] text-2xl">warning</span>
+</div>
+<!-- Scientific Metric Readouts Grid -->
+<div class="grid grid-cols-2 gap-2.5 mb-5 font-mono text-xs">
+<div class="bg-black/20 border-scientific p-2.5">
+<span class="text-slate-500 uppercase text-[10px] block">Inversion Base</span>
+<span class="text-slate-100 font-semibold text-sm">{{base_m}}</span> <span class="text-slate-400 text-[11px]">m AGL</span>
+</div>
+<div class="bg-black/20 border-scientific p-2.5">
+<span class="text-slate-500 uppercase text-[10px] block">Inversion Top</span>
+<span class="text-slate-100 font-semibold text-sm">{{top_m}}</span> <span class="text-slate-400 text-[11px]">m AGL</span>
+</div>
+<div class="bg-black/20 border-scientific p-2.5">
+<span class="text-slate-500 uppercase text-[10px] block">Inversion Depth (Δz)</span>
+<span class="text-amber-400 font-semibold text-sm">{{depth_m}}</span> <span class="text-slate-400 text-[11px]">m</span>
+</div>
+<div class="bg-black/20 border-scientific p-2.5">
+<span class="text-slate-500 uppercase text-[10px] block">Inversion Strength (ΔT)</span>
+<span class="text-amber-400 font-semibold text-sm">{{strength_c}}</span> <span class="text-slate-400 text-[11px]">°C</span>
+</div>
+<div class="bg-black/20 border-scientific p-2.5">
+<span class="text-slate-500 uppercase text-[10px] block">Thermal Lapse Rate</span>
+<span class="text-slate-200 font-semibold text-sm">{{lapse_rate}}</span> <span class="text-slate-400 text-[10px]">°C/100m</span>
+</div>
+<div class="bg-black/20 border-scientific p-2.5">
+<span class="text-slate-500 uppercase text-[10px] block">Venting Index</span>
+<span class="text-slate-200 font-semibold text-sm">{{venting_index}}</span> <span class="text-slate-400 text-[10px]">m²/s</span>
+</div>
+<div class="bg-black/20 border-scientific p-2.5">
+<span class="text-slate-500 uppercase text-[10px] block">Mixed Layer Height</span>
+<span class="text-slate-200 font-semibold text-sm">{{mixing_height}}</span> <span class="text-slate-400 text-[11px]">m</span>
+</div>
+<div class="bg-black/20 border-scientific p-2.5">
+<span class="text-slate-500 uppercase text-[10px] block">CAPE Value</span>
+<span class="text-slate-200 font-semibold text-sm">{{cape_val}}</span> <span class="text-slate-400 text-[10px]">J/kg</span>
+</div>
+</div>
+<!-- Atmospheric Stability Advisory Alert Box -->
+<div class="bg-[#8b1c2c]/15 border border-[#8b1c2c]/60 p-3.5 mb-4">
+<div class="flex items-start gap-2.5">
+<span class="material-symbols-outlined text-red-400 text-[20px] mt-0.5">report_problem</span>
+<div>
+<h4 class="text-xs font-mono font-bold tracking-wide text-red-200 uppercase">
+                    Atmospheric Stability Advisory
+                  </h4>
+<p class="text-xs text-slate-300 font-body mt-1 leading-relaxed">
+                    {{stability_statement}}
+                  </p>
+</div>
+</div>
+</div>
+</div>
+<!-- Governing Thermodynamic Formulation Callout -->
+<div class="pt-3 border-t border-white/10 font-mono text-[11px] text-slate-400 bg-black/40 p-2.5 border-scientific">
+<span class="text-slate-500 uppercase text-[9px] block tracking-wider">Governing Formulation:</span>
+<div class="text-[#c9884f] font-semibold mt-0.5">
+              dT/dz = (T_{top} - T_{base}) / (z_{top} - z_{base}) &gt; {{crit_val}}
+            </div>
+<div class="text-[10px] text-slate-500 mt-1">
+              Rigid thermal lid suppresses vertical turbulent diffusion of particulate mass.
+            </div>
+</div>
+</div>
+</div>
+</section>
+<!-- 4. Vertical Sounding Discrete Level Data Table -->
+<section class="bg-slate-900/60 border-scientific p-5 space-y-4">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/10 gap-2">
+<div>
+<h2 class="font-headline text-xl text-slate-100 font-semibold tracking-wide">
+            Vertical Sounding Discrete Level Data Table
+          </h2>
+<p class="text-xs font-mono text-slate-400 mt-0.5">
+            Interpolated thermodynamic levels computed from high-resolution micro-radiosonde ascents.
+          </p>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 text-[11px] font-mono uppercase bg-[#2f6f73]/20 border border-[#2f6f73]/50 text-teal-300">
+            VERIFIED RADIOSONDE DISCRETE LEVELS
+          </span>
+</div>
+</div>
+<!-- Responsive Table Container -->
+<div class="overflow-x-auto">
+<table class="w-full text-left font-mono text-xs border-collapse">
+<thead>
+<tr class="border-b border-white/20 text-slate-400 uppercase text-[11px] bg-black/30">
+<th class="py-2.5 px-3">Altitude (m AGL)</th>
+<th class="py-2.5 px-3">Pressure (hPa)</th>
+<th class="py-2.5 px-3">Temperature (°C)</th>
+<th class="py-2.5 px-3">Dewpoint (°C)</th>
+<th class="py-2.5 px-3">Lapse Rate dT/dz (°C/km)</th>
+<th class="py-2.5 px-3">Thermodynamic State</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="py-3 px-3 font-semibold text-slate-200">{{z0}} m</td>
+<td class="py-3 px-3 text-slate-400">{{p0}} hPa</td>
+<td class="py-3 px-3 text-slate-200">{{t0}} °C</td>
+<td class="py-3 px-3 text-slate-400">{{td0}} °C</td>
+<td class="py-3 px-3 text-slate-300">{{lapse0}}</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 text-[10px] bg-black/40 border border-white/10 text-slate-300">
+                  {{state0}}
+                </span>
+</td>
+</tr>
+<!-- Level 1 (Inversion Trapping Highlighted Row) -->
+<tr class="bg-[#c9884f]/10 hover:bg-[#c9884f]/15 border-l-2 border-[#c9884f] transition-colors">
+<td class="py-3 px-3 font-semibold text-amber-300">{{z1}} m</td>
+<td class="py-3 px-3 text-slate-400">{{p1}} hPa</td>
+<td class="py-3 px-3 text-amber-300 font-semibold">{{t1}} °C</td>
+<td class="py-3 px-3 text-slate-400">{{td1}} °C</td>
+<td class="py-3 px-3 text-red-400 font-semibold">{{lapse1}}</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 text-[10px] bg-[#8b1c2c]/40 border border-[#8b1c2c] text-red-200 uppercase font-semibold">
+                  {{state1}}
+                </span>
+</td>
+</tr>
+<tr class="bg-[#c9884f]/5 hover:bg-[#c9884f]/10 transition-colors">
+<td class="py-3 px-3 font-semibold text-slate-200">{{z2}} m</td>
+<td class="py-3 px-3 text-slate-400">{{p2}} hPa</td>
+<td class="py-3 px-3 text-slate-200">{{t2}} °C</td>
+<td class="py-3 px-3 text-slate-400">{{td2}} °C</td>
+<td class="py-3 px-3 text-slate-300">{{lapse2}}</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 text-[10px] bg-black/40 border border-[#c9884f]/50 text-amber-300">
+                  {{state2}}
+                </span>
+</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="py-3 px-3 font-semibold text-slate-200">{{z3}} m</td>
+<td class="py-3 px-3 text-slate-400">{{p3}} hPa</td>
+<td class="py-3 px-3 text-slate-200">{{t3}} °C</td>
+<td class="py-3 px-3 text-slate-400">{{td3}} °C</td>
+<td class="py-3 px-3 text-slate-300">{{lapse3}}</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 text-[10px] bg-black/40 border border-white/10 text-slate-400">
+                  {{state3}}
+                </span>
+</td>
+</tr>
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="py-3 px-3 font-semibold text-slate-200">{{z4}} m</td>
+<td class="py-3 px-3 text-slate-400">{{p4}} hPa</td>
+<td class="py-3 px-3 text-slate-200">{{t4}} °C</td>
+<td class="py-3 px-3 text-slate-400">{{td4}} °C</td>
+<td class="py-3 px-3 text-slate-300">{{lapse4}}</td>
+<td class="py-3 px-3">
+<span class="px-2 py-0.5 text-[10px] bg-black/40 border border-white/10 text-slate-400">
+                  {{state4}}
+                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+</section>
+</main>
+<!-- ================= INSTITUTIONAL FOOTER (Shared Anchor Component) ================= -->
+<footer class="bg-slate-950 dark:bg-black w-full px-8 py-6 flex flex-col md:flex-row justify-between items-center border-t border-white/10 gap-4 mt-8">
+<div class="flex flex-col space-y-1">
+<div class="font-headline text-sm font-semibold tracking-wider text-slate-300 uppercase">
+        VAAYU Lite Atmospheric Observatory
+      </div>
+<div class="font-body text-xs text-slate-400 dark:text-slate-500 font-mono">
+        VAAYU Lite Atmospheric Observatory • Ministry of Earth Sciences, NCR Monitoring Cell • Build Rev: {{build_id}} • Status: {{system_health}}
+      </div>
+<div class="font-mono text-[11px] text-slate-500">
+        Model: VAAYU Inversion Diagnostic Engine | Thermodynamic standard: WMO radiosonde guidance | Verification checksum: {{sounding_checksum}} | Radiosonde Node: {{sounding_station_id}} | Cell: NCR Atmospheric Monitoring Group
+      </div>
+</div>
+<!-- Governance Links -->
+<div class="flex flex-wrap items-center gap-4 text-xs font-body">
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Compliance ISO-{{iso_code}}</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Calibration Protocol v{{cal_ver}}</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Telemetry Source</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Open Sensor Node Data</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Institutional Contact</a>
+</div>
+</footer>
+</body></html>
+

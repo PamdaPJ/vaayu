@@ -1,0 +1,669 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VAAYU Lite — Station Explorer | Atmospheric Observatory NCR</title>
+<!-- Fonts -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            obs: {
+              bg: "#1e2a35",
+              panel: "#162029",
+              card: "#19242e",
+              border: "rgba(255, 255, 255, 0.1)",
+              terracotta: "#c9884f",
+              teal: "#2f6f73",
+              severe: "#8b1c2c",
+              offwhite: "#f5f5f0",
+              muted: "#a0aec0"
+            }
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          fontFamily: {
+            headline: ["EB Garamond", "serif"],
+            display: ["EB Garamond", "serif"],
+            body: ["Inter", "sans-serif"],
+            label: ["Public Sans", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Grid background styling */
+    .bg-grid-obs {
+      background-size: 40px 40px;
+      background-image: 
+        linear-gradient(to right, rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    }
+    /* Scientific chart axis and grid styling */
+    .chart-grid-line {
+      stroke: rgba(255, 255, 255, 0.08);
+      stroke-dasharray: 3 3;
+    }
+    .custom-scrollbar::-webkit-scrollbar {
+      height: 6px;
+      width: 6px;
+    }
+    .custom-scrollbar::-webkit-scrollbar-track {
+      background: #162029;
+    }
+    .custom-scrollbar::-webkit-scrollbar-thumb {
+      background: rgba(255, 255, 255, 0.2);
+      border-radius: 2px;
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#1e2a35] text-[#f5f5f0] font-body min-h-screen antialiased selection:bg-[#c9884f] selection:text-white bg-grid-obs flex flex-col">
+<!-- Institutional Alert Banner Top Strip -->
+<aside aria-label="System Pipeline Sync Status" class="w-full bg-[#121b22] text-[11px] font-mono tracking-wider text-slate-300 py-1.5 px-4 md:px-8 border-b border-white/10 flex flex-wrap justify-between items-center gap-2 select-none z-50">
+<div class="flex items-center gap-2">
+<span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-slate-200 font-semibold tracking-normal font-sans">VAAYU Lite — Atmospheric Observatory NCR</span>
+<span class="text-white/30 hidden sm:inline">|</span>
+<span class="text-slate-400 hidden sm:inline">Station Telemetry &amp; Historical Coverage</span>
+</div>
+<div class="flex items-center gap-4 text-slate-400">
+<div class="flex items-center gap-1.5">
+<span class="text-amber-500/90 font-medium">SYSTEM SYNC: ONLINE</span>
+<span class="text-white/20">•</span>
+<span>TIMEZONE: IST (UTC+05:30)</span>
+<span class="text-white/20">•</span>
+<span>PIPELINE RUN: <span class="text-slate-200">{{pipeline_run_id}}</span></span>
+</div>
+</div>
+</aside>
+<!-- TopNavBar (Shared Component Anchor) -->
+<header class="bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-md sticky top-0 z-40">
+<div class="w-full px-6 py-3 flex justify-between items-center border-b border-white/10">
+<!-- Brand Logo / Product Anchor -->
+<div class="flex items-center gap-3">
+<div class="w-8 h-8 rounded bg-[#c9884f]/20 border border-[#c9884f]/50 flex items-center justify-center text-[#c9884f]">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">sensors</span>
+</div>
+<a class="font-headline text-xl font-bold tracking-widest text-slate-100 dark:text-slate-50 uppercase hover:text-amber-400 transition-colors" href="#">
+          VAAYU Lite — Atmospheric Observatory NCR
+        </a>
+</div>
+<!-- Navigation Links -->
+<nav aria-label="Observatory Primary Navigation" class="hidden lg:flex items-center space-x-6 text-sm">
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Observatory</a>
+<a aria-current="page" class="border-b-2 border-amber-600 dark:border-amber-500 text-amber-500 dark:text-amber-400 font-medium py-1" href="#">Station Metrics</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Architecture Matrix</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Alert Protocol</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">API Specs</a>
+</nav>
+<!-- Trailing Actions Cluster -->
+<div class="flex items-center gap-3">
+<!-- Status Indicator Pill -->
+<div class="hidden sm:flex items-center gap-2 px-3 py-1 rounded bg-[#2f6f73]/20 border border-[#2f6f73]/50 text-xs font-mono text-teal-300">
+<span class="w-1.5 h-1.5 rounded-full bg-teal-400"></span>
+<span>Telemetry: {{status}}</span>
+</div>
+<!-- Export Data Button -->
+<button class="flex items-center gap-1.5 px-3 py-1.5 rounded bg-[#c9884f] hover:bg-[#b57740] text-slate-950 font-medium text-xs font-sans transition-colors duration-150 shadow-sm active:scale-95" type="button">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Export Station Dataset</span>
+</button>
+<!-- Utility Icons -->
+<div class="hidden md:flex items-center border-l border-white/10 pl-3 space-x-2 text-slate-400">
+<button aria-label="Notifications" class="p-1 hover:text-amber-400 transition-colors" type="button">
+<span class="material-symbols-outlined text-lg">notifications_active</span>
+</button>
+<button aria-label="Sensor Grid View" class="p-1 hover:text-amber-400 transition-colors" type="button">
+<span class="material-symbols-outlined text-lg">sensors</span>
+</button>
+<button aria-label="Help &amp; Documentation" class="p-1 hover:text-amber-400 transition-colors" type="button">
+<span class="material-symbols-outlined text-lg">help_outline</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Canvas -->
+<main class="flex-1 w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+<!-- Section Header & Scientific Mandate -->
+<section class="border-b border-white/10 pb-5">
+<div class="flex flex-col lg:flex-row lg:items-end justify-between gap-4">
+<div>
+<div class="flex items-center gap-2 mb-1.5">
+<span class="px-2 py-0.5 rounded text-[10px] font-mono tracking-widest uppercase bg-[#2f6f73]/30 text-teal-300 border border-[#2f6f73]/50">
+              MONITORING SENSOR NETWORK &amp; HISTORICAL AUDIT
+            </span>
+<span class="text-xs font-mono text-slate-400">REGULATORY TIER 1</span>
+</div>
+<h1 class="font-headline text-3xl md:text-4xl lg:text-5xl font-normal text-[#f5f5f0] tracking-tight">
+            Station Explorer
+          </h1>
+<p class="mt-2 text-sm text-[#a0aec0] max-w-3xl font-body leading-relaxed">
+            Continuous Ambient Air Quality Monitoring Station (CAAQMS) observational records, 24-hour 4 PM–4 PM IST daily AQI series, and sensor completeness audits.
+          </p>
+</div>
+<!-- Protocol & Validation Chips -->
+<div class="flex flex-wrap items-center gap-2 text-xs font-mono">
+<div class="bg-black/30 border border-white/10 px-3 py-1.5 rounded flex items-center gap-1.5 text-slate-300">
+<span class="text-slate-500">INGESTION ENGINE:</span>
+<span class="text-[#c9884f] font-semibold">OPENAQ v3</span>
+</div>
+<div class="bg-black/30 border border-white/10 px-3 py-1.5 rounded flex items-center gap-1.5 text-slate-300">
+<span class="text-slate-500">AUDIT REGIME:</span>
+<span class="text-teal-400 font-semibold">CPCB-2014</span>
+</div>
+<div class="bg-black/30 border border-white/10 px-3 py-1.5 rounded flex items-center gap-1.5 text-slate-300">
+<span class="text-slate-500">VALIDATION WINDOW:</span>
+<span class="text-amber-400 font-semibold">{{min_valid_hours}}h / 24h</span>
+</div>
+</div>
+</div>
+</section>
+<!-- Station Selector & Active Diagnostic Station Info Panel -->
+<section class="grid grid-cols-1 lg:grid-cols-12 gap-5 items-start">
+<!-- Station Selector Cards Column (Left) -->
+<div class="lg:col-span-4 space-y-3">
+<div class="flex items-center justify-between px-1">
+<span class="text-xs font-mono uppercase text-[#a0aec0] tracking-wider">Select Verified Station</span>
+<span class="text-[11px] font-mono text-slate-400">{{station_count}} Calibrated Nodes</span>
+</div>
+<!-- Card 1: Active Selection (Anand Vihar) -->
+<div class="p-4 rounded bg-[#162029] border-2 border-[#c9884f] relative shadow-lg cursor-pointer transition-all duration-150">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="w-2.5 h-2.5 rounded-full bg-emerald-400 ring-4 ring-emerald-500/20"></span>
+<span class="text-xs font-mono text-emerald-400 uppercase tracking-wider font-semibold">Active Telemetry</span>
+</div>
+<h2 class="text-base font-medium text-[#f5f5f0] tracking-tight">Anand Vihar, New Delhi - DPCC</h2>
+<div class="text-xs font-mono text-[#a0aec0]">CAAQMS Station ID: <span class="text-slate-200">{{anand_vihar_id}}</span></div>
+</div>
+<span class="material-symbols-outlined text-[#c9884f]" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+</div>
+<div class="mt-3 pt-3 border-t border-white/10 flex items-center justify-between text-xs font-mono text-slate-400">
+<span>Audit Completeness:</span>
+<span class="text-[#c9884f] font-semibold">{{valid_percentage}}%</span>
+</div>
+</div>
+<!-- Card 2: Indirapuram -->
+<div class="p-4 rounded bg-[#162029]/70 hover:bg-[#162029] border border-white/10 hover:border-white/20 transition-all duration-150 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-teal-400/80"></span>
+<span class="text-xs font-mono text-teal-400/90 uppercase tracking-wider">Operational Node</span>
+</div>
+<h2 class="text-base font-medium text-slate-300">Indirapuram, Ghaziabad - UPPCB</h2>
+<div class="text-xs font-mono text-[#a0aec0]">CAAQMS Station ID: <span class="text-slate-300">{{indirapuram_id}}</span></div>
+</div>
+<span class="material-symbols-outlined text-slate-500 text-lg">chevron_right</span>
+</div>
+<div class="mt-3 pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono text-slate-400">
+<span>Audit Completeness:</span>
+<span class="text-slate-300">{{valid_percentage}}%</span>
+</div>
+</div>
+<!-- Card 3: Sector 11, Faridabad -->
+<div class="p-4 rounded bg-[#162029]/70 hover:bg-[#162029] border border-white/10 hover:border-white/20 transition-all duration-150 cursor-pointer">
+<div class="flex items-start justify-between">
+<div class="space-y-1">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-teal-400/80"></span>
+<span class="text-xs font-mono text-teal-400/90 uppercase tracking-wider">Operational Node</span>
+</div>
+<h2 class="text-base font-medium text-slate-300">Sector 11, Faridabad - HSPCB</h2>
+<div class="text-xs font-mono text-[#a0aec0]">CAAQMS Station ID: <span class="text-slate-300">{{sector_11_id}}</span></div>
+</div>
+<span class="material-symbols-outlined text-slate-500 text-lg">chevron_right</span>
+</div>
+<div class="mt-3 pt-3 border-t border-white/5 flex items-center justify-between text-xs font-mono text-slate-400">
+<span>Audit Completeness:</span>
+<span class="text-slate-300">{{valid_percentage}}%</span>
+</div>
+</div>
+</div>
+<!-- Active Station Diagnostic Card (Right) -->
+<div class="lg:col-span-8 bg-[#162029] rounded border border-white/10 p-5 space-y-4 shadow-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/10 gap-2">
+<div>
+<span class="text-[11px] font-mono tracking-widest text-[#c9884f] uppercase">Sensor Node Diagnostic Dossier</span>
+<h3 class="font-headline text-2xl text-[#f5f5f0] font-normal">Station Anand Vihar, New Delhi (DPCC Node)</h3>
+</div>
+<div class="flex items-center gap-2">
+<span class="px-2.5 py-1 rounded bg-[#2f6f73]/20 border border-[#2f6f73]/50 text-teal-300 text-xs font-mono">
+              STATUS: [{{station_status}}]
+            </span>
+</div>
+</div>
+<!-- 6-Metric Diagnostic Grid -->
+<div class="grid grid-cols-2 md:grid-cols-3 gap-3.5">
+<div class="p-3 bg-[#1e2a35]/60 rounded border border-white/5">
+<div class="text-[11px] font-mono text-[#a0aec0] uppercase">Geodetic Coordinates</div>
+<div class="mt-1 font-mono text-sm text-[#f5f5f0]">{{lat}}° N, {{lon}}° E</div>
+<div class="text-[10px] text-slate-400 mt-0.5">WGS84 Reference Datum</div>
+</div>
+<div class="p-3 bg-[#1e2a35]/60 rounded border border-white/5">
+<div class="text-[11px] font-mono text-[#a0aec0] uppercase">Ground Elevation</div>
+<div class="mt-1 font-mono text-sm text-[#f5f5f0]">{{elevation}} m MSL</div>
+<div class="text-[10px] text-slate-400 mt-0.5">Inlet Height: {{inlet_height}}m Above Grnd</div>
+</div>
+<div class="p-3 bg-[#1e2a35]/60 rounded border border-white/5">
+<div class="text-[11px] font-mono text-[#a0aec0] uppercase">Ingestion Health</div>
+<div class="mt-1 font-mono text-sm text-emerald-400 font-semibold">{{station_packet_health}}% continuous</div>
+<div class="text-[10px] text-slate-400 mt-0.5">Zero Packet Loss Observed</div>
+</div>
+<div class="p-3 bg-[#1e2a35]/60 rounded border border-white/5">
+<div class="text-[11px] font-mono text-[#a0aec0] uppercase">Analyzer Array</div>
+<div class="mt-1 font-sans text-xs text-slate-200 font-medium leading-snug">BAM-1020 Beta Attenuation (PM2.5 / PM10)</div>
+<div class="text-[10px] text-slate-400 mt-0.5">Dual Isokinetic Separation</div>
+</div>
+<div class="p-3 bg-[#1e2a35]/60 rounded border border-white/5">
+<div class="text-[11px] font-mono text-[#a0aec0] uppercase">Last Verified Ingest</div>
+<div class="mt-1 font-mono text-sm text-amber-400">{{last_ingest_time}} IST</div>
+<div class="text-[10px] text-slate-400 mt-0.5">Latency: &lt; {{latency_seconds}}s nominal</div>
+</div>
+<div class="p-3 bg-[#1e2a35]/60 rounded border border-white/5">
+<div class="text-[11px] font-mono text-[#a0aec0] uppercase">Calibration Cycle</div>
+<div class="mt-1 font-mono text-sm text-[#2f6f73] font-medium">BAM Span Zero Cal: PASS</div>
+<div class="text-[10px] text-slate-400 mt-0.5">Drift: ±{{cal_drift_pct}}% / week</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Category Count Chips Row (CPCB AQI Bands) -->
+<section class="space-y-2">
+<div class="flex items-center justify-between px-1">
+<span class="text-xs font-mono uppercase text-[#a0aec0] tracking-wider">CPCB Diurnal AQI Categorical Distribution (Valid Days)</span>
+<div class="px-2.5 py-1 rounded bg-[#162029] border border-white/10 text-xs font-mono text-slate-300">
+          Total Valid Days: <span class="text-[#c9884f] font-semibold">{{valid_days_count}}</span> / {{total_possible_days}} days (<span class="text-teal-400">{{valid_percentage}}%</span>)
+        </div>
+</div>
+<div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-6 gap-2.5">
+<!-- Good (0-50) -->
+<div class="bg-[#162029] border border-emerald-500/30 rounded p-3 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-mono text-emerald-400 font-medium">Good ({{good_min}}–{{good_max}})</span>
+<span class="w-2 h-2 rounded-full bg-emerald-500"></span>
+</div>
+<div class="mt-2 text-xl font-mono font-semibold text-emerald-300">{{count_good}} <span class="text-xs font-normal text-slate-400">days</span></div>
+</div>
+<!-- Satisfactory (51-100) -->
+<div class="bg-[#162029] border border-green-500/30 rounded p-3 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-mono text-green-400 font-medium">Satisfactory ({{sat_min}}–{{sat_max}})</span>
+<span class="w-2 h-2 rounded-full bg-green-500"></span>
+</div>
+<div class="mt-2 text-xl font-mono font-semibold text-green-300">{{count_satisfactory}} <span class="text-xs font-normal text-slate-400">days</span></div>
+</div>
+<!-- Moderate (101-200) -->
+<div class="bg-[#162029] border border-amber-500/30 rounded p-3 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-mono text-amber-400 font-medium">Moderate ({{mod_min}}–{{mod_max}})</span>
+<span class="w-2 h-2 rounded-full bg-amber-500"></span>
+</div>
+<div class="mt-2 text-xl font-mono font-semibold text-amber-300">{{count_moderate}} <span class="text-xs font-normal text-slate-400">days</span></div>
+</div>
+<!-- Poor (201-300) -->
+<div class="bg-[#162029] border border-[#c9884f]/40 rounded p-3 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-mono text-[#c9884f] font-medium">Poor ({{poor_min}}–{{poor_max}})</span>
+<span class="w-2 h-2 rounded-full bg-[#c9884f]"></span>
+</div>
+<div class="mt-2 text-xl font-mono font-semibold text-[#c9884f]">{{count_poor}} <span class="text-xs font-normal text-slate-400">days</span></div>
+</div>
+<!-- Very Poor (301-400) -->
+<div class="bg-[#162029] border border-red-500/40 rounded p-3 flex flex-col justify-between">
+<div class="flex items-center justify-between">
+<span class="text-[11px] font-mono text-rose-400 font-medium">Very Poor ({{very_poor_min}}–{{very_poor_max}})</span>
+<span class="w-2 h-2 rounded-full bg-rose-500"></span>
+</div>
+<div class="mt-2 text-xl font-mono font-semibold text-rose-300">{{count_very_poor}} <span class="text-xs font-normal text-slate-400">days</span></div>
+</div>
+<!-- Severe (401-500) Prominent Alert Card -->
+<div class="bg-[#8b1c2c]/20 border-2 border-[#8b1c2c] rounded p-3 flex flex-col justify-between relative shadow-sm">
+<div class="flex items-center justify-between">
+<div class="flex items-center gap-1 text-[11px] font-mono text-red-400 font-bold uppercase">
+<span class="material-symbols-outlined text-sm text-red-400" style="font-variation-settings: 'FILL' 1;">warning</span>
+              Severe ({{severe_min}}–{{severe_max}})
+            </div>
+<span class="w-2.5 h-2.5 rounded-full bg-[#8b1c2c] animate-ping"></span>
+</div>
+<div class="mt-2 text-2xl font-mono font-bold text-red-300">{{count_severe}} <span class="text-xs font-normal text-red-200">days</span></div>
+</div>
+</div>
+</section>
+<!-- Daily AQI Timeline Chart Area -->
+<section class="bg-[#162029] rounded border border-white/10 p-5 space-y-4 shadow-md">
+<!-- Chart Controls & Header -->
+<div class="flex flex-col lg:flex-row lg:items-center justify-between pb-3 border-b border-white/10 gap-3">
+<div>
+<h2 class="font-headline text-2xl text-[#f5f5f0] font-normal">Daily AQI Timeline (Winter Season Oct–Feb)</h2>
+<p class="text-xs font-mono text-[#a0aec0] mt-0.5">
+            24-hour diurnal cycle (16:00 to 16:00 IST) • Completeness guard requirement: ≥{{min_valid_hours}} valid hours
+          </p>
+</div>
+<!-- Legend -->
+<div class="flex flex-wrap items-center gap-4 text-xs font-mono text-slate-300">
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-0.5 bg-[#c9884f]"></span>
+<span class="w-2 h-2 rounded-full bg-[#c9884f]"></span>
+<span>Daily Calculated AQI ({{daily_aqi}})</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-0.5 border-b border-dashed border-slate-400"></span>
+<span class="w-2 h-2 rounded-sm bg-slate-600"></span>
+<span>Missing / Censored Days (&lt;{{min_valid_hours}}h)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<span class="w-3 h-0.5 bg-[#8b1c2c]"></span>
+<span class="text-red-400">Severe Excursion Threshold ({{severe_threshold}})</span>
+</div>
+</div>
+</div>
+<!-- High-Fidelity SVG Scientific Timeline Chart Canvas -->
+<div class="relative w-full overflow-x-auto custom-scrollbar pt-2 pb-1">
+<div class="min-w-[850px] relative">
+<!-- Interactive Hover Tooltip State Mockup (Floating) -->
+<div class="absolute left-[38%] top-6 z-20 pointer-events-none transform -translate-x-1/2">
+<div class="bg-[#121a21]/95 border border-[#c9884f] p-2.5 rounded shadow-2xl backdrop-blur-md text-xs font-mono space-y-1">
+<div class="flex items-center justify-between gap-4 border-b border-white/10 pb-1">
+<span class="text-slate-400 font-sans">Date: <strong class="text-slate-200">{{sample_date}}</strong></span>
+<span class="px-1.5 py-0.2 rounded bg-[#8b1c2c]/40 text-red-300 font-bold border border-[#8b1c2c]">AQI: {{sample_aqi}} ({{sample_category}})</span>
+</div>
+<div class="text-[11px] text-slate-300">Valid Hours: <span class="text-amber-400">{{sample_valid_hours}}/24h</span></div>
+<div class="text-[11px] text-slate-400">Primary Sub-index: <span class="text-slate-200">PM2.5 ({{sample_sub_index}})</span></div>
+</div>
+<div class="w-0.5 h-12 bg-[#c9884f] mx-auto opacity-75"></div>
+</div>
+<!-- SVG Chart Element -->
+<svg class="w-full h-80 overflow-visible" fill="none" viewbox="0 0 1000 320" xmlns="http://www.w3.org/2000/svg">
+<defs>
+<!-- Severe Gradient Band -->
+<lineargradient id="severeGradient" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#8b1c2c" stop-opacity="0.30"></stop>
+<stop offset="100%" stop-color="#8b1c2c" stop-opacity="0.05"></stop>
+</lineargradient>
+<!-- AQI Area Gradient -->
+<lineargradient id="aqiFill" x1="0" x2="0" y1="0" y2="1">
+<stop offset="0%" stop-color="#c9884f" stop-opacity="0.35"></stop>
+<stop offset="100%" stop-color="#c9884f" stop-opacity="0.00"></stop>
+</lineargradient>
+</defs>
+<!-- Categorical CPCB Background Bands -->
+<!-- Band 401-500: Severe -->
+<rect fill="url(#severeGradient)" height="60" width="900" x="70" y="20"></rect>
+<!-- Band 301-400: Very Poor -->
+<rect fill="rgba(239, 68, 68, 0.04)" height="60" width="900" x="70" y="80"></rect>
+<!-- Band 201-300: Poor -->
+<rect fill="rgba(201, 136, 79, 0.04)" height="60" width="900" x="70" y="140"></rect>
+<!-- Band 101-200: Moderate -->
+<rect fill="rgba(245, 158, 11, 0.03)" height="40" width="900" x="70" y="200"></rect>
+<!-- Band 0-100: Good/Satisfactory -->
+<rect fill="rgba(16, 185, 129, 0.03)" height="50" width="900" x="70" y="240"></rect>
+<!-- Y-Axis Threshold Reference Lines -->
+<line class="chart-grid-line" x1="70" x2="970" y1="20" y2="20"></line>
+<line stroke="#8b1c2c" stroke-dasharray="4 2" stroke-width="1.2" x1="70" x2="970" y1="80" y2="80"></line>
+<line class="chart-grid-line" x1="70" x2="970" y1="140" y2="140"></line>
+<line class="chart-grid-line" x1="70" x2="970" y1="200" y2="200"></line>
+<line class="chart-grid-line" x1="70" x2="970" y1="240" y2="240"></line>
+<line stroke="rgba(255, 255, 255, 0.2)" stroke-width="1" x1="70" x2="970" y1="290" y2="290"></line>
+<!-- Y-Axis Labels -->
+<text fill="#f87171" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="62" y="24">{{severe_max}} ({{severe_band}})</text>
+<text fill="#f87171" font-family="JetBrains Mono" font-size="10" font-weight="bold" text-anchor="end" x="62" y="84">{{severe_threshold}} ({{severe_band}})</text>
+<text fill="#fb923c" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="62" y="144">{{poor_max}} ({{poor_band}})</text>
+<text fill="#fbbf24" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="62" y="204">{{mod_max}} ({{moderate_band}})</text>
+<text fill="#4ade80" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="62" y="244">{{sat_max}} ({{satisfactory_band}})</text>
+<text fill="#a0aec0" font-family="JetBrains Mono" font-size="10" text-anchor="end" x="62" y="293">{{min_aqi_scale}}</text>
+<!-- Missing Data Zone Strip Highlight (Per CPCB Regulatory Completeness Rule) -->
+<rect fill="rgba(100, 116, 139, 0.15)" height="270" stroke="rgba(148, 163, 184, 0.4)" stroke-dasharray="3 3" width="55" x="520" y="20"></rect>
+<!-- AQI Shaded Area Under Curve -->
+<polygon fill="url(#aqiFill)" points="
+              70,290 
+              70,230 110,210 150,190 190,160 230,130 270,110 310,70 350,50 380,42 410,75 450,115 480,105 520,130
+              520,290
+            "></polygon>
+<polygon fill="url(#aqiFill)" points="
+              575,290 
+              575,85 610,65 650,45 690,75 730,110 770,140 810,175 850,210 890,230 930,220 970,215
+              970,290
+            "></polygon>
+<!-- Continuous AQI Series Line 1 -->
+<polyline fill="none" points="
+              70,230 110,210 150,190 190,160 230,130 270,110 310,70 350,50 380,42 410,75 450,115 480,105 520,130
+            " stroke="#c9884f" stroke-linejoin="round" stroke-width="2.5"></polyline>
+<!-- Missing Days Dashed Bridge Line -->
+<line stroke="#94a3b8" stroke-dasharray="4 4" stroke-width="1.8" x1="520" x2="575" y1="130" y2="85"></line>
+<!-- Continuous AQI Series Line 2 -->
+<polyline fill="none" points="
+              575,85 610,65 650,45 690,75 730,110 770,140 810,175 850,210 890,230 930,220 970,215
+            " stroke="#c9884f" stroke-linejoin="round" stroke-width="2.5"></polyline>
+<!-- Highlight Nodes on Points of Interest -->
+<circle cx="380" cy="42" fill="#8b1c2c" r="5" stroke="#f5f5f0" stroke-width="2"></circle>
+<circle cx="650" cy="45" fill="#8b1c2c" r="4.5" stroke="#f5f5f0" stroke-width="1.5"></circle>
+<circle cx="270" cy="110" fill="#c9884f" r="3"></circle>
+<circle cx="480" cy="105" fill="#c9884f" r="3"></circle>
+<circle cx="770" cy="140" fill="#c9884f" r="3"></circle>
+<!-- X-Axis Months & Sub-intervals -->
+<line stroke="rgba(255, 255, 255, 0.4)" stroke-width="1" x1="70" x2="970" y1="290" y2="290"></line>
+<text fill="#f5f5f0" font-family="JetBrains Mono" font-size="11" text-anchor="start" x="70" y="310">Oct ({{start_date}})</text>
+<text fill="#a0aec0" font-family="JetBrains Mono" font-size="11" text-anchor="middle" x="280" y="310">Nov</text>
+<text fill="#a0aec0" font-family="JetBrains Mono" font-size="11" text-anchor="middle" x="500" y="310">Dec</text>
+<text fill="#a0aec0" font-family="JetBrains Mono" font-size="11" text-anchor="middle" x="720" y="310">Jan</text>
+<text fill="#f5f5f0" font-family="JetBrains Mono" font-size="11" text-anchor="end" x="960" y="310">Feb ({{end_date}})</text>
+</svg>
+<!-- Missing Data Flag Callout Badge Box -->
+<div class="absolute left-[547px] top-[140px] transform -translate-x-1/2 bg-[#1e2a35]/95 border border-slate-500/80 px-2 py-1.5 rounded shadow-lg text-[10px] font-mono text-slate-300 w-44 pointer-events-none">
+<div class="text-[#c9884f] font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">info</span>
+              Data Gap Flag
+            </div>
+<div class="text-[9.5px] leading-tight text-slate-400 mt-0.5">
+              {{missing_days_count}} days missing, not filled/interpolated per CPCB regulatory integrity rule.
+            </div>
+</div>
+</div>
+</div>
+</section>
+<!-- Monthly Coverage & QA/QC Audit Table Section -->
+<section class="bg-[#162029] rounded border border-white/10 p-5 space-y-4 shadow-md">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between pb-3 border-b border-white/10 gap-2">
+<div>
+<div class="flex items-center gap-2">
+<h2 class="font-headline text-2xl text-[#f5f5f0] font-normal">Monthly Sensor QA/QC Completeness Audit</h2>
+<span class="px-2 py-0.5 rounded text-[10px] font-mono bg-red-950/60 text-red-300 border border-red-800 tracking-wider">
+              STRICT PROTOCOL ENFORCEMENT
+            </span>
+</div>
+<p class="text-xs font-mono text-[#a0aec0] mt-0.5">
+            Tabulation of valid hourly observation vectors and diurnal completeness criteria across the winter season.
+          </p>
+</div>
+<div class="text-xs font-mono text-slate-400">
+          Target Sensor Availability: <span class="text-teal-400 font-semibold">≥{{min_valid_hours}}h / Day</span>
+</div>
+</div>
+<!-- Scientific Data Table -->
+<div class="overflow-x-auto custom-scrollbar">
+<table class="w-full text-left border-collapse text-xs font-mono">
+<thead>
+<tr class="border-b border-white/10 text-slate-400 uppercase text-[11px] bg-[#1a2632]">
+<th class="py-3 px-4 font-semibold" scope="col">Month</th>
+<th class="py-3 px-4 font-semibold text-right" scope="col">Hours Possible</th>
+<th class="py-3 px-4 font-semibold text-right" scope="col">Valid PM2.5 Hours</th>
+<th class="py-3 px-4 font-semibold text-right" scope="col">Valid PM10 Hours</th>
+<th class="py-3 px-4 font-semibold text-right" scope="col">PM2.5 Coverage %</th>
+<th class="py-3 px-4 font-semibold text-right" scope="col">PM10 Coverage %</th>
+<th class="py-3 px-4 font-semibold text-right" scope="col">Days Passing Completeness Rule (≥{{min_valid_hours}}h)</th>
+<th class="py-3 px-4 font-semibold text-center" scope="col">Audit Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5 text-slate-200">
+<!-- October -->
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="py-3 px-4 font-sans font-medium text-[#f5f5f0]">October</td>
+<td class="py-3 px-4 text-right text-slate-400">{{oct_hours_possible}}</td>
+<td class="py-3 px-4 text-right text-slate-300">{{oct_pm25_hours}}</td>
+<td class="py-3 px-4 text-right text-slate-300">{{oct_pm10_hours}}</td>
+<td class="py-3 px-4 text-right text-teal-400 font-medium">{{oct_pm25_pct}}%</td>
+<td class="py-3 px-4 text-right text-teal-400 font-medium">{{oct_pm10_pct}}%</td>
+<td class="py-3 px-4 text-right text-slate-200 font-medium">{{oct_passing_days}} days</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                  [{{oct_audit_status}}]
+                </span>
+</td>
+</tr>
+<!-- November -->
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="py-3 px-4 font-sans font-medium text-[#f5f5f0]">November</td>
+<td class="py-3 px-4 text-right text-slate-400">{{nov_hours_possible}}</td>
+<td class="py-3 px-4 text-right text-slate-300">{{nov_pm25_hours}}</td>
+<td class="py-3 px-4 text-right text-slate-300">{{nov_pm10_hours}}</td>
+<td class="py-3 px-4 text-right text-teal-400 font-medium">{{nov_pm25_pct}}%</td>
+<td class="py-3 px-4 text-right text-teal-400 font-medium">{{nov_pm10_pct}}%</td>
+<td class="py-3 px-4 text-right text-slate-200 font-medium">{{nov_passing_days}} days</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                  [{{nov_audit_status}}]
+                </span>
+</td>
+</tr>
+<!-- December -->
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="py-3 px-4 font-sans font-medium text-[#f5f5f0]">December</td>
+<td class="py-3 px-4 text-right text-slate-400">{{dec_hours_possible}}</td>
+<td class="py-3 px-4 text-right text-slate-300">{{dec_pm25_hours}}</td>
+<td class="py-3 px-4 text-right text-slate-300">{{dec_pm10_hours}}</td>
+<td class="py-3 px-4 text-right text-amber-400 font-medium">{{dec_pm25_pct}}%</td>
+<td class="py-3 px-4 text-right text-amber-400 font-medium">{{dec_pm10_pct}}%</td>
+<td class="py-3 px-4 text-right text-slate-200 font-medium">{{dec_passing_days}} days</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] bg-amber-500/10 text-amber-400 border border-amber-500/30">
+                  [{{dec_audit_status}}]
+                </span>
+</td>
+</tr>
+<!-- January -->
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="py-3 px-4 font-sans font-medium text-[#f5f5f0]">January</td>
+<td class="py-3 px-4 text-right text-slate-400">{{jan_hours_possible}}</td>
+<td class="py-3 px-4 text-right text-slate-300">{{jan_pm25_hours}}</td>
+<td class="py-3 px-4 text-right text-slate-300">{{jan_pm10_hours}}</td>
+<td class="py-3 px-4 text-right text-teal-400 font-medium">{{jan_pm25_pct}}%</td>
+<td class="py-3 px-4 text-right text-teal-400 font-medium">{{jan_pm10_pct}}%</td>
+<td class="py-3 px-4 text-right text-slate-200 font-medium">{{jan_passing_days}} days</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                  [{{jan_audit_status}}]
+                </span>
+</td>
+</tr>
+<!-- February -->
+<tr class="hover:bg-white/[0.02] transition-colors">
+<td class="py-3 px-4 font-sans font-medium text-[#f5f5f0]">February</td>
+<td class="py-3 px-4 text-right text-slate-400">{{feb_hours_possible}}</td>
+<td class="py-3 px-4 text-right text-slate-300">{{feb_pm25_hours}}</td>
+<td class="py-3 px-4 text-right text-slate-300">{{feb_pm10_hours}}</td>
+<td class="py-3 px-4 text-right text-teal-400 font-medium">{{feb_pm25_pct}}%</td>
+<td class="py-3 px-4 text-right text-teal-400 font-medium">{{feb_pm10_pct}}%</td>
+<td class="py-3 px-4 text-right text-slate-200 font-medium">{{feb_passing_days}} days</td>
+<td class="py-3 px-4 text-center">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] bg-emerald-500/10 text-emerald-400 border border-emerald-500/30">
+                  [{{feb_audit_status}}]
+                </span>
+</td>
+</tr>
+<!-- Season Total (Highlighted Row with Dark Teal Background) -->
+<tr class="bg-[#2f6f73]/25 font-semibold text-slate-100 border-t-2 border-[#2f6f73]">
+<td class="py-3.5 px-4 font-sans tracking-wide text-white flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm text-teal-300">verified</span>
+                Season Total
+              </td>
+<td class="py-3.5 px-4 text-right text-slate-300">{{total_hours_possible}}</td>
+<td class="py-3.5 px-4 text-right text-slate-100">{{total_pm25_hours}}</td>
+<td class="py-3.5 px-4 text-right text-slate-100">{{total_pm10_hours}}</td>
+<td class="py-3.5 px-4 text-right text-teal-300">{{total_pm25_pct}}%</td>
+<td class="py-3.5 px-4 text-right text-teal-300">{{total_pm10_pct}}%</td>
+<td class="py-3.5 px-4 text-right text-white">{{total_passing_days}} days</td>
+<td class="py-3.5 px-4 text-center">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded text-[10px] bg-teal-500/20 text-teal-300 border border-teal-500/40">
+                  [{{season_audit_status}}]
+                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="pt-2 text-[11px] font-mono text-slate-400 flex flex-wrap justify-between items-center gap-2">
+<span>* CPCB-2014 Validation rule requires a minimum of {{min_valid_hours}} validated hourly records per 24h window (16:00 to 16:00 IST) for legitimate daily AQI derivation.</span>
+<button class="text-[#c9884f] hover:underline flex items-center gap-1" type="button">
+<span class="material-symbols-outlined text-xs">open_in_new</span>
+          Export Audit Manifest (.csv)
+        </button>
+</div>
+</section>
+<!-- Data Provenance & Regulatory Statement Callout -->
+<section class="bg-black/20 rounded border border-white/5 p-4 flex flex-col md:flex-row justify-between items-start md:items-center gap-3 text-xs font-mono text-[#a0aec0]">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-[#c9884f] text-xl">policy</span>
+<div>
+<span class="text-slate-300 font-sans font-medium">Data Provenance:</span>
+<span> Source: OpenAQ API v3 / CPCB telemetry | Completeness threshold: {{min_valid_hours}} of 24 hours | Protocol: CPCB 2014 AQI Technical Document</span>
+</div>
+</div>
+<div class="flex items-center gap-2 text-[11px] text-slate-400">
+<span>STATION CERT: ISO-{{iso_code}}</span>
+<span>•</span>
+<span>QC VER: {{cal_ver}}</span>
+</div>
+</section>
+</main>
+<!-- Footer (Shared Component Anchor) -->
+<footer class="bg-slate-950 dark:bg-black mt-10">
+<div class="w-full px-8 py-6 flex flex-col md:flex-row justify-between items-center border-t border-white/10 gap-4">
+<!-- Institutional Attribution & Build Rev -->
+<div class="flex flex-col sm:flex-row items-center gap-2 text-center sm:text-left">
+<span class="font-headline text-sm font-semibold tracking-wider text-slate-300 uppercase">
+          VAAYU LITE
+        </span>
+<span class="hidden sm:inline text-white/20">•</span>
+<p class="font-body text-xs text-slate-400 dark:text-slate-500">
+          VAAYU Lite Atmospheric Observatory • Ministry of Earth Sciences, NCR Monitoring Cell • Build Rev: {{build_id}} • Status: {{system_health}}
+        </p>
+</div>
+<!-- Compliance Links -->
+<div class="flex flex-wrap justify-center items-center gap-4 text-xs font-body">
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Compliance ISO-{{iso_code}}</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Calibration Protocol v{{cal_ver}}</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Telemetry Source</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Open Sensor Node Data</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Institutional Contact</a>
+</div>
+</div>
+</footer>
+</body></html>
+

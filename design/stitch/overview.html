@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VAAYU Lite — Atmospheric Observatory NCR</title>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Google Fonts: EB Garamond, Inter, Public Sans -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:wght@300;400;500;600;700&amp;family=Public+Sans:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS v3 -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            slate: {
+              850: '#17222c',
+              900: '#1e2a35',
+              950: '#131c24'
+            },
+            terracotta: {
+              DEFAULT: '#c9884f',
+              muted: '#9c6637',
+              hover: '#db995e'
+            },
+            teal: {
+              observatory: '#2f6f73',
+              dark: '#1e484b',
+              glow: '#3d8e94'
+            },
+            severe: {
+              crimson: '#8b1c2c',
+              dark: '#5a121d'
+            },
+            parchment: '#f5f5f0'
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          fontFamily: {
+            headline: ["EB Garamond", "serif"],
+            display: ["EB Garamond", "serif"],
+            body: ["Inter", "sans-serif"],
+            label: ["Public Sans", "monospace"]
+          }
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Monospace tabular metrics & institutional guidelines */
+    .tabular-mono {
+      font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, "Liberation Mono", "Courier New", monospace;
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-slate-900 text-parchment font-body min-h-screen flex flex-col antialiased selection:bg-terracotta selection:text-white">
+<!-- 1. Top Banner Slot: Full-width alert/status notification banner -->
+<div class="w-full bg-slate-950/95 border-b border-white/10 px-4 py-2 flex items-center justify-between text-xs tracking-wider text-slate-300 z-50">
+<div class="flex items-center gap-3 overflow-hidden text-ellipsis whitespace-nowrap">
+<span class="relative flex h-2 w-2">
+<span class="animate-ping absolute inline-flex h-full w-full rounded-full bg-teal-observatory opacity-75"></span>
+<span class="relative inline-flex rounded-full h-2 w-2 bg-teal-observatory"></span>
+</span>
+<div class="tabular-mono text-xs">
+<span class="text-terracotta font-semibold uppercase">[STATUS: {{system_status}}]</span>
+<span class="text-slate-400 mx-1">|</span>
+<span class="text-slate-200">Notice: CPCB Breakpoint verification status: <strong class="text-slate-100 font-semibold">{{verification_status}}</strong></span>
+<span class="text-slate-400 mx-1">|</span>
+<span class="text-slate-400">Last pipeline execution: <span class="text-slate-300 font-medium">{{pipeline_timestamp}}</span></span>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-4 text-[11px] tabular-mono text-slate-400">
+<span class="flex items-center gap-1.5"><span class="material-symbols-outlined text-xs text-teal-observatory">check_circle</span> SYSTEM_SYNC: ONLINE</span>
+<span class="text-slate-600">•</span>
+<span class="text-slate-400">TIMEZONE: IST (UTC+05:30)</span>
+</div>
+</div>
+<!-- Shared TopNavBar Anchor Integration -->
+<header class="w-full px-6 py-3 flex justify-between items-center border-b border-white/10 bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-md sticky top-0 z-40">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-terracotta text-2xl" data-icon="cloud_sync">cloud_sync</span>
+<a class="font-headline text-lg tracking-wide uppercase font-headline text-xl font-bold tracking-widest text-slate-100 dark:text-slate-50 uppercase" href="#">
+        VAAYU Lite — Atmospheric Observatory NCR
+      </a>
+</div>
+<!-- Web Navigation cluster with strict active state resolution (Overview -> Observatory) -->
+<nav class="hidden md:flex items-center gap-6">
+<a class="border-b-2 border-amber-600 dark:border-amber-500 text-amber-500 dark:text-amber-400 font-medium py-1 text-sm tracking-wide" href="#">Observatory</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors text-sm tracking-wide" href="#">Station Metrics</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors text-sm tracking-wide" href="#">Architecture Matrix</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors text-sm tracking-wide" href="#">Alert Protocol</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors text-sm tracking-wide" href="#">API Specs</a>
+</nav>
+<!-- Trailing Actions & Icons -->
+<div class="flex items-center gap-3">
+<div class="hidden sm:inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-slate-800/80 border border-white/10 text-xs tabular-mono text-slate-300">
+<span class="w-1.5 h-1.5 rounded-full bg-teal-observatory"></span>
+<span>Telemetry: {{status}}</span>
+</div>
+<button class="hidden lg:inline-flex items-center gap-1 px-3 py-1 bg-terracotta/20 border border-terracotta/40 hover:bg-terracotta/30 text-terracotta font-label text-xs uppercase tracking-wider transition-colors duration-150 rounded">
+<span class="material-symbols-outlined text-sm">download</span>
+<span>Export Data</span>
+</button>
+<div class="flex items-center text-slate-400 gap-1 pl-2 border-l border-white/10">
+<button class="p-1 hover:text-amber-400 transition-colors" title="Notifications">
+<span class="material-symbols-outlined text-lg" data-icon="notifications_active">notifications_active</span>
+</button>
+<button class="p-1 hover:text-amber-400 transition-colors" title="Sensor Mesh">
+<span class="material-symbols-outlined text-lg" data-icon="sensors">sensors</span>
+</button>
+<button class="p-1 hover:text-amber-400 transition-colors" title="Help &amp; Calibration Documentation">
+<span class="material-symbols-outlined text-lg" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+</div>
+</header>
+<!-- Main Diagnostic Canvas -->
+<main class="flex-1 w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 flex flex-col gap-8">
+<!-- 2. Header & Title Block -->
+<section class="border-b border-white/10 pb-6 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+<div class="space-y-2">
+<div class="inline-flex items-center gap-2 text-xs uppercase font-label tracking-widest text-terracotta font-semibold">
+<span class="material-symbols-outlined text-sm">science</span>
+<span>Atmospheric Physics &amp; Boundary Layer Dynamics</span>
+</div>
+<h1 class="font-headline text-3xl sm:text-4xl lg:text-5xl font-normal text-parchment tracking-tight">
+          VAAYU Lite: runnable prototype
+        </h1>
+<p class="font-body text-slate-400 text-sm sm:text-base max-w-3xl leading-relaxed">
+          National Capital Region Atmospheric &amp; Air Quality Diagnostic Interface
+        </p>
+</div>
+<!-- Operational Badges Cluster -->
+<div class="flex flex-wrap lg:flex-nowrap gap-2 items-center tabular-mono text-xs">
+<div class="bg-slate-950/80 border border-white/10 px-3 py-2 rounded flex flex-col gap-0.5 min-w-[140px]">
+<span class="text-[10px] uppercase text-slate-400 tracking-wider">System State</span>
+<span class="text-teal-observatory font-semibold flex items-center gap-1">
+<span class="w-1.5 h-1.5 rounded-full bg-teal-observatory"></span>
+            {{system_health}}
+          </span>
+</div>
+<div class="bg-slate-950/80 border border-white/10 px-3 py-2 rounded flex flex-col gap-0.5 min-w-[160px]">
+<span class="text-[10px] uppercase text-slate-400 tracking-wider">Completeness Guard</span>
+<span class="text-terracotta font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs">shield</span>
+            {{completeness_threshold}}% Required
+          </span>
+</div>
+<div class="bg-slate-950/80 border border-white/10 px-3 py-2 rounded flex flex-col gap-0.5 min-w-[140px]">
+<span class="text-[10px] uppercase text-slate-400 tracking-wider">Station Network</span>
+<span class="text-slate-200 font-semibold flex items-center gap-1">
+<span class="material-symbols-outlined text-xs text-slate-400">hub</span>
+            {{network_mode}}
+          </span>
+</div>
+</div>
+</section>
+<!-- 3. Problem Statement & Mission Statement Container -->
+<section class="bg-slate-950/60 border border-white/10 rounded-lg p-5 sm:p-6 border-l-4 border-l-terracotta shadow-sm relative overflow-hidden">
+<div class="absolute -right-12 -bottom-12 w-48 h-48 bg-teal-observatory/5 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-terracotta text-lg">flag</span>
+<h2 class="text-xs uppercase font-label tracking-widest text-parchment font-semibold tabular-mono">
+          DIAGNOSTIC MANDATE &amp; SCIENTIFIC PROBLEM STATEMENT
+        </h2>
+</div>
+<p class="font-body text-slate-200 text-sm sm:text-base leading-relaxed text-justify sm:text-left">
+        Atmospheric particulate dispersion and severe winter pollution episodes across the National Capital Region demand rigorous, verifiable ground-truth sensor pipelines combined with vertical boundary layer thermodynamics. VAAYU Lite bridges automated continuous ambient air quality monitoring (CAAQMS) with physical sounding diagnostic models, enforcing strict data completeness validation before forecasting severe air quality excursions.
+      </p>
+<div class="mt-4 pt-3 border-t border-white/5 flex flex-wrap gap-4 text-xs tabular-mono text-slate-400">
+<span class="flex items-center gap-1"><span class="text-terracotta">▶</span> Sounding Regime: WMO-{{wmo_code}}</span>
+<span class="flex items-center gap-1"><span class="text-terracotta">▶</span> Algorithm Verification: Piecewise NAQI</span>
+<span class="flex items-center gap-1"><span class="text-terracotta">▶</span> Boundary Layer Protocol: Hybrid-Diagnostic</span>
+</div>
+</section>
+<!-- 4. 'Built vs Planned' Two-Column Table / Matrix -->
+<section class="flex flex-col gap-4">
+<div class="flex items-center justify-between">
+<div>
+<h3 class="font-headline text-2xl text-parchment tracking-tight">System Implementation Matrix</h3>
+<p class="text-xs font-body text-slate-400">Active engine status and sequential development architecture</p>
+</div>
+<div class="hidden sm:flex items-center gap-2 text-xs font-label uppercase text-slate-400">
+<span class="material-symbols-outlined text-xs">tune</span>
+          Pipeline Protocol: Strict-Validation
+        </div>
+</div>
+<div class="grid grid-cols-1 lg:grid-cols-2 gap-6 items-start">
+<!-- Column 1: Built Components (Current Prototype) -->
+<div class="bg-slate-950/80 border border-white/10 rounded-lg overflow-hidden flex flex-col">
+<!-- Column Header -->
+<div class="px-5 py-4 bg-slate-850 border-b border-white/10 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-teal-observatory text-xl">fact_check</span>
+<span class="font-headline text-lg font-semibold text-parchment">Built Components (Current Prototype)</span>
+</div>
+<span class="bg-teal-observatory/20 border border-teal-observatory/40 text-teal-observatory px-2.5 py-1 rounded text-[11px] tabular-mono font-semibold tracking-wider">
+              STATUS: OPERATIONAL [{{passing_tests}}/{{total_tests}}]
+            </span>
+</div>
+<!-- Rows -->
+<div class="divide-y divide-white/5 font-body text-xs sm:text-sm">
+<!-- Row 1 -->
+<div class="p-4 flex items-start gap-3 hover:bg-white/[0.02] transition-colors">
+<span class="material-symbols-outlined text-teal-observatory text-lg mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1 space-y-1">
+<div class="text-slate-200 font-medium">OpenAQ CPCB station data ingestion ({{station_count}} monitored stations)</div>
+<div class="flex items-center gap-2">
+<span class="bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[10px] tabular-mono text-terracotta uppercase">INGESTION PIPELINE</span>
+<span class="text-slate-500 text-xs tabular-mono">Lat: {{lat}}° N / Lon: {{lon}}° E</span>
+</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="p-4 flex items-start gap-3 hover:bg-white/[0.02] transition-colors">
+<span class="material-symbols-outlined text-teal-observatory text-lg mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1 space-y-1">
+<div class="text-slate-200 font-medium">4 PM-to-4 PM IST 24-hour daily averaging with {{min_valid_hours}}-hour completeness guard</div>
+<div class="flex items-center gap-2">
+<span class="bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[10px] tabular-mono text-terracotta uppercase">QA/QC FILTER</span>
+<span class="text-slate-500 text-xs tabular-mono">Tolerance: {{completeness_threshold}}% continuous</span>
+</div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="p-4 flex items-start gap-3 hover:bg-white/[0.02] transition-colors">
+<span class="material-symbols-outlined text-teal-observatory text-lg mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1 space-y-1">
+<div class="text-slate-200 font-medium">CPCB National Air Quality Index (NAQI) piecewise linear sub-index calculator</div>
+<div class="flex items-center gap-2">
+<span class="bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[10px] tabular-mono text-terracotta uppercase">NAQI ALGORITHM</span>
+<span class="text-slate-500 text-xs tabular-mono">Breakpoints: PM2.5, PM10, NO2, SO2, CO, O3</span>
+</div>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="p-4 flex items-start gap-3 hover:bg-white/[0.02] transition-colors">
+<span class="material-symbols-outlined text-teal-observatory text-lg mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1 space-y-1">
+<div class="text-slate-200 font-medium">Vertical atmospheric inversion diagnostic engine (surface-based &amp; elevated layers)</div>
+<div class="flex items-center gap-2">
+<span class="bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[10px] tabular-mono text-terracotta uppercase">THERMODYNAMICS</span>
+<span class="text-slate-500 text-xs tabular-mono">dθ/dz Lapse Profiler</span>
+</div>
+</div>
+</div>
+<!-- Row 5 -->
+<div class="p-4 flex items-start gap-3 hover:bg-white/[0.02] transition-colors">
+<span class="material-symbols-outlined text-teal-observatory text-lg mt-0.5 flex-shrink-0" style="font-variation-settings: 'FILL' 1;">check_circle</span>
+<div class="flex-1 space-y-1">
+<div class="text-slate-200 font-medium">Automated self-test test harness ({{passing_tests}}/{{total_tests}} tests verified)</div>
+<div class="flex items-center gap-2">
+<span class="bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[10px] tabular-mono text-teal-observatory uppercase">INTEGRITY CHECK</span>
+<span class="text-slate-500 text-xs tabular-mono">Hash: {{verification_hash}}</span>
+</div>
+</div>
+</div>
+</div>
+</div>
+<!-- Column 2: Planned Features (Roadmap) -->
+<div class="bg-slate-950/80 border border-white/10 rounded-lg overflow-hidden flex flex-col">
+<!-- Column Header -->
+<div class="px-5 py-4 bg-slate-850 border-b border-white/10 flex items-center justify-between">
+<div class="flex items-center gap-2.5">
+<span class="material-symbols-outlined text-terracotta text-xl">pending_actions</span>
+<span class="font-headline text-lg font-semibold text-parchment">Planned Features (Roadmap)</span>
+</div>
+<span class="bg-terracotta/20 border border-terracotta/40 text-terracotta px-2.5 py-1 rounded text-[11px] tabular-mono font-semibold tracking-wider">
+              STATUS: PHASE-II DEPLOYMENT
+            </span>
+</div>
+<!-- Rows -->
+<div class="divide-y divide-white/5 font-body text-xs sm:text-sm">
+<!-- Row 1 -->
+<div class="p-4 flex items-start gap-3 hover:bg-white/[0.02] transition-colors">
+<span class="material-symbols-outlined text-slate-500 text-lg mt-0.5 flex-shrink-0">schedule</span>
+<div class="flex-1 space-y-1">
+<div class="text-slate-300 font-medium">Real-time MODIS / VIIRS active fire satellite overpass integration</div>
+<div class="flex items-center gap-2">
+<span class="bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[10px] tabular-mono text-slate-400 uppercase">SATELLITE RS</span>
+<span class="text-slate-500 text-xs tabular-mono">Resolution: 375m I-Band Target</span>
+</div>
+</div>
+</div>
+<!-- Row 2 -->
+<div class="p-4 flex items-start gap-3 hover:bg-white/[0.02] transition-colors">
+<span class="material-symbols-outlined text-slate-500 text-lg mt-0.5 flex-shrink-0">schedule</span>
+<div class="flex-1 space-y-1">
+<div class="text-slate-300 font-medium">24h, 48h, and 72h lead-time logistic regression severe episode forecasting</div>
+<div class="flex items-center gap-2">
+<span class="bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[10px] tabular-mono text-slate-400 uppercase">ML INFERENCE</span>
+<span class="text-severe-crimson text-xs tabular-mono">Severe Trigger Threshold: &gt; {{severe_threshold}} NAQI</span>
+</div>
+</div>
+</div>
+<!-- Row 3 -->
+<div class="p-4 flex items-start gap-3 hover:bg-white/[0.02] transition-colors">
+<span class="material-symbols-outlined text-slate-500 text-lg mt-0.5 flex-shrink-0">schedule</span>
+<div class="flex-1 space-y-1">
+<div class="text-slate-300 font-medium">Micro-meteorological boundary layer height sounding assimilation</div>
+<div class="flex items-center gap-2">
+<span class="bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[10px] tabular-mono text-slate-400 uppercase">VERTICAL PROFILING</span>
+<span class="text-slate-500 text-xs tabular-mono">Radiosonde 00Z/12Z Integration</span>
+</div>
+</div>
+</div>
+<!-- Row 4 -->
+<div class="p-4 flex items-start gap-3 hover:bg-white/[0.02] transition-colors">
+<span class="material-symbols-outlined text-slate-500 text-lg mt-0.5 flex-shrink-0">schedule</span>
+<div class="flex-1 space-y-1">
+<div class="text-slate-300 font-medium">Automated public health advisory dissemination API</div>
+<div class="flex items-center gap-2">
+<span class="bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[10px] tabular-mono text-slate-400 uppercase">TELEMETRY DISPATCH</span>
+<span class="text-slate-500 text-xs tabular-mono">REST/gRPC Endpoint Spec</span>
+</div>
+</div>
+</div>
+<!-- Row 5 (Informational Padder) -->
+<div class="p-4 flex items-start gap-3 bg-slate-900/40">
+<span class="material-symbols-outlined text-slate-600 text-lg mt-0.5 flex-shrink-0">info</span>
+<div class="flex-1 text-slate-400 text-xs leading-normal">
+                Development phases conform to Ministry validation schedule and ISO-{{iso_code}} atmospheric sensor verification mandates.
+              </div>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Analytical Quick Telemetry Grid (Bento Matrix) -->
+<section class="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+<div class="bg-slate-950/60 border border-white/10 p-4 rounded flex items-center justify-between">
+<div>
+<div class="text-[11px] font-label uppercase text-slate-400">Continuous Ingestion Rate</div>
+<div class="text-xl font-headline text-parchment tabular-mono">{{ingestion_rate}} records/sec</div>
+</div>
+<span class="material-symbols-outlined text-teal-observatory text-2xl">sync_alt</span>
+</div>
+<div class="bg-slate-950/60 border border-white/10 p-4 rounded flex items-center justify-between">
+<div>
+<div class="text-[11px] font-label uppercase text-slate-400">Mean Validation Latency</div>
+<div class="text-xl font-headline text-parchment tabular-mono">{{mean_latency}} ms</div>
+</div>
+<span class="material-symbols-outlined text-terracotta text-2xl">speed</span>
+</div>
+<div class="bg-slate-950/60 border border-white/10 p-4 rounded flex items-center justify-between">
+<div>
+<div class="text-[11px] font-label uppercase text-slate-400">Severe Episode Watchdogs</div>
+<div class="text-xl font-headline text-parchment tabular-mono">{{watchdogs_active}} ACTIVE</div>
+</div>
+<span class="material-symbols-outlined text-severe-crimson text-2xl">emergency_home</span>
+</div>
+</section>
+</main>
+<!-- 5. Footer / Meta Readout -->
+<footer class="w-full bg-slate-950 border-t border-white/10 mt-auto">
+<div class="max-w-7xl mx-auto px-6 py-8 flex flex-col gap-6">
+<!-- Top Sub-row: Pipeline & Verification Meta -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs font-body text-slate-400 tabular-mono pb-6 border-b border-white/5">
+<div class="flex flex-wrap items-center gap-y-1 gap-x-3">
+<span class="text-parchment font-semibold">Pipeline version {{version_tag}}</span>
+<span class="text-slate-600">|</span>
+<span>Generated at {{generated_timestamp}}</span>
+<span class="text-slate-600">|</span>
+<span class="text-slate-300">Data source: <span class="underline decoration-terracotta/50 underline-offset-2">{{data_source}}</span></span>
+</div>
+<div class="flex items-center gap-3">
+<span class="bg-slate-900 border border-white/10 px-2 py-0.5 rounded text-[11px] text-teal-observatory">
+            Verification Hash: {{verification_hash}}
+          </span>
+<span class="text-slate-400 text-[11px]">
+            Build Rev: {{build_id}}
+          </span>
+</div>
+</div>
+<!-- Bottom Sub-row: Legal & Standards cluster matching Shared Components JSON -->
+<div class="flex flex-col md:flex-row justify-between items-center gap-4 text-xs text-slate-500 font-body">
+<div class="space-y-1 text-center md:text-left">
+<div class="font-headline text-sm font-semibold tracking-wider text-slate-300 uppercase">
+            Ministry of Earth Sciences, NCR Monitoring Cell
+          </div>
+<p class="text-slate-500">
+            VAAYU Lite Atmospheric Observatory • Ministry of Earth Sciences, NCR Monitoring Cell • Build Rev: {{build_id}} • Status: {{system_health}}
+          </p>
+</div>
+<nav class="flex flex-wrap justify-center items-center gap-4 text-xs">
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Compliance ISO-{{iso_code}}</a>
+<span class="text-slate-700">•</span>
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Calibration Protocol v{{cal_ver}}</a>
+<span class="text-slate-700">•</span>
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Telemetry Source</a>
+<span class="text-slate-700">•</span>
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Open Sensor Node Data</a>
+<span class="text-slate-700">•</span>
+<a class="text-slate-400 hover:text-slate-200 transition-colors" href="#">Institutional Contact</a>
+</nav>
+</div>
+</div>
+</footer>
+</body></html>
+

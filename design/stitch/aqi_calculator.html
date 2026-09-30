@@ -1,0 +1,498 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="en"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>VAAYU Lite — Atmospheric Observatory NCR | AQI Calculator</title>
+<!-- Google Fonts: EB Garamond, Inter, Public Sans, JetBrains Mono -->
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=EB+Garamond:ital,wght@0,400..800;1,400..800&amp;family=Inter:wght@300;400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;600&amp;family=Public+Sans:wght@400;500;600&amp;display=swap" rel="stylesheet"/>
+<!-- Material Symbols Outlined -->
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<!-- Tailwind CSS CDN with Container Queries & Forms -->
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<!-- Tailwind Configuration verbatim -->
+<script id="tailwind-config">
+    tailwind.config = {
+      darkMode: "class",
+      theme: {
+        extend: {
+          colors: {
+            observatory: {
+              bg: "#1e2a35",
+              card: "#162029",
+              panel: "#121a22",
+              terracotta: "#c9884f",
+              teal: "#2f6f73",
+              alert: "#8b1c2c",
+              border: "rgba(255, 255, 255, 0.1)"
+            }
+          },
+          borderRadius: {
+            DEFAULT: "0.125rem",
+            lg: "0.25rem",
+            xl: "0.5rem",
+            full: "0.75rem"
+          },
+          spacing: {},
+          fontFamily: {
+            headline: ["EB Garamond", "serif"],
+            display: ["EB Garamond", "serif"],
+            body: ["Inter", "sans-serif"],
+            label: ["Public Sans", "sans-serif"],
+            mono: ["JetBrains Mono", "monospace"]
+          },
+          fontSize: {}
+        },
+      },
+    }
+  </script>
+<style>
+    .material-symbols-outlined {
+      font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      display: inline-block;
+      vertical-align: middle;
+      line-height: 1;
+    }
+    /* Monospace telemetry data styling */
+    .telemetry-code {
+      font-family: 'JetBrains Mono', monospace;
+    }
+  </style>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body class="bg-[#1e2a35] text-[#f5f5f0] font-body min-h-screen flex flex-col antialiased selection:bg-[#c9884f] selection:text-white">
+<!-- Top Institutional Status Banner -->
+<div class="w-full bg-slate-950/90 text-slate-400 border-b border-white/10 px-6 py-1.5 text-xs flex flex-wrap justify-between items-center tracking-wider uppercase font-label">
+<div class="flex items-center space-x-2">
+<span class="inline-block w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+<span class="text-slate-300 font-medium">VAAYU Lite — Atmospheric Observatory NCR</span>
+<span class="text-slate-600">•</span>
+<span>National Ambient Air Quality Standard Computation Node</span>
+</div>
+<div class="flex items-center space-x-4">
+<span class="telemetry-code text-slate-400">STATUS: {{system_status}}</span>
+<span class="text-slate-600">•</span>
+<span class="telemetry-code text-[#c9884f]">NODE REV: {{build_id}}</span>
+</div>
+</div>
+<!-- Shared Component Anchor: TopNavBar -->
+<header class="sticky top-0 z-50 bg-slate-900/90 dark:bg-slate-950/90 backdrop-blur-md border-b border-white/10">
+<div class="w-full px-6 py-3 flex justify-between items-center border-b border-white/10">
+<!-- Brand Identifier -->
+<div class="flex items-center space-x-4">
+<div class="w-8 h-8 rounded border border-[#c9884f]/40 bg-[#162029] flex items-center justify-center text-[#c9884f]">
+<span class="material-symbols-outlined text-lg" data-icon="sensors">sensors</span>
+</div>
+<a class="font-headline text-xl font-bold tracking-widest text-slate-100 dark:text-slate-50 uppercase flex items-center space-x-2" href="#">
+<span>VAAYU LITE — ATMOSPHERIC OBSERVATORY NCR</span>
+</a>
+</div>
+<!-- Navigation Links -->
+<nav class="hidden md:flex items-center space-x-8 text-sm tracking-wide font-headline uppercase">
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Observatory</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Station Metrics</a>
+<a class="border-b-2 border-amber-600 dark:border-amber-500 text-amber-500 dark:text-amber-400 font-medium py-1" href="#">AQI Calculator</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Architecture Matrix</a>
+<a class="text-slate-300 dark:text-slate-400 font-normal hover:text-slate-100 py-1 transition-colors" href="#">Alert Protocol</a>
+</nav>
+<!-- Trailing Action Controls -->
+<div class="flex items-center space-x-3">
+<!-- Telemetry chip -->
+<span class="hidden sm:inline-flex items-center px-2.5 py-1 rounded bg-slate-800 border border-white/10 text-xs font-mono text-slate-300">
+          Telemetry: {{status}}
+        </span>
+<!-- Export Action -->
+<button class="px-3.5 py-1.5 rounded bg-[#c9884f] hover:bg-[#b0733d] text-slate-950 font-medium text-xs uppercase tracking-wider transition-all duration-150 flex items-center space-x-1.5">
+<span class="material-symbols-outlined text-sm font-semibold" data-icon="download">download</span>
+<span>Export Data</span>
+</button>
+<!-- Utility Icons -->
+<div class="flex items-center space-x-1 border-l border-white/10 pl-2">
+<button class="p-1.5 text-slate-400 hover:text-amber-400 transition-colors" title="Alerts">
+<span class="material-symbols-outlined text-lg" data-icon="notifications_active">notifications_active</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-amber-400 transition-colors" title="Sensors Node">
+<span class="material-symbols-outlined text-lg" data-icon="sensors">sensors</span>
+</button>
+<button class="p-1.5 text-slate-400 hover:text-amber-400 transition-colors" title="CPCB Documentation">
+<span class="material-symbols-outlined text-lg" data-icon="help_outline">help_outline</span>
+</button>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Stage -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 space-y-8">
+<!-- Page Header & Diagnostic Self-Test Ribbon -->
+<div class="border-b border-white/10 pb-6 flex flex-col lg:flex-row lg:items-end justify-between gap-6">
+<div class="space-y-2">
+<div class="inline-flex items-center gap-2 px-2 py-0.5 rounded bg-[#2f6f73]/20 border border-[#2f6f73]/40 text-[#2f6f73] dark:text-teal-300 text-xs font-label uppercase tracking-widest font-semibold">
+<span class="material-symbols-outlined text-xs" data-icon="calculate">calculate</span>
+          CPCB 2014 SUB-INDEX CALCULATOR &amp; PIECEWISE LINEAR ENGINE
+        </div>
+<h1 class="font-headline text-3xl sm:text-4xl text-[#faf9f7] font-semibold tracking-tight">
+          AQI Calculator
+        </h1>
+<p class="text-sm text-slate-400 max-w-3xl font-body leading-relaxed">
+          Piecewise linear sub-index interpolation engine conforming to CPCB National Air Quality Index standards with real-time unit self-test verification. Computes regulatory AQI from ambient pollutant vectors.
+        </p>
+</div>
+<!-- Self-Test Status Badge Container -->
+<div class="bg-slate-900/80 border border-white/10 rounded p-3 flex flex-col sm:flex-row items-start sm:items-center gap-4 text-xs font-mono">
+<div class="flex items-center space-x-2">
+<div class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse"></div>
+<div>
+<span class="text-slate-400 block text-[10px] uppercase">RUNTIME TEST MATRIX</span>
+<span class="text-emerald-400 font-medium">self-test: {{passing_tests}}/{{total_tests}} passing</span>
+</div>
+</div>
+<div class="border-t sm:border-t-0 sm:border-l border-white/10 pt-2 sm:pt-0 sm:pl-3 space-y-0.5">
+<div class="text-[#c9884f] font-semibold text-[11px]">[VERIFIED AGAINST CPCB BENCHMARK]</div>
+<div class="text-slate-400 text-[10px]">
+            Breakpoints: <span class="text-slate-200">{{breakpoints_verified_status}}</span> • Hash: <span class="text-slate-400">{{engine_hash}}</span>
+</div>
+</div>
+</div>
+</div>
+<!-- Dual-Column Analytical Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+<!-- Column A: Scientific Input Container (5 Cols) -->
+<section class="lg:col-span-6 space-y-6">
+<div class="bg-slate-900/60 border border-white/10 rounded-lg p-6 shadow-sm relative backdrop-blur-sm">
+<!-- Container Bar -->
+<div class="flex items-center justify-between border-b border-white/10 pb-4 mb-6">
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[#c9884f]" data-icon="tune">tune</span>
+<h2 class="text-xs font-semibold uppercase tracking-wider text-slate-200 font-label">
+                POLLUTANT CONCENTRATION VECTOR INPUT (24-H MEAN)
+              </h2>
+</div>
+<span class="px-2 py-0.5 rounded text-[10px] uppercase font-mono tracking-widest bg-emerald-950/60 border border-emerald-500/30 text-emerald-400">
+              TIER 1 QA/QC
+            </span>
+</div>
+<form class="space-y-6" onsubmit="return false;">
+<!-- PM2.5 Concentration Input -->
+<div class="space-y-2">
+<div class="flex justify-between items-baseline">
+<label class="text-sm font-medium text-slate-200 flex items-center space-x-1.5" for="pm25-field">
+<span class="text-[#c9884f] font-semibold">PM2.5</span>
+<span>Concentration (24-hour average, µg/m³)</span>
+</label>
+<span class="text-xs font-mono text-slate-400">Range: {{pm25_min}} – {{pm25_max}} µg/m³</span>
+</div>
+<div class="relative rounded border border-white/10 bg-slate-950 focus-within:border-[#c9884f] focus-within:ring-1 focus-within:ring-[#c9884f] transition-all">
+<div class="flex items-center px-3 py-2.5">
+<span class="text-slate-500 text-xs font-mono mr-3 select-none">C_PM2.5 =</span>
+<input class="bg-transparent text-slate-100 font-mono text-base w-full focus:outline-none border-none p-0" id="pm25-field" placeholder="{{pm25_input}}" type="text" value="{{pm25_input}}"/>
+<span class="text-xs text-slate-400 font-mono ml-2">µg/m³</span>
+</div>
+<!-- Micro-slider illustration track -->
+<div class="w-full bg-slate-800/80 h-1 px-1 flex">
+<div class="bg-[#c9884f] h-full rounded" style="width: 48%"></div>
+</div>
+</div>
+<p class="text-[11px] text-slate-400">Micrograms per cubic metre measured via beta-attenuation reference monitor.</p>
+</div>
+<!-- PM10 Concentration Input -->
+<div class="space-y-2">
+<div class="flex justify-between items-baseline">
+<label class="text-sm font-medium text-slate-200 flex items-center space-x-1.5" for="pm10-field">
+<span class="text-[#2f6f73] font-semibold">PM10</span>
+<span>Concentration (24-hour average, µg/m³)</span>
+</label>
+<span class="text-xs font-mono text-slate-400">Range: {{pm10_min}} – {{pm10_max}} µg/m³</span>
+</div>
+<div class="relative rounded border border-white/10 bg-slate-950 focus-within:border-[#2f6f73] focus-within:ring-1 focus-within:ring-[#2f6f73] transition-all">
+<div class="flex items-center px-3 py-2.5">
+<span class="text-slate-500 text-xs font-mono mr-3 select-none">C_PM10 =</span>
+<input class="bg-transparent text-slate-100 font-mono text-base w-full focus:outline-none border-none p-0" id="pm10-field" placeholder="{{pm10_input}}" type="text" value="{{pm10_input}}"/>
+<span class="text-xs text-slate-400 font-mono ml-2">µg/m³</span>
+</div>
+<!-- Micro-slider illustration track -->
+<div class="w-full bg-slate-800/80 h-1 px-1 flex">
+<div class="bg-[#2f6f73] h-full rounded" style="width: 62%"></div>
+</div>
+</div>
+<p class="text-[11px] text-slate-400">Inhalable coarse particles concentration evaluated over synchronized 24-hr epoch.</p>
+</div>
+<!-- Control Action Matrix -->
+<div class="pt-2 flex flex-wrap gap-3">
+<button class="flex-1 bg-[#c9884f] hover:bg-[#b57741] text-slate-950 font-semibold px-4 py-2.5 rounded text-xs uppercase tracking-wider transition-colors flex items-center justify-center space-x-2" type="button">
+<span class="material-symbols-outlined text-base" data-icon="functions">functions</span>
+<span>Compute Sub-Indices</span>
+</button>
+<button class="px-3.5 py-2.5 rounded bg-slate-800/80 hover:bg-slate-700/80 border border-white/10 text-slate-200 text-xs font-medium uppercase tracking-wider transition-colors flex items-center space-x-1.5" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="dataset">dataset</span>
+<span>Load Test Vector</span>
+</button>
+<button class="px-3 py-2.5 rounded hover:bg-slate-800/40 text-slate-400 hover:text-slate-200 text-xs font-medium uppercase tracking-wider transition-colors flex items-center space-x-1" type="button">
+<span class="material-symbols-outlined text-sm" data-icon="restart_alt">restart_alt</span>
+<span>Clear Inputs</span>
+</button>
+</div>
+</form>
+</div>
+<!-- Breakpoint Interpolation Mathematical Formula Box -->
+<div class="bg-slate-900/40 border border-white/10 rounded-lg p-5 space-y-3 font-mono">
+<div class="flex items-center justify-between text-xs text-slate-300 font-label uppercase tracking-wider">
+<span class="text-[#c9884f] flex items-center gap-1.5">
+<span class="material-symbols-outlined text-sm" data-icon="science">science</span>
+              GOVERNING PIECEWISE LINEAR FORMULATION
+            </span>
+<span class="text-[10px] text-slate-500">CPCB GUIDELINE EQ. 4.1</span>
+</div>
+<div class="p-3 bg-slate-950 rounded border border-white/5 text-center text-sm md:text-base text-amber-200/90 py-4 font-mono select-all">
+            I = I_low + [ (I_high - I_low) / (C_high - C_low) ] × (C - C_low)
+          </div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-2 text-[11px] text-slate-400 pt-2 border-t border-white/5">
+<div><span class="text-slate-200">C:</span> observed concentration (24h)</div>
+<div><span class="text-slate-200">[C_low, C_high]:</span> breakpoint concentration interval</div>
+<div><span class="text-slate-200">[I_low, I_high]:</span> sub-index AQI category interval</div>
+<div><span class="text-slate-200">Final AQI:</span> max(I_PM2.5, I_PM10, ...)</div>
+</div>
+</div>
+</section>
+<!-- Column B: Real-time Result Dossier Card (6 Cols) -->
+<section class="lg:col-span-6 space-y-6">
+<!-- Primary Result Dossier Container -->
+<div class="bg-gradient-to-b from-slate-900/90 to-slate-950/90 border border-white/10 rounded-lg p-6 relative overflow-hidden shadow-xl">
+<!-- Ambient decorative corner highlight -->
+<div class="absolute -right-16 -top-16 w-36 h-36 bg-[#8b1c2c]/20 rounded-full blur-2xl pointer-events-none"></div>
+<div class="flex justify-between items-start mb-6">
+<div>
+<span class="text-xs font-mono uppercase tracking-widest text-slate-400 block">COMPUTED REGULATORY INDEX</span>
+<span class="text-[11px] text-slate-500 font-mono">CPCB SPECIFICATION STANDARD</span>
+</div>
+<!-- Category Alert Badge -->
+<div class="inline-flex items-center space-x-2 px-3 py-1 rounded bg-[#8b1c2c]/30 border border-[#8b1c2c] text-[#f5f5f0] text-xs font-mono uppercase tracking-wider font-semibold">
+<span class="w-2 h-2 rounded-full bg-[#8b1c2c] animate-ping inline-block"></span>
+<span>{{category_name}}</span>
+</div>
+</div>
+<!-- Large AQI Metric Display -->
+<div class="flex flex-col sm:flex-row sm:items-baseline justify-between gap-4 py-2 border-b border-white/10">
+<div>
+<div class="text-slate-400 text-xs font-label uppercase tracking-widest">AIR QUALITY INDEX (AQI)</div>
+<div class="font-headline text-6xl sm:text-7xl font-bold tracking-tight text-white flex items-baseline gap-2">
+<span>{{aqi_result}}</span>
+<span class="text-xs font-mono font-normal text-slate-400">/ {{scale_max}} scale</span>
+</div>
+</div>
+<div class="sm:text-right space-y-1">
+<div class="text-[10px] font-mono uppercase text-slate-400">Critical Determinant</div>
+<div class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded bg-[#c9884f]/15 border border-[#c9884f]/30 text-[#c9884f] font-mono text-xs font-semibold">
+<span class="material-symbols-outlined text-xs" data-icon="warning">warning</span>
+                Critical Pollutant: {{critical_pollutant}}
+              </div>
+</div>
+</div>
+<!-- Health Statement / Advisory Box -->
+<div class="mt-4 p-3.5 bg-slate-950/70 border border-white/10 rounded flex items-start space-x-3">
+<span class="material-symbols-outlined text-[#8b1c2c] text-lg shrink-0 mt-0.5" data-icon="health_and_safety">health_and_safety</span>
+<div class="text-xs text-slate-300 leading-relaxed font-body">
+<span class="font-semibold text-slate-100 uppercase tracking-wide font-label block mb-0.5">Official Health Advisory:</span>
+              {{health_statement}}
+            </div>
+</div>
+<!-- Sub-Index Analytical Breakdown Grid -->
+<div class="mt-6 space-y-3">
+<div class="text-xs font-label font-semibold uppercase tracking-wider text-slate-300 flex items-center justify-between">
+<span>SUB-INDEX ANALYTICAL BREAKDOWN</span>
+<span class="text-[10px] font-mono text-slate-400">{{pollutant_count}}-POLLUTANT SYNCHRONIZATION</span>
+</div>
+<div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+<!-- PM2.5 Sub-Index Card -->
+<div class="bg-slate-950/80 border border-white/10 rounded p-3.5 space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="font-mono text-[#c9884f] font-medium">PM2.5 Sub-Index (I_PM2.5)</span>
+<span class="font-mono font-bold text-slate-100 text-sm">{{pm25_sub_index}}</span>
+</div>
+<div class="text-[10px] font-mono text-slate-400 leading-tight">
+                  Linear trace: [{{pm25_bp_low}}, {{pm25_bp_high}}] → [{{i_low}}, {{i_high}}]
+                </div>
+<div class="flex justify-between items-center pt-1 border-t border-white/5 text-[10px] font-mono text-slate-400">
+<span>Audited Hours:</span>
+<span class="text-slate-300">{{pm25_valid_hours}} / {{required_hours}}h</span>
+</div>
+</div>
+<!-- PM10 Sub-Index Card -->
+<div class="bg-slate-950/80 border border-white/10 rounded p-3.5 space-y-2">
+<div class="flex justify-between items-center text-xs">
+<span class="font-mono text-[#2f6f73] font-medium">PM10 Sub-Index (I_PM10)</span>
+<span class="font-mono font-bold text-slate-100 text-sm">{{pm10_sub_index}}</span>
+</div>
+<div class="text-[10px] font-mono text-slate-400 leading-tight">
+                  Linear trace: [{{pm10_bp_low}}, {{pm10_bp_high}}] → [{{i_low}}, {{i_high}}]
+                </div>
+<div class="flex justify-between items-center pt-1 border-t border-white/5 text-[10px] font-mono text-slate-400">
+<span>Audited Hours:</span>
+<span class="text-slate-300">{{pm10_valid_hours}} / {{required_hours}}h</span>
+</div>
+</div>
+</div>
+<!-- Max Sub-Index aggregation rule note -->
+<div class="p-2.5 rounded bg-slate-900 border border-white/5 text-[11px] font-mono text-slate-400 flex items-center justify-between">
+<span class="text-slate-400">Max Sub-Index aggregation rule:</span>
+<span class="text-amber-300/90 font-medium">max(I_PM2.5 [{{pm25_sub_index}}], I_PM10 [{{pm10_sub_index}}]) = {{aqi_result}}</span>
+</div>
+</div>
+</div>
+<!-- Telemetry Node Status Card -->
+<div class="bg-slate-900/40 border border-white/10 rounded-lg p-4 flex items-center justify-between text-xs font-mono">
+<div class="flex items-center space-x-3">
+<span class="material-symbols-outlined text-slate-400" data-icon="storage">storage</span>
+<div>
+<div class="text-slate-200">CPCB Reference Matrix: 2014 v{{cal_ver}}</div>
+<div class="text-slate-500 text-[10px]">Data Integrity Signature: {{data_signature}}</div>
+</div>
+</div>
+<span class="px-2 py-1 rounded bg-slate-800 text-slate-300 border border-white/10 text-[10px]">
+            ACTIVE NODE: {{node_id}}
+          </span>
+</div>
+</section>
+</div>
+<!-- Section 4: Test Benchmark Matrix / Unit Self-Test Accordion Table -->
+<section class="space-y-4 pt-4">
+<div class="border-b border-white/10 pb-3 flex flex-col sm:flex-row sm:items-end justify-between gap-2">
+<div>
+<div class="flex items-center space-x-2">
+<span class="material-symbols-outlined text-[#2f6f73]" data-icon="fact_check">fact_check</span>
+<h2 class="font-headline text-2xl text-[#faf9f7] font-semibold">
+              Automated CPCB Verification Test Vectors
+            </h2>
+</div>
+<p class="text-xs text-slate-400 mt-1 font-body">
+            Runtime unit regression suite verifying mathematical compliance against official Central Pollution Control Board standard datasets.
+          </p>
+</div>
+<div class="font-mono text-xs text-slate-400 flex items-center gap-3">
+<span>Vectors Loaded: <strong class="text-slate-200">{{total_tests}}</strong></span>
+<span class="text-emerald-400">Pass Rate: {{pass_rate_pct}}</span>
+</div>
+</div>
+<!-- Technical Compliance Table -->
+<div class="border border-white/10 rounded-lg overflow-x-auto bg-slate-900/60 backdrop-blur-sm">
+<table class="w-full text-left text-xs font-mono border-collapse">
+<thead>
+<tr class="bg-slate-950/80 border-b border-white/10 text-slate-400 uppercase tracking-wider font-label">
+<th class="py-3 px-4">Test Vector ID</th>
+<th class="py-3 px-4">Pollutant Input Vector</th>
+<th class="py-3 px-4">Mathematical Target Range</th>
+<th class="py-3 px-4">Interpolated Sub-Index</th>
+<th class="py-3 px-4">Expected AQI</th>
+<th class="py-3 px-4 text-right">Assertion Status</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-white/5">
+<!-- Row 1 -->
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="py-3 px-4 font-semibold text-slate-200">
+                Test Vector {{test_id_1}}
+              </td>
+<td class="py-3 px-4 text-slate-300">
+                PM2.5 = {{test1_pm25}} µg/m³, PM10 = {{test1_pm10}} µg/m³
+              </td>
+<td class="py-3 px-4 text-slate-400">
+                [{{test1_range}}]
+              </td>
+<td class="py-3 px-4 text-[#c9884f]">
+                I_pm25 = {{test1_i_pm25}}
+              </td>
+<td class="py-3 px-4 font-bold text-slate-100">
+                AQI = {{test1_expected}}
+              </td>
+<td class="py-3 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-950/80 border border-emerald-500/40 text-emerald-400">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5"></span>
+                  [{{test1_status}}] (Passed)
+                </span>
+</td>
+</tr>
+<!-- Row 2 -->
+<tr class="hover:bg-slate-800/30 transition-colors">
+<td class="py-3 px-4 font-semibold text-slate-200">
+                Test Vector {{test_id_2}}
+              </td>
+<td class="py-3 px-4 text-slate-300">
+                PM2.5 = {{test2_pm25}} µg/m³, PM10 = {{test2_pm10}} µg/m³
+              </td>
+<td class="py-3 px-4 text-slate-400">
+                [{{test2_range}}]
+              </td>
+<td class="py-3 px-4 text-[#c9884f]">
+                I_pm25 = {{test2_i_pm25}}
+              </td>
+<td class="py-3 px-4 font-bold text-slate-100">
+                AQI = {{test2_expected}}
+              </td>
+<td class="py-3 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-950/80 border border-emerald-500/40 text-emerald-400">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5"></span>
+                  [{{test2_status}}] (Passed)
+                </span>
+</td>
+</tr>
+<!-- Row 3: Severe Excursion -->
+<tr class="hover:bg-slate-800/30 transition-colors bg-[#8b1c2c]/5">
+<td class="py-3 px-4 font-semibold text-slate-200 flex items-center gap-1.5">
+<span>Test Vector {{test_id_3}}</span>
+<span class="text-[10px] text-[#8b1c2c] uppercase font-bold">(Severe Excursion)</span>
+</td>
+<td class="py-3 px-4 text-slate-300">
+                PM2.5 = {{test3_pm25}} µg/m³, PM10 = {{test3_pm10}} µg/m³
+              </td>
+<td class="py-3 px-4 text-slate-400">
+                [{{test3_range}}]
+              </td>
+<td class="py-3 px-4 text-[#8b1c2c] font-medium">
+                Excursion Triggered
+              </td>
+<td class="py-3 px-4 font-bold text-red-200">
+                AQI = {{test3_expected}}
+              </td>
+<td class="py-3 px-4 text-right">
+<span class="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-bold uppercase tracking-wider bg-emerald-950/80 border border-emerald-500/40 text-emerald-400">
+<span class="w-1.5 h-1.5 rounded-full bg-emerald-400 mr-1.5"></span>
+                  [{{test3_status}}] (Passed)
+                </span>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Supplementary Table Footnote -->
+<div class="flex flex-col sm:flex-row justify-between items-start sm:items-center text-[11px] text-slate-500 font-mono px-1">
+<div>Algorithm: Piecewise Linear Sub-Index Interpolation (PLSI) with dynamic breakpoint selection.</div>
+<div>CPCB Breakpoints verification: {{verification_status}} • Hash: {{hash}}</div>
+</div>
+</section>
+</main>
+<!-- Shared Component Anchor: Footer -->
+<footer class="mt-12 bg-slate-950 dark:bg-black border-t border-white/10 font-body text-xs text-slate-400 dark:text-slate-500">
+<div class="w-full px-8 py-6 flex flex-col md:flex-row justify-between items-center border-t border-white/10 gap-4">
+<!-- Legal & System Build Line -->
+<div class="space-y-1 text-center md:text-left">
+<div class="font-headline text-sm font-semibold tracking-wider text-slate-300 uppercase">
+          VAAYU LITE ATMOSPHERIC OBSERVATORY
+        </div>
+<div class="text-[11px] text-slate-500 font-mono">
+          VAAYU Lite Atmospheric Observatory • Ministry of Earth Sciences, NCR Monitoring Cell • Build Rev: {{build_id}} • Status: {{system_health}}
+        </div>
+</div>
+<!-- Institutional Links -->
+<nav class="flex flex-wrap items-center justify-center gap-x-6 gap-y-2 text-xs">
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Compliance ISO-{{iso_code}}</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Calibration Protocol v{{cal_ver}}</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Telemetry Source</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Open Sensor Node Data</a>
+<a class="text-slate-400 dark:text-slate-500 hover:text-slate-200 transition-colors" href="#">Institutional Contact</a>
+</nav>
+</div>
+</footer>
+</body></html>
+

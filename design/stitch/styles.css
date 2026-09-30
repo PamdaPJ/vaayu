@@ -1,0 +1,205 @@
+/* VAAYU Lite Design System Stylesheet */
+/* Government-Science Atmospheric Observatory Dashboard */
+
+:root {
+  /* Core Color Palette */
+  --bg-slate: #1e2a35;
+  --bg-slate-dark: #131c24;
+  --bg-slate-card: #17222c;
+  --bg-slate-elevated: #23313e;
+  
+  --accent-terracotta: #c9884f;
+  --accent-terracotta-muted: #9c6637;
+  --accent-terracotta-hover: #db995e;
+  
+  --teal-observatory: #2f6f73;
+  --teal-dark: #1e484b;
+  --teal-glow: #3d8e94;
+  
+  --severe-red: #8b1c2c;
+  --severe-red-dark: #5a121d;
+  --severe-red-light: #f87171;
+  
+  --text-parchment: #f5f5f0;
+  --text-muted: #a0aec0;
+  --text-subtle: #718096;
+  
+  --border-subtle: rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --border-terracotta: rgba(201, 136, 79, 0.4);
+  --border-severe: rgba(139, 28, 44, 0.6);
+  
+  /* Typography */
+  --font-serif: "EB Garamond", "Merriweather", Georgia, serif;
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "JetBrains Mono", "Courier Prime", monospace;
+  
+  /* Layout */
+  --radius-sm: 0.125rem;
+  --radius-md: 0.25rem;
+  --radius-lg: 0.5rem;
+}
+
+/* Global Reset & Base */
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  padding: 0;
+  background-color: var(--bg-slate);
+  color: var(--text-parchment);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Headings */
+h1, h2, h3, .font-serif, .font-headline {
+  font-family: var(--font-serif);
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  color: var(--text-parchment);
+}
+
+/* Monospace & Data Elements */
+code, pre, .font-mono, .telemetry {
+  font-family: var(--font-mono);
+}
+
+/* Status Banner Slot */
+.status-banner {
+  background-color: var(--bg-slate-dark);
+  border-bottom: 1px solid var(--border-subtle);
+  padding: 0.5rem 1rem;
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.status-pulse {
+  display: inline-block;
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background-color: var(--teal-observatory);
+  margin-right: 0.5rem;
+  box-shadow: 0 0 8px var(--teal-glow);
+}
+
+/* Institutional Cards */
+.card-science {
+  background-color: var(--bg-slate-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-md);
+  padding: 1.25rem;
+  position: relative;
+}
+
+.card-science.highlight-terracotta {
+  border-color: var(--border-terracotta);
+}
+
+.card-science.highlight-severe {
+  border-color: var(--border-severe);
+  background: linear-gradient(135deg, var(--bg-slate-card) 0%, rgba(139, 28, 44, 0.15) 100%);
+}
+
+/* Buttons */
+.btn-terracotta {
+  background-color: var(--accent-terracotta);
+  color: #1a202c;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.btn-terracotta:hover {
+  background-color: var(--accent-terracotta-hover);
+}
+
+.btn-outline {
+  background-color: transparent;
+  color: var(--text-parchment);
+  border: 1px solid var(--border-strong);
+  padding: 0.5rem 1rem;
+  border-radius: var(--radius-sm);
+  cursor: pointer;
+  transition: all 0.15s ease-in-out;
+}
+
+.btn-outline:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: var(--text-muted);
+}
+
+/* Badges */
+.badge-severe {
+  background-color: var(--severe-red);
+  color: #ffffff;
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+}
+
+.badge-self-test {
+  background-color: rgba(47, 111, 115, 0.25);
+  border: 1px solid var(--teal-observatory);
+  color: #6ee7b7;
+  padding: 0.25rem 0.6rem;
+  border-radius: var(--radius-sm);
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+}
+
+/* Tables */
+.table-science {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.8125rem;
+}
+
+.table-science th {
+  background-color: var(--bg-slate-dark);
+  color: var(--text-muted);
+  text-align: left;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-strong);
+  font-family: var(--font-mono);
+  font-weight: 600;
+  text-transform: uppercase;
+  font-size: 0.7rem;
+  letter-spacing: 0.05em;
+}
+
+.table-science td {
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid var(--border-subtle);
+  color: var(--text-parchment);
+}
+
+.table-science tr:hover td {
+  background-color: rgba(255, 255, 255, 0.02);
+}
+
+/* Responsive Grid Helpers */
+@media (max-width: 768px) {
+  .status-banner {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.25rem;
+  }
+  .grid-responsive {
+    grid-template-columns: 1fr !important;
+  }
+}
