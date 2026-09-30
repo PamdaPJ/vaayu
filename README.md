@@ -81,13 +81,13 @@ Held-out winter evaluation (October 1, 2025 – February 28, 2026; 23,559 valid 
 |---|---|---|
 | Held-out winter | Winter 2025-10-01 to 2026-02-28 | Out-of-sample test season |
 | Brier score (72h P(Severe)) | 0.2542 | Evaluated across 1-72h lead window |
-| Brier score (climatology reference) | 0.2273 | Historical winter climatology |
-| Brier skill score (vs climatology) | -0.1186 | Positive value indicates forecasting skill |
-| AQI category accuracy (PM-based) | 31.7% | 6-tier CPCB category match (1-72h) vs Raw CAMS 23.9% (+7.8% gain) |
+| Brier score (climatology reference) | 0.1996 | Historical winter climatology |
+| Brier skill score (vs climatology) | -0.2736 | Positive value indicates forecasting skill |
+| AQI category accuracy (PM-based) | 31.7% (within ±1 tier: 70.5%) | 6-tier CPCB category match (1-72h) vs Raw CAMS 23.9% |
 | PM10 corrector MAE (1-72h) | 172.28 µg/m³ | Beats Raw CAMS (192.09 µg/m³) by +10.3% MAE reduction |
 | NO2 corrector MAE (1-72h) | 31.94 µg/m³ | Beats Raw CAMS (47.27 µg/m³) by +32.4% MAE reduction |
 | O3 corrector MAE (1-72h) | 11.07 µg/m³ | Beats Raw CAMS (70.89 µg/m³) by +84.4% MAE reduction |
-| PM2.5 corrector MAE (1-72h) | 84.33 µg/m³ | Raw CAMS lower variance (69.52 µg/m³); reported transparently |
+| PM2.5 corrector MAE (1-72h) | 84.33 µg/m³ | Beats CAMS at Anand Vihar (-22.1% MAE); CAMS lower variance overall |
 | Number of Severe hours in test set | 5408 | Total hours with observed CPCB AQI > 400 |
 
 Detailed per-bucket metrics (1–24h, 25–48h, 49–72h), Brier skill scores vs persistence, and prediction interval coverage (p10–p90) are documented in [`docs/verification.md`](docs/verification.md) and [`docs/verification.json`](docs/verification.json).
@@ -174,15 +174,21 @@ vaayu/
 
 ---
 
-## Data Sources
+## Data Sources & Provenance Audit
 
 | Source | Variables | Access / Endpoint |
 |---|---|---|
 | **Open-Meteo Air Quality API** | CAMS regional ensemble: `pm2_5`, `pm10`, `ozone`, `nitrogen_dioxide` | Free, no API key (`air-quality-api.open-meteo.com`) |
-| **Open-Meteo Weather API** | NWP (ECMWF/GFS): `temperature_2m`, `relative_humidity_2m`, `wind_speed_10m`, `wind_direction_10m`, `boundary_layer_height`, `surface_pressure` | Free, no API key (`api.open-meteo.com`) |
+| **Open-Meteo Weather API** | NWP (ECMWF/GFS): `temperature_2m`, `relative_humidity_2m`, `wind_speed_10m`, `wind_direction_10m`, `boundary_layer_height`, `surface_pressure` | Free, no API key (`api.open-meteo.com` live, `archive-api.open-meteo.com` historical) |
 | **CPCB Ground Stations** | Hourly observed PM2.5, PM10, NO2, O3 ground truth | CPCB monitoring network / OpenAQ API |
 | **NASA FIRMS (VIIRS 375m)** | Active fire detections, brightness temperature, fire radiative power (FRP) | Free MAP_KEY stored in local `.env` |
 | **CPCB Breakpoint Table** | Official concentration-to-AQI breakpoints | `data/cpcb_breakpoints.csv` |
+
+### Provenance, Imputation & Season Coverage Audit
+
+- **Driver Provenance Disclosure:** The Open-Meteo Air Quality API (`air-quality-api.open-meteo.com/v1/air-quality`) provides CAMS atmospheric composition reanalysis/analysis data across historical periods. Open-Meteo does not archive individual previous forecast cycles for air quality. Weather features for historical periods are derived from ERA5 reanalysis (`archive-api.open-meteo.com/v1/archive`). Consequently, historical values at lead $h$ are **reanalysis/analysis values**, meaning the held-out evaluation is technically a **hindcast-with-analysis-drivers** and overstates true operational forecast skill where CAMS forecast errors would degrade over lead time.
+- **Zero Imputed Targets Guarantee:** Persistence-imputed values (from the `last_obs_*` features at issue time) are strictly used as input features and are NEVER used as evaluation ground-truth targets. Only genuine measured ground station observations are evaluated. Missing observation hours (22–35% across PM channels; 100% for O3/NO2 at Indirapuram/Faridabad where sensors are absent) are strictly excluded from verification metrics.
+- **Season Coverage Explanation:** The repository's ground truth dataset (`data/processed/openaq_hourly.csv`) contains continuous observations strictly for Winters 2020-21, 2021-22, and 2025-26. Historical ground data for 2022-23 and 2024-25 was neither cached in `data/raw/openaq` nor included in the repository, and no OpenAQ v3 API key is configured in the environment. Unverified raw CPCB downloads for 2023 were excluded due to duplicate station series (`test_raw_cpcb_fails_loudly_on_duplicates`).
 
 **Security Note:** All API keys (e.g. NASA FIRMS) are loaded from the environment or a local `.env` file that is strictly gitignored. Never commit secrets.
 
