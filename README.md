@@ -66,10 +66,14 @@ Fill these in from the actual runs. Do not edit numbers by hand.
 
 | Metric | Value | Notes |
 |---|---|---|
-| Held-out winter | _TBD_ | Which season was left out of training |
-| Brier score (baseline model) | _TBD_ | Report as computed |
-| Brier score (climatology reference) | _TBD_ | For a skill comparison |
-| Number of Severe days in test set | _TBD_ | Small counts mean wide uncertainty |
+| Held-out winter | Winter 2025-10-01 to 2026-02-28 | Out-of-sample test season |
+| Brier score (72h P(Severe)) | 0.2542 | Evaluated across 1-72h lead window |
+| Brier score (climatology reference) | 0.2273 | Historical winter climatology |
+| Brier skill score (vs climatology) | -0.1186 | Positive value indicates forecasting skill |
+| AQI category accuracy (PM-based) | 31.7% | 6-tier CPCB category match (1-72h) |
+| PM2.5 corrector MAE (1-72h) | 84.33 µg/m³ | Quantile median p50 forecast |
+| PM10 corrector MAE (1-72h) | 172.28 µg/m³ | Quantile median p50 forecast |
+| Number of Severe hours in test set | 5408 | Observed AQI > 400 | _TBD_ | Small counts mean wide uncertainty |
 
 With few Severe days, detection counts carry very wide confidence intervals. We therefore lead with Brier score and reliability, and treat POD/FAR as secondary.
 

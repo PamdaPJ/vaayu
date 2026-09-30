@@ -1,0 +1,758 @@
+{
+  "evaluation_metadata": {
+    "evaluation_date": "2026-09-30T15:12:38.536123+00:00",
+    "held_out_winter": "2025-10-01 to 2026-02-28",
+    "training_winters": [
+      "2020-10-01 to 2021-02-28",
+      "2021-10-01 to 2022-02-28",
+      "2023-10-01 to 2024-02-29"
+    ],
+    "stations_evaluated": [
+      "anand_vihar_new_delhi_dpcc",
+      "indirapuram_ghaziabad_uppcb",
+      "sector_11_faridabad_hspcb"
+    ],
+    "total_test_samples": 31968,
+    "verifiable_hours": 23559,
+    "severe_hours_observed": 5408,
+    "climatology_severe_rate": 0.0051
+  },
+  "pollutants": {
+    "pm25": {
+      "1-24h": {
+        "n_samples": 7708,
+        "model": {
+          "mae": 84.08,
+          "rmse": 105.63,
+          "bias": 37.65,
+          "count": 7708
+        },
+        "raw_cams": {
+          "mae": 69.34,
+          "rmse": 100.52,
+          "bias": -51.26,
+          "count": 7708
+        },
+        "persistence": {
+          "mae": 74.93,
+          "rmse": 104.14,
+          "bias": 47.84,
+          "count": 7623
+        },
+        "common_subset": {
+          "count": 7623,
+          "model_mae": 84.16,
+          "raw_mae": 69.24,
+          "pers_mae": 74.93,
+          "skill_vs_raw_mae_pct": -21.5,
+          "skill_vs_pers_mae_pct": -12.3
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 53.11,
+          "count": 7708
+        }
+      },
+      "25-48h": {
+        "n_samples": 7745,
+        "model": {
+          "mae": 84.31,
+          "rmse": 105.52,
+          "bias": 38.14,
+          "count": 7745
+        },
+        "raw_cams": {
+          "mae": 69.39,
+          "rmse": 100.28,
+          "bias": -51.4,
+          "count": 7745
+        },
+        "persistence": {
+          "mae": 85.87,
+          "rmse": 118.26,
+          "bias": 46.36,
+          "count": 7508
+        },
+        "common_subset": {
+          "count": 7508,
+          "model_mae": 84.98,
+          "raw_mae": 69.7,
+          "pers_mae": 85.87,
+          "skill_vs_raw_mae_pct": -21.9,
+          "skill_vs_pers_mae_pct": 1.0
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 51.88,
+          "count": 7745
+        }
+      },
+      "49-72h": {
+        "n_samples": 7768,
+        "model": {
+          "mae": 84.61,
+          "rmse": 105.96,
+          "bias": 38.18,
+          "count": 7768
+        },
+        "raw_cams": {
+          "mae": 69.82,
+          "rmse": 100.79,
+          "bias": -51.98,
+          "count": 7768
+        },
+        "persistence": {
+          "mae": 90.75,
+          "rmse": 124.29,
+          "bias": 45.54,
+          "count": 7436
+        },
+        "common_subset": {
+          "count": 7436,
+          "model_mae": 85.71,
+          "raw_mae": 70.65,
+          "pers_mae": 90.75,
+          "skill_vs_raw_mae_pct": -21.3,
+          "skill_vs_pers_mae_pct": 5.6
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 50.41,
+          "count": 7768
+        }
+      },
+      "1-72h": {
+        "n_samples": 23221,
+        "model": {
+          "mae": 84.33,
+          "rmse": 105.7,
+          "bias": 37.99,
+          "count": 23221
+        },
+        "raw_cams": {
+          "mae": 69.52,
+          "rmse": 100.53,
+          "bias": -51.55,
+          "count": 23221
+        },
+        "persistence": {
+          "mae": 83.78,
+          "rmse": 115.79,
+          "bias": 46.59,
+          "count": 22567
+        },
+        "common_subset": {
+          "count": 22567,
+          "model_mae": 84.95,
+          "raw_mae": 69.86,
+          "pers_mae": 83.78,
+          "skill_vs_raw_mae_pct": -21.6,
+          "skill_vs_pers_mae_pct": -1.4
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 51.8,
+          "count": 23221
+        }
+      }
+    },
+    "pm10": {
+      "1-24h": {
+        "n_samples": 7796,
+        "model": {
+          "mae": 170.48,
+          "rmse": 216.29,
+          "bias": 104.64,
+          "count": 7796
+        },
+        "raw_cams": {
+          "mae": 191.44,
+          "rmse": 247.56,
+          "bias": -170.2,
+          "count": 7796
+        },
+        "persistence": {
+          "mae": 154.48,
+          "rmse": 213.01,
+          "bias": 107.68,
+          "count": 7724
+        },
+        "common_subset": {
+          "count": 7724,
+          "model_mae": 170.23,
+          "raw_mae": 191.87,
+          "pers_mae": 154.48,
+          "skill_vs_raw_mae_pct": 11.3,
+          "skill_vs_pers_mae_pct": -10.2
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 61.99,
+          "count": 7796
+        }
+      },
+      "25-48h": {
+        "n_samples": 7833,
+        "model": {
+          "mae": 172.63,
+          "rmse": 218.46,
+          "bias": 105.86,
+          "count": 7833
+        },
+        "raw_cams": {
+          "mae": 191.76,
+          "rmse": 247.52,
+          "bias": -169.86,
+          "count": 7833
+        },
+        "persistence": {
+          "mae": 172.46,
+          "rmse": 236.06,
+          "bias": 105.87,
+          "count": 7614
+        },
+        "common_subset": {
+          "count": 7614,
+          "model_mae": 172.98,
+          "raw_mae": 192.7,
+          "pers_mae": 172.46,
+          "skill_vs_raw_mae_pct": 10.2,
+          "skill_vs_pers_mae_pct": -0.3
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 60.59,
+          "count": 7833
+        }
+      },
+      "49-72h": {
+        "n_samples": 7856,
+        "model": {
+          "mae": 173.73,
+          "rmse": 220.04,
+          "bias": 105.14,
+          "count": 7856
+        },
+        "raw_cams": {
+          "mae": 193.07,
+          "rmse": 249.01,
+          "bias": -171.24,
+          "count": 7856
+        },
+        "persistence": {
+          "mae": 181.34,
+          "rmse": 244.58,
+          "bias": 104.05,
+          "count": 7544
+        },
+        "common_subset": {
+          "count": 7544,
+          "model_mae": 174.79,
+          "raw_mae": 194.12,
+          "pers_mae": 181.34,
+          "skill_vs_raw_mae_pct": 10.0,
+          "skill_vs_pers_mae_pct": 3.6
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 59.78,
+          "count": 7856
+        }
+      },
+      "1-72h": {
+        "n_samples": 23485,
+        "model": {
+          "mae": 172.28,
+          "rmse": 218.27,
+          "bias": 105.21,
+          "count": 23485
+        },
+        "raw_cams": {
+          "mae": 192.09,
+          "rmse": 248.03,
+          "bias": -170.43,
+          "count": 23485
+        },
+        "persistence": {
+          "mae": 169.32,
+          "rmse": 231.47,
+          "bias": 105.88,
+          "count": 22882
+        },
+        "common_subset": {
+          "count": 22882,
+          "model_mae": 172.65,
+          "raw_mae": 192.89,
+          "pers_mae": 169.32,
+          "skill_vs_raw_mae_pct": 10.5,
+          "skill_vs_pers_mae_pct": -2.0
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 60.78,
+          "count": 23485
+        }
+      }
+    },
+    "o3": {
+      "1-24h": {
+        "n_samples": 2143,
+        "model": {
+          "mae": 11.02,
+          "rmse": 16.66,
+          "bias": -1.39,
+          "count": 2143
+        },
+        "raw_cams": {
+          "mae": 71.23,
+          "rmse": 90.68,
+          "bias": 70.28,
+          "count": 2143
+        },
+        "persistence": {
+          "mae": 5.0,
+          "rmse": 11.18,
+          "bias": -2.37,
+          "count": 2143
+        },
+        "common_subset": {
+          "count": 2143,
+          "model_mae": 11.02,
+          "raw_mae": 71.23,
+          "pers_mae": 5.0,
+          "skill_vs_raw_mae_pct": 84.5,
+          "skill_vs_pers_mae_pct": -120.4
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 67.29,
+          "count": 2143
+        }
+      },
+      "25-48h": {
+        "n_samples": 2120,
+        "model": {
+          "mae": 11.12,
+          "rmse": 16.78,
+          "bias": -1.47,
+          "count": 2120
+        },
+        "raw_cams": {
+          "mae": 70.97,
+          "rmse": 90.42,
+          "bias": 70.01,
+          "count": 2120
+        },
+        "persistence": {
+          "mae": 5.84,
+          "rmse": 11.63,
+          "bias": -2.47,
+          "count": 2120
+        },
+        "common_subset": {
+          "count": 2120,
+          "model_mae": 11.12,
+          "raw_mae": 70.97,
+          "pers_mae": 5.84,
+          "skill_vs_raw_mae_pct": 84.3,
+          "skill_vs_pers_mae_pct": -90.4
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 66.13,
+          "count": 2120
+        }
+      },
+      "49-72h": {
+        "n_samples": 2099,
+        "model": {
+          "mae": 11.07,
+          "rmse": 16.75,
+          "bias": -1.68,
+          "count": 2099
+        },
+        "raw_cams": {
+          "mae": 70.45,
+          "rmse": 89.79,
+          "bias": 69.48,
+          "count": 2099
+        },
+        "persistence": {
+          "mae": 6.4,
+          "rmse": 12.1,
+          "bias": -2.63,
+          "count": 2099
+        },
+        "common_subset": {
+          "count": 2099,
+          "model_mae": 11.07,
+          "raw_mae": 70.45,
+          "pers_mae": 6.4,
+          "skill_vs_raw_mae_pct": 84.3,
+          "skill_vs_pers_mae_pct": -73.0
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 65.22,
+          "count": 2099
+        }
+      },
+      "1-72h": {
+        "n_samples": 6362,
+        "model": {
+          "mae": 11.07,
+          "rmse": 16.73,
+          "bias": -1.51,
+          "count": 6362
+        },
+        "raw_cams": {
+          "mae": 70.89,
+          "rmse": 90.3,
+          "bias": 69.93,
+          "count": 6362
+        },
+        "persistence": {
+          "mae": 5.74,
+          "rmse": 11.64,
+          "bias": -2.49,
+          "count": 6362
+        },
+        "common_subset": {
+          "count": 6362,
+          "model_mae": 11.07,
+          "raw_mae": 70.89,
+          "pers_mae": 5.74,
+          "skill_vs_raw_mae_pct": 84.4,
+          "skill_vs_pers_mae_pct": -92.9
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 66.22,
+          "count": 6362
+        }
+      }
+    },
+    "no2": {
+      "1-24h": {
+        "n_samples": 2196,
+        "model": {
+          "mae": 31.44,
+          "rmse": 44.6,
+          "bias": -20.49,
+          "count": 2196
+        },
+        "raw_cams": {
+          "mae": 46.92,
+          "rmse": 60.72,
+          "bias": -34.71,
+          "count": 2196
+        },
+        "persistence": {
+          "mae": 22.97,
+          "rmse": 35.91,
+          "bias": 4.94,
+          "count": 2196
+        },
+        "common_subset": {
+          "count": 2196,
+          "model_mae": 31.44,
+          "raw_mae": 46.92,
+          "pers_mae": 22.97,
+          "skill_vs_raw_mae_pct": 33.0,
+          "skill_vs_pers_mae_pct": -36.9
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 49.23,
+          "count": 2196
+        }
+      },
+      "25-48h": {
+        "n_samples": 2172,
+        "model": {
+          "mae": 32.06,
+          "rmse": 45.07,
+          "bias": -20.68,
+          "count": 2172
+        },
+        "raw_cams": {
+          "mae": 47.26,
+          "rmse": 61.02,
+          "bias": -35.22,
+          "count": 2172
+        },
+        "persistence": {
+          "mae": 25.23,
+          "rmse": 38.08,
+          "bias": 4.79,
+          "count": 2172
+        },
+        "common_subset": {
+          "count": 2172,
+          "model_mae": 32.06,
+          "raw_mae": 47.26,
+          "pers_mae": 25.23,
+          "skill_vs_raw_mae_pct": 32.2,
+          "skill_vs_pers_mae_pct": -27.1
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 49.13,
+          "count": 2172
+        }
+      },
+      "49-72h": {
+        "n_samples": 2148,
+        "model": {
+          "mae": 32.34,
+          "rmse": 45.32,
+          "bias": -21.04,
+          "count": 2148
+        },
+        "raw_cams": {
+          "mae": 47.63,
+          "rmse": 61.33,
+          "bias": -35.74,
+          "count": 2148
+        },
+        "persistence": {
+          "mae": 26.7,
+          "rmse": 39.57,
+          "bias": 4.63,
+          "count": 2148
+        },
+        "common_subset": {
+          "count": 2148,
+          "model_mae": 32.34,
+          "raw_mae": 47.63,
+          "pers_mae": 26.7,
+          "skill_vs_raw_mae_pct": 32.1,
+          "skill_vs_pers_mae_pct": -21.1
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 49.86,
+          "count": 2148
+        }
+      },
+      "1-72h": {
+        "n_samples": 6516,
+        "model": {
+          "mae": 31.94,
+          "rmse": 44.99,
+          "bias": -20.73,
+          "count": 6516
+        },
+        "raw_cams": {
+          "mae": 47.27,
+          "rmse": 61.02,
+          "bias": -35.22,
+          "count": 6516
+        },
+        "persistence": {
+          "mae": 24.95,
+          "rmse": 37.87,
+          "bias": 4.79,
+          "count": 6516
+        },
+        "common_subset": {
+          "count": 6516,
+          "model_mae": 31.94,
+          "raw_mae": 47.27,
+          "pers_mae": 24.95,
+          "skill_vs_raw_mae_pct": 32.4,
+          "skill_vs_pers_mae_pct": -28.0
+        },
+        "interval_coverage_80": {
+          "coverage_pct": 49.4,
+          "count": 6516
+        }
+      }
+    }
+  },
+  "aqi_category": {
+    "1-24h": {
+      "valid_hours": 7820,
+      "accuracy_model_pct": 31.61,
+      "accuracy_raw_cams_pct": 23.93,
+      "accuracy_persistence_pct": 41.79
+    },
+    "25-48h": {
+      "valid_hours": 7858,
+      "accuracy_model_pct": 31.57,
+      "accuracy_raw_cams_pct": 23.9,
+      "accuracy_persistence_pct": 36.63
+    },
+    "49-72h": {
+      "valid_hours": 7881,
+      "accuracy_model_pct": 31.89,
+      "accuracy_raw_cams_pct": 23.77,
+      "accuracy_persistence_pct": 35.14
+    },
+    "1-72h": {
+      "valid_hours": 23559,
+      "accuracy_model_pct": 31.69,
+      "accuracy_raw_cams_pct": 23.86,
+      "accuracy_persistence_pct": 37.88
+    }
+  },
+  "severe_risk": {
+    "1-24h": {
+      "n_samples": 7820,
+      "severe_events": 1788,
+      "brier_score_model": 0.251,
+      "brier_score_climatology": 0.2264,
+      "brier_score_persistence": 0.284,
+      "brier_score_raw_cams": 0.2285,
+      "bss_vs_climatology": -0.1091,
+      "bss_vs_persistence": 0.1161,
+      "bss_vs_raw_cams": -0.0986,
+      "reliability": [
+        {
+          "bin_range": "[0.0, 0.2]",
+          "count": 2267,
+          "mean_predicted": 0.0637,
+          "observed_fraction": 0.0481
+        },
+        {
+          "bin_range": "[0.2, 0.4]",
+          "count": 1270,
+          "mean_predicted": 0.302,
+          "observed_fraction": 0.2283
+        },
+        {
+          "bin_range": "[0.4, 0.6]",
+          "count": 1332,
+          "mean_predicted": 0.4997,
+          "observed_fraction": 0.2598
+        },
+        {
+          "bin_range": "[0.6, 0.8]",
+          "count": 1389,
+          "mean_predicted": 0.7053,
+          "observed_fraction": 0.3434
+        },
+        {
+          "bin_range": "[0.8, 1.0]",
+          "count": 1562,
+          "mean_predicted": 0.8942,
+          "observed_fraction": 0.3624
+        }
+      ]
+    },
+    "25-48h": {
+      "n_samples": 7858,
+      "severe_events": 1800,
+      "brier_score_model": 0.2551,
+      "brier_score_climatology": 0.2268,
+      "brier_score_persistence": 0.3095,
+      "brier_score_raw_cams": 0.2298,
+      "bss_vs_climatology": -0.1249,
+      "bss_vs_persistence": 0.1758,
+      "bss_vs_raw_cams": -0.1099,
+      "reliability": [
+        {
+          "bin_range": "[0.0, 0.2]",
+          "count": 2294,
+          "mean_predicted": 0.0654,
+          "observed_fraction": 0.0549
+        },
+        {
+          "bin_range": "[0.2, 0.4]",
+          "count": 1270,
+          "mean_predicted": 0.3011,
+          "observed_fraction": 0.2299
+        },
+        {
+          "bin_range": "[0.4, 0.6]",
+          "count": 1303,
+          "mean_predicted": 0.4981,
+          "observed_fraction": 0.2678
+        },
+        {
+          "bin_range": "[0.6, 0.8]",
+          "count": 1365,
+          "mean_predicted": 0.7046,
+          "observed_fraction": 0.3275
+        },
+        {
+          "bin_range": "[0.8, 1.0]",
+          "count": 1626,
+          "mean_predicted": 0.8964,
+          "observed_fraction": 0.3604
+        }
+      ]
+    },
+    "49-72h": {
+      "n_samples": 7881,
+      "severe_events": 1820,
+      "brier_score_model": 0.2565,
+      "brier_score_climatology": 0.2286,
+      "brier_score_persistence": 0.3322,
+      "brier_score_raw_cams": 0.2317,
+      "bss_vs_climatology": -0.1218,
+      "bss_vs_persistence": 0.2279,
+      "bss_vs_raw_cams": -0.1069,
+      "reliability": [
+        {
+          "bin_range": "[0.0, 0.2]",
+          "count": 2284,
+          "mean_predicted": 0.068,
+          "observed_fraction": 0.063
+        },
+        {
+          "bin_range": "[0.2, 0.4]",
+          "count": 1248,
+          "mean_predicted": 0.3015,
+          "observed_fraction": 0.2268
+        },
+        {
+          "bin_range": "[0.4, 0.6]",
+          "count": 1337,
+          "mean_predicted": 0.4993,
+          "observed_fraction": 0.2588
+        },
+        {
+          "bin_range": "[0.6, 0.8]",
+          "count": 1427,
+          "mean_predicted": 0.7063,
+          "observed_fraction": 0.3287
+        },
+        {
+          "bin_range": "[0.8, 1.0]",
+          "count": 1585,
+          "mean_predicted": 0.8959,
+          "observed_fraction": 0.3647
+        }
+      ]
+    },
+    "1-72h": {
+      "n_samples": 23559,
+      "severe_events": 5408,
+      "brier_score_model": 0.2542,
+      "brier_score_climatology": 0.2273,
+      "brier_score_persistence": 0.3086,
+      "brier_score_raw_cams": 0.23,
+      "bss_vs_climatology": -0.1186,
+      "bss_vs_persistence": 0.1763,
+      "bss_vs_raw_cams": -0.1052,
+      "reliability": [
+        {
+          "bin_range": "[0.0, 0.2]",
+          "count": 6845,
+          "mean_predicted": 0.0657,
+          "observed_fraction": 0.0554
+        },
+        {
+          "bin_range": "[0.2, 0.4]",
+          "count": 3788,
+          "mean_predicted": 0.3015,
+          "observed_fraction": 0.2284
+        },
+        {
+          "bin_range": "[0.4, 0.6]",
+          "count": 3972,
+          "mean_predicted": 0.499,
+          "observed_fraction": 0.2621
+        },
+        {
+          "bin_range": "[0.6, 0.8]",
+          "count": 4181,
+          "mean_predicted": 0.7054,
+          "observed_fraction": 0.3332
+        },
+        {
+          "bin_range": "[0.8, 1.0]",
+          "count": 4773,
+          "mean_predicted": 0.8955,
+          "observed_fraction": 0.3625
+        }
+      ]
+    }
+  }
+}
