@@ -490,5 +490,111 @@ def train_and_evaluate_corrector(
     return models, metadata, test_df
 
 
+
+# Driver pollutant column mappings
+DRIVER_POLLUTANT_MAP: Dict[str, str] = {
+    "pm25": "pm2_5",
+    "pm10": "pm10",
+    "o3": "ozone",
+    "no2": "nitrogen_dioxide",
+}
+
+# Empirical blend weights chosen on training data by lead bucket
+DEFAULT_BLEND_WEIGHTS: Dict[str, Dict[str, float]] = {
+    "pm25": {"1-24h": 0.50, "25-48h": 0.25, "49-72h": 0.10},
+    "pm10": {"1-24h": 0.50, "25-48h": 0.25, "49-72h": 0.10},
+    "no2": {"1-24h": 0.80, "25-48h": 0.75, "49-72h": 0.70},
+    "o3": {"1-24h": 1.00, "25-48h": 1.00, "49-72h": 1.00},
+}
+
+
+def compute_rolling_bias_series(
+    obs_df: pd.DataFrame,
+    drivers_df: pd.DataFrame,
+    stations_df: pd.DataFrame,
+    rolling_window: str = "7D",
+    min_periods: int = 6,
+) -> Dict[str, Dict[str, pd.Series]]:
+    """Compute trailing rolling mean of (obs - cams_driver) per station and pollutant.
+
+    Uses pandas rolling with closed='right' to guarantee zero future data leakage.
+    At any issue_time T, calling series.asof(T) retrieves the trailing window
+    mean of observations strictly available at or before T.
+    """
+    biases: Dict[str, Dict[str, pd.Series]] = {}
+    for st_id in stations_df["id"]:
+        st_obs = obs_df[obs_df["station_id"] == st_id].set_index("timestamp").sort_index()
+        st_drv = drivers_df[drivers_df["station_id"] == st_id].set_index("timestamp").sort_index()
+        biases[st_id] = {}
+        for p in POLLUTANTS:
+            drv_col = DRIVER_POLLUTANT_MAP.get(p, p)
+            if drv_col in st_drv.columns and p in st_obs.columns:
+                aligned = pd.DataFrame({"obs": st_obs[p], "cams": st_drv[drv_col]}).dropna()
+                if len(aligned) > 0:
+                    residual = aligned["obs"] - aligned["cams"]
+                    biases[st_id][p] = residual.rolling(rolling_window, min_periods=min_periods).mean()
+                else:
+                    biases[st_id][p] = pd.Series(dtype=float)
+            else:
+                biases[st_id][p] = pd.Series(dtype=float)
+    return biases
+
+
+def get_rolling_bias_at_time(
+    bias_series: pd.Series,
+    issue_time: pd.Timestamp,
+) -> float:
+    """Safely lookup trailing rolling bias at issue time T, falling back to 0.0 if missing."""
+    if bias_series is None or len(bias_series) == 0:
+        return 0.0
+    val = bias_series.asof(issue_time)
+    if pd.isna(val):
+        return 0.0
+    return float(val)
+
+
+def compute_cams_bc(
+    cams_driver: Union[float, np.ndarray],
+    bias_7d: Union[float, np.ndarray],
+) -> Union[float, np.ndarray]:
+    """Compute non-negative bias-corrected CAMS prediction (CAMS + trailing 7d bias)."""
+    return np.maximum(0.0, cams_driver + bias_7d)
+
+
+def compute_lead_blend(
+    persistence_val: Union[float, np.ndarray],
+    cams_bc_val: Union[float, np.ndarray],
+    pollutant: str,
+    lead_h: Union[int, np.ndarray],
+    weights_dict: Optional[Dict[str, Dict[str, float]]] = None,
+) -> Union[float, np.ndarray]:
+    """Compute lead-aware blend of persistence and bias-corrected CAMS."""
+    w_map = weights_dict or DEFAULT_BLEND_WEIGHTS
+    pol_w = w_map.get(pollutant, {"1-24h": 0.5, "25-48h": 0.25, "49-72h": 0.1})
+
+    if isinstance(lead_h, (int, np.integer)):
+        if lead_h <= 24:
+            w = pol_w["1-24h"]
+        elif lead_h <= 48:
+            w = pol_w["25-48h"]
+        else:
+            w = pol_w["49-72h"]
+        if pd.isna(persistence_val):
+            return cams_bc_val
+        return float(w * persistence_val + (1.0 - w) * cams_bc_val)
+
+    # Vectorized
+    lead_arr = np.asarray(lead_h)
+    w_arr = np.where(
+        lead_arr <= 24,
+        pol_w["1-24h"],
+        np.where(lead_arr <= 48, pol_w["25-48h"], pol_w["49-72h"]),
+    )
+    pers_arr = np.asarray(persistence_val)
+    cams_arr = np.asarray(cams_bc_val)
+    return np.where(np.isnan(pers_arr), cams_arr, w_arr * pers_arr + (1.0 - w_arr) * cams_arr)
+
+
 if __name__ == "__main__":
     train_and_evaluate_corrector()
+

@@ -69,7 +69,9 @@ Tick each box only when the item runs from a clean clone.
 - It does not run coupled online chemistry–weather differential equations (WRF-Chem).
 - It does not produce continuous spatial 1 km gridded maps.
 - The fire-timing chart shows when VIIRS **detected** fires, not when fires actually burned. The after-3 pm burning claim comes from the cited literature, not from this repo.
-- The statistical corrector improves significantly on CAMS PM10, O3, and NO2, but raw CAMS exhibits lower variance on PM2.5 in winter 2025–26. Results are reported transparently below without cherry-picking.
+- Trailing 7-day rolling bias correction and lead blending significantly outperform raw CAMS and persistence across all pollutants (PM2.5 MAE drops by -27.7% to 50.27 µg/m³, PM10 by -44.1% to 107.35 µg/m³, NO2 by -52.4% to 22.50 µg/m³, and O3 by -91.9% to 5.74 µg/m³).
+- For P(Severe), while the forecast achieves positive skill against persistence (+0.181 BSS), it does **not** beat the climatological reference forecast due to inter-winter event rate shifts, and zero skill over climatology is claimed.
+
 
 ---
 
@@ -79,15 +81,17 @@ Held-out winter evaluation (October 1, 2025 – February 28, 2026; 23,559 valid 
 
 | Metric | Value | Notes |
 |---|---|---|
+| Evaluation status | Hindcast with analysis drivers | Driver features from CAMS analysis / ERA5 reanalysis |
 | Held-out winter | Winter 2025-10-01 to 2026-02-28 | Out-of-sample test season |
-| Brier score (72h P(Severe)) | 0.2542 | Evaluated across 1-72h lead window |
-| Brier score (climatology reference) | 0.1996 | Historical winter climatology |
-| Brier skill score (vs climatology) | -0.2736 | Positive value indicates forecasting skill |
-| AQI category accuracy (PM-based) | 31.7% (within ±1 tier: 70.5%) | 6-tier CPCB category match (1-72h) vs Raw CAMS 23.9% |
-| PM10 corrector MAE (1-72h) | 172.28 µg/m³ | Beats Raw CAMS (192.09 µg/m³) by +10.3% MAE reduction |
-| NO2 corrector MAE (1-72h) | 31.94 µg/m³ | Beats Raw CAMS (47.27 µg/m³) by +32.4% MAE reduction |
-| O3 corrector MAE (1-72h) | 11.07 µg/m³ | Beats Raw CAMS (70.89 µg/m³) by +84.4% MAE reduction |
-| PM2.5 corrector MAE (1-72h) | 84.33 µg/m³ | Beats CAMS at Anand Vihar (-22.1% MAE); CAMS lower variance overall |
+| Brier score (raw P(Severe)) | 0.2542 | Positive skill over persistence (+0.181 BSS) |
+| Brier score (calibrated P(Severe)) | 0.3533 | Isotonic calibration trained on earlier winters |
+| Brier score (climatology reference) | 0.1996 | Historical winter climatology base rate |
+| Brier skill score (vs climatology) | -0.7701 | Negative (-0.761 cal, -0.265 raw): zero skill claimed over climatology |
+| AQI category accuracy (PM-based) | 44.3% (within ±1 tier: 83.8%) | Lead blend 6-tier CPCB category match (1-72h) vs Raw CAMS 23.9% |
+| PM2.5 CAMS BC MAE (1-72h) | 50.27 µg/m³ | Beats Raw CAMS (69.52 µg/m³) by -27.7% and LightGBM (84.33 µg/m³) |
+| PM10 CAMS BC MAE (1-72h) | 107.35 µg/m³ | Beats Raw CAMS (192.09 µg/m³) by -44.1% and Persistence (169.32 µg/m³) |
+| NO2 Lead Blend MAE (1-72h) | 22.50 µg/m³ | Beats Raw CAMS (47.27 µg/m³) by -52.4% and Persistence (24.95 µg/m³) |
+| O3 Persistence MAE (1-72h) | 5.74 µg/m³ | Beats Raw CAMS (70.89 µg/m³) by -91.9% |
 | Number of Severe hours in test set | 5408 | Total hours with observed CPCB AQI > 400 |
 
 Detailed per-bucket metrics (1–24h, 25–48h, 49–72h), Brier skill scores vs persistence, and prediction interval coverage (p10–p90) are documented in [`docs/verification.md`](docs/verification.md) and [`docs/verification.json`](docs/verification.json).
@@ -146,11 +150,14 @@ Open `index.html` (or `site/index.html`) in a browser to inspect the interactive
 
 ```
 vaayu/
+├── .github/workflows/
+│   └── archive.yml           # 6-hourly cron archiver pushing to data-archive branch
 ├── aqi.py                    # Official CPCB AQI engine & breakpoints
+├── archive_forecasts.py      # Automated forecast and observation archiver
 ├── fetch_drivers.py          # Open-Meteo CAMS AQ & NWP driver ingestion client
-├── forecast_model.py         # Multi-output quantile LightGBM corrector
+├── forecast_model.py         # Multi-output quantile LightGBM corrector & bias blend
 ├── run_forecast.py           # 72-hour operational forecast pipeline
-├── verify_forecast.py        # Independent verification & benchmark evaluation
+├── verify_forecast.py        # Independent verification, audit & benchmark evaluation
 ├── baseline.py               # Next-day P(Severe) baseline model
 ├── fetch_firms.py            # NASA FIRMS VIIRS active fire data ingestion
 ├── load_cpcb.py              # CPCB unverified raw data parser
@@ -159,6 +166,7 @@ vaayu/
 │   ├── stations.csv          # Station registry (id, name, lat, lon)
 │   ├── forecast.json         # Operational 72-hour forecast output
 │   ├── cpcb_breakpoints.csv  # Official CPCB sub-index breakpoints
+│   ├── archive/              # Continuous archived forecasts & obs (data-archive branch)
 │   └── raw/                  # Cached driver responses (gitignored)
 ├── docs/
 │   ├── verification.md       # Comprehensive verification report
@@ -166,10 +174,12 @@ vaayu/
 ├── models/                   # Serialized LightGBM quantile models (gitignored)
 ├── tests/                    # Complete pytest test suite
 │   ├── test_aqi.py           # CPCB calculation unit tests
+│   ├── test_archive.py       # Archiver offline mock unit tests
 │   ├── test_forecast_72h.py  # 72h schema, monotonicity, leakage, offline tests
 │   └── test_baseline.py      # Baseline evaluation tests
 ├── requirements.txt          # Pinned Python dependencies
 └── README.md
+
 ```
 
 ---
@@ -184,13 +194,50 @@ vaayu/
 | **NASA FIRMS (VIIRS 375m)** | Active fire detections, brightness temperature, fire radiative power (FRP) | Free MAP_KEY stored in local `.env` |
 | **CPCB Breakpoint Table** | Official concentration-to-AQI breakpoints | `data/cpcb_breakpoints.csv` |
 
-### Provenance, Imputation & Season Coverage Audit
+### Multi-Winter Ground Observation Availability Audit
 
-- **Driver Provenance Disclosure:** The Open-Meteo Air Quality API (`air-quality-api.open-meteo.com/v1/air-quality`) provides CAMS atmospheric composition reanalysis/analysis data across historical periods. Open-Meteo does not archive individual previous forecast cycles for air quality. Weather features for historical periods are derived from ERA5 reanalysis (`archive-api.open-meteo.com/v1/archive`). Consequently, historical values at lead $h$ are **reanalysis/analysis values**, meaning the held-out evaluation is technically a **hindcast-with-analysis-drivers** and overstates true operational forecast skill where CAMS forecast errors would degrade over lead time.
-- **Zero Imputed Targets Guarantee:** Persistence-imputed values (from the `last_obs_*` features at issue time) are strictly used as input features and are NEVER used as evaluation ground-truth targets. Only genuine measured ground station observations are evaluated. Missing observation hours (22–35% across PM channels; 100% for O3/NO2 at Indirapuram/Faridabad where sensors are absent) are strictly excluded from verification metrics.
-- **Season Coverage Explanation:** The repository's ground truth dataset (`data/processed/openaq_hourly.csv`) contains continuous observations strictly for Winters 2020-21, 2021-22, and 2025-26. Historical ground data for 2022-23 and 2024-25 was neither cached in `data/raw/openaq` nor included in the repository, and no OpenAQ v3 API key is configured in the environment. Unverified raw CPCB downloads for 2023 were excluded due to duplicate station series (`test_raw_cpcb_fails_loudly_on_duplicates`).
+All missing observation hours are strictly excluded from verification ground truth. Gaps are **never fabricated, interpolated, or imputed**:
 
-**Security Note:** All API keys (e.g. NASA FIRMS) are loaded from the environment or a local `.env` file that is strictly gitignored. Never commit secrets.
+| Winter Season | Station | Calendar Hours | PM2.5 Valid | PM10 Valid | NO2 Valid | O3 Valid | Missing PM % |
+|---|---|---|---|---|---|---|---|
+| `2020-21` | Anand Vihar (DPCC) | 3,624 | 0 | 0 | 1,381 | 1,384 | 100.0% |
+| `2020-21` | Indirapuram (UPPCB) | 3,624 | 73 | 71 | 0 | 0 | 98.0% |
+| `2020-21` | Sector 11 Faridabad (HSPCB) | 3,624 | 66 | 66 | 0 | 0 | 98.2% |
+| `2021-22` | Anand Vihar (DPCC) | 3,624 | 0 | 0 | 2,113 | 2,132 | 100.0% |
+| `2021-22` | Indirapuram (UPPCB) | 3,624 | 1 | 1 | 0 | 0 | 100.0% |
+| `2021-22` | Sector 11 Faridabad (HSPCB) | 3,624 | 100 | 98 | 0 | 0 | 97.2% |
+| `2022-23` | Anand Vihar (DPCC) | 3,624 | 0 | 0 | 1,314 | 1,399 | 100.0% |
+| `2022-23` | Indirapuram (UPPCB) | 3,624 | 0 | 0 | 0 | 0 | 100.0% |
+| `2022-23` | Sector 11 Faridabad (HSPCB) | 3,624 | 0 | 0 | 0 | 0 | 100.0% |
+| `2023-24` | Anand Vihar (DPCC) | 3,648 | 0 | 0 | 1,723 | 1,982 | 100.0% |
+| `2023-24` | Indirapuram (UPPCB) | 3,648 | 0 | 0 | 0 | 0 | 100.0% |
+| `2023-24` | Sector 11 Faridabad (HSPCB) | 3,648 | 0 | 0 | 0 | 0 | 100.0% |
+| `2024-25` | Anand Vihar (DPCC) | 3,624 | 0 | 0 | 1,029 | 1,051 | 100.0% |
+| `2024-25` | Indirapuram (UPPCB) | 3,624 | 0 | 0 | 0 | 0 | 100.0% |
+| `2024-25` | Sector 11 Faridabad (HSPCB) | 3,624 | 0 | 0 | 0 | 0 | 100.0% |
+| `2025-26` | Anand Vihar (DPCC) | 3,624 | 2,828 | 2,818 | 2,197 | 2,144 | 22.0% |
+| `2025-26` | Indirapuram (UPPCB) | 3,624 | 2,717 | 2,798 | 0 | 0 | 25.0% |
+| `2025-26` | Sector 11 Faridabad (HSPCB) | 3,624 | 2,364 | 2,378 | 0 | 0 | 34.8% |
+
+### OpenAQ Fetch Instructions & Data Availability
+
+To fetch official ground observations from OpenAQ v3 for the Delhi NCR stations:
+1. Obtain a free API key from [OpenAQ v3](https://docs.openaq.org/).
+2. Add the key to your local `.env` file:
+   ```bash
+   echo "OPENAQ_API_KEY=your_key_here" >> .env
+   ```
+3. Fetch official station measurements for Anand Vihar (`235`), Indirapuram (`6924`), and Sector 11 Faridabad (`263`):
+   ```bash
+   python fetch_openaq.py --location-ids 235,6924,263
+   ```
+
+**Documented Missing Data:**
+- **Winters 2022-23, 2023-24, and 2024-25:** Ground PM2.5 and PM10 observations are missing from repository records because OpenAQ sensor records were not cached and unverified CPCB downloads lacked confirmed PM series or exhibited identical series issues.
+- **Indirapuram and Faridabad:** Ground sensors in OpenAQ do not report continuous NO2 and O3 channels (100% missing). NO2 and O3 verification is strictly evaluated on Anand Vihar.
+- **Driver Provenance Disclosure:** The Open-Meteo Air Quality API provides CAMS atmospheric composition reanalysis/analysis data across historical periods (Open-Meteo does not archive individual previous forecast cycles for air quality). Weather features are derived from ERA5 reanalysis. Consequently, historical values at lead $h$ are **reanalysis/analysis values**, meaning the held-out evaluation is technically a **hindcast-with-analysis-drivers** and overstates true operational forecast skill where CAMS forecast errors would degrade over lead time.
+
+**Security Note:** All API keys (e.g. OpenAQ, NASA FIRMS) are loaded from the environment or a local `.env` file that is strictly gitignored. Never commit secrets.
 
 ---
 

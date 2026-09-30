@@ -392,3 +392,140 @@ def test_pipeline_runs_offline_mocked(tmp_path):
     assert "72h" in result["p_severe"]
     assert result["hourly"][0]["pm25"]["p50"] == 100.0
     assert result["hourly"][0]["pm10"]["p50"] == 100.0
+
+
+# ==============================================================================
+# 7. Rolling Bias Correction & Zero-Leakage Test
+# ==============================================================================
+
+def test_rolling_bias_series_leak_free():
+    """Verify that trailing 7-day rolling bias strictly uses t <= issue_time."""
+    from forecast_model import compute_rolling_bias_series, get_rolling_bias_at_time
+
+    # Create synthetic observations and driver series
+    times = pd.date_range("2025-11-01", "2025-11-15", freq="1h", tz="Asia/Kolkata")
+    st_df = pd.DataFrame([{"id": "st1", "name": "Station 1", "lat": 28.5, "lon": 77.2}])
+
+    # CAMS driver = 100, Obs = 150 (residual = +50)
+    obs_rows = [{"timestamp": t, "station_id": "st1", "pm25": 150.0, "pm10": 250.0, "o3": 20.0, "no2": 40.0} for t in times]
+    drv_rows = [{"timestamp": t, "station_id": "st1", "pm2_5": 100.0, "pm10": 200.0, "ozone": 50.0, "nitrogen_dioxide": 60.0} for t in times]
+
+    biases = compute_rolling_bias_series(pd.DataFrame(obs_rows), pd.DataFrame(drv_rows), st_df)
+    assert "st1" in biases
+    assert "pm25" in biases["st1"]
+
+    # Issue time at Nov 10 12:00
+    issue_t = pd.Timestamp("2025-11-10 12:00:00", tz="Asia/Kolkata")
+    bias_pm25 = get_rolling_bias_at_time(biases["st1"]["pm25"], issue_t)
+    assert pytest.approx(bias_pm25, 0.1) == 50.0
+
+    # Modify future observations (Nov 11 onwards) to 1000
+    obs_modified = [dict(r) for r in obs_rows]
+    for r in obs_modified:
+        if r["timestamp"] > issue_t:
+            r["pm25"] = 1000.0
+
+    biases_mod = compute_rolling_bias_series(pd.DataFrame(obs_modified), pd.DataFrame(drv_rows), st_df)
+    bias_pm25_mod = get_rolling_bias_at_time(biases_mod["st1"]["pm25"], issue_t)
+
+    # Bias at issue_t must remain strictly unchanged
+    assert bias_pm25_mod == bias_pm25, "Future observation leakage detected in rolling bias calculation!"
+
+
+# ==============================================================================
+# 8. CAMS Bias Correction & Non-Negativity
+# ==============================================================================
+
+def test_compute_cams_bc():
+    """Verify CAMS bias correction addition and physical non-negativity constraint."""
+    from forecast_model import compute_cams_bc
+
+    # Positive bias
+    assert compute_cams_bc(100.0, 25.0) == 125.0
+
+    # Negative bias bounded by 0
+    assert compute_cams_bc(20.0, -50.0) == 0.0
+
+    # Vectorized
+    cams_arr = np.array([50.0, 10.0, 0.0])
+    bias_arr = np.array([10.0, -30.0, 5.0])
+    out = compute_cams_bc(cams_arr, bias_arr)
+    np.testing.assert_array_equal(out, np.array([60.0, 0.0, 5.0]))
+
+
+# ==============================================================================
+# 9. Lead-Aware Blend & Bucket Weighting
+# ==============================================================================
+
+def test_lead_aware_blend():
+    """Verify lead-aware blend applies lead-bucket weights and handles missing persistence."""
+    from forecast_model import compute_lead_blend
+
+    # PM2.5 weights: 1-24h -> 0.5, 25-48h -> 0.25, 49-72h -> 0.10
+    pers = 100.0
+    c_bc = 60.0
+
+    # Lead 12h: 0.5 * 100 + 0.5 * 60 = 80
+    assert pytest.approx(compute_lead_blend(pers, c_bc, "pm25", 12)) == 80.0
+
+    # Lead 36h: 0.25 * 100 + 0.75 * 60 = 70
+    assert pytest.approx(compute_lead_blend(pers, c_bc, "pm25", 36)) == 70.0
+
+    # Lead 60h: 0.10 * 100 + 0.90 * 60 = 64
+    assert pytest.approx(compute_lead_blend(pers, c_bc, "pm25", 60)) == 64.0
+
+    # Missing persistence falls back to CAMS BC
+    assert pytest.approx(compute_lead_blend(np.nan, c_bc, "pm25", 12)) == 60.0
+
+
+# ==============================================================================
+# 10. Isotonic Calibration Bounds & Monotonicity
+# ==============================================================================
+
+def test_isotonic_calibration_bounds():
+    """Verify Isotonic Regression yields probabilities strictly in [0, 1] and monotonic."""
+    from sklearn.isotonic import IsotonicRegression
+
+    # Synthetic training probabilities and binary outcomes
+    p_train = np.array([0.1, 0.2, 0.4, 0.5, 0.7, 0.9])
+    y_train = np.array([0, 0, 1, 0, 1, 1])
+
+    iso = IsotonicRegression(out_of_bounds="clip", y_min=0.0, y_max=1.0)
+    iso.fit(p_train, y_train)
+
+    p_test = np.array([-0.5, 0.05, 0.3, 0.6, 0.85, 1.5])
+    cal_preds = iso.predict(p_test)
+
+    assert np.all(cal_preds >= 0.0)
+    assert np.all(cal_preds <= 1.0)
+    assert np.all(np.diff(cal_preds) >= 0.0), "Calibrated probabilities must be monotonic"
+
+
+# ==============================================================================
+# 11. Multi-Winter Observation Audit Structure
+# ==============================================================================
+
+def test_multi_winter_audit_structure():
+    """Verify that audit_all_winters covers all 6 winter seasons without crashes."""
+    from verify_forecast import ALL_WINTERS, audit_all_winters
+    from forecast_model import load_all_observations
+    from fetch_drivers import load_stations, DEFAULT_STATIONS_CSV
+
+    obs_df = load_all_observations()
+    stations_df = load_stations(DEFAULT_STATIONS_CSV)
+    audit = audit_all_winters(obs_df, stations_df)
+
+    assert len(audit) == len(ALL_WINTERS)
+    for w_name, _, _ in ALL_WINTERS:
+        assert w_name in audit
+        assert "calendar_hours" in audit[w_name]
+        assert "stations" in audit[w_name]
+        for st_id in stations_df["id"]:
+            assert st_id in audit[w_name]["stations"]
+            st_data = audit[w_name]["stations"][st_id]
+            for p in ["pm25", "pm10", "no2", "o3"]:
+                assert p in st_data
+                assert "valid_hours" in st_data[p]
+                assert "missing_hours" in st_data[p]
+                assert st_data[p]["valid_hours"] + st_data[p]["missing_hours"] == audit[w_name]["calendar_hours"]
+

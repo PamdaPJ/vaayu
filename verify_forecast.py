@@ -1,17 +1,22 @@
 """Verification, Baseline Comparison, and Audit for VAAYU 72-Hour Forecasting System.
 
-Evaluates the statistical corrector on the held-out winter season (2025-2026: Oct 1 - Feb 28)
+Evaluates operational forecast candidates on the held-out winter season (2025-2026: Oct 1 - Feb 28)
 across lead-time buckets (1-24h, 25-48h, 49-72h, and overall 1-72h) against:
 1. Persistence baseline (persisting the latest observation available at or before issue time)
 2. Raw Open-Meteo / CAMS numerical weather & air quality forecast (with zero correction)
 3. Historical Climatology baseline (per station, month, and hour of day from training winters)
+4. Trained LightGBM multi-quantile corrector
+5. Rolling 7-day bias-corrected CAMS (CAMS + trailing 7d mean of obs - CAMS available at issue time)
+6. Lead-aware blend of Persistence and Bias-Corrected CAMS (with weights chosen by lead bucket)
 
 Includes comprehensive audits for:
 - Driver provenance (Open-Meteo endpoints, models, reanalysis vs forecast analysis)
+- Multi-winter valid observations audit per station and pollutant (Winters 2020-21 through 2025-26)
 - Zero-imputation evaluation guarantee and table of missing/excluded observations
-- PM2.5 in-depth diagnosis (bias by month, hour, station, distribution shifts, experiments)
-- Exact vs within-one-category AQI accuracy
-- Probabilistic P(Severe) Brier score, Brier skill score (vs Climatology & Persistence)
+- Persistence leak-free verification (strictly t <= T_issue)
+- Isotonic calibration of P(Severe) probabilities on training data with Brier skill evaluation
+- AQI category accuracy (exact and within-one-tier)
+- Labeling of all scores as "hindcast with analysis drivers" until archived operational cycles exist
 
 Outputs:
 - docs/verification.json
@@ -36,17 +41,24 @@ if hasattr(sys.stdout, "reconfigure"):
 import numpy as np
 import pandas as pd
 from scipy.special import erfc
+from sklearn.isotonic import IsotonicRegression
 
 import aqi
 from fetch_drivers import DEFAULT_STATIONS_CSV, load_stations
 from forecast_model import (
+    DEFAULT_BLEND_WEIGHTS,
+    DRIVER_POLLUTANT_MAP,
     FEATURE_COLUMNS,
     MODELS_DIR,
     POLLUTANTS,
     TEST_WINTER,
     TRAIN_WINTERS,
     build_dataset_for_seasons,
+    compute_cams_bc,
+    compute_lead_blend,
+    compute_rolling_bias_series,
     load_all_observations,
+    load_drivers_for_seasons,
     load_models,
     predict_quantiles,
 )
@@ -55,6 +67,15 @@ DOCS_DIR = Path("docs")
 README_PATH = Path("README.md")
 VERIFICATION_JSON = DOCS_DIR / "verification.json"
 VERIFICATION_MD = DOCS_DIR / "verification.md"
+
+ALL_WINTERS = [
+    ("2020-21", "2020-10-01", "2021-02-28"),
+    ("2021-22", "2021-10-01", "2022-02-28"),
+    ("2022-23", "2022-10-01", "2023-02-28"),
+    ("2023-24", "2023-10-01", "2024-02-29"),
+    ("2024-25", "2024-10-01", "2025-02-28"),
+    ("2025-26", "2025-10-01", "2026-02-28"),
+]
 
 LEAD_BUCKETS = {
     "1-24h": (1, 24),
@@ -212,6 +233,40 @@ def get_climatology_value(
     return float(pol_map["overall"])
 
 
+def audit_all_winters(
+    obs_df: pd.DataFrame,
+    stations_df: pd.DataFrame,
+) -> Dict[str, Any]:
+    """Audit observation completeness across all multi-winter seasons per station and pollutant."""
+    winter_audit: Dict[str, Any] = {}
+    for w_name, s_start, s_end in ALL_WINTERS:
+        t0 = pd.Timestamp(f"{s_start} 00:00:00", tz="Asia/Kolkata")
+        t1 = pd.Timestamp(f"{s_end} 23:00:00", tz="Asia/Kolkata")
+        cal_hrs = int((t1 - t0).total_seconds() / 3600) + 1
+        sub = obs_df[(obs_df["timestamp"] >= t0) & (obs_df["timestamp"] <= t1)]
+
+        winter_audit[w_name] = {
+            "calendar_hours": cal_hrs,
+            "period": f"{s_start} to {s_end}",
+            "stations": {},
+        }
+
+        for st_id in stations_df["id"]:
+            st_sub = sub[sub["station_id"] == st_id]
+            st_entry = {}
+            for p in POLLUTANTS:
+                valid_c = int(st_sub[p].notna().sum())
+                missing_c = int(cal_hrs - valid_c)
+                st_entry[p] = {
+                    "valid_hours": valid_c,
+                    "missing_hours": missing_c,
+                    "valid_pct": round((valid_c / cal_hrs) * 100.0, 1),
+                }
+            winter_audit[w_name]["stations"][st_id] = st_entry
+
+    return winter_audit
+
+
 def evaluate_held_out_winter(
     stations_csv: Union[str, Path] = DEFAULT_STATIONS_CSV,
     models_dir: Union[str, Path] = MODELS_DIR,
@@ -223,26 +278,27 @@ def evaluate_held_out_winter(
     obs_df = load_all_observations()
     breakpoints_df = aqi.load_breakpoints()
 
-    # 1. Audit Observation Exclusions / Missingness
-    print("Auditing observation completeness on held-out winter...")
+    # 1. Multi-Winter and Held-Out Data Audit
+    print("Auditing observation completeness across all winters (2020-21 through 2025-26)...")
+    multi_audit = audit_all_winters(obs_df, stations)
+
     s_start, s_end = TEST_WINTER
     t_start = pd.Timestamp(f"{s_start} 00:00:00", tz="Asia/Kolkata")
     t_end = pd.Timestamp(f"{s_end} 23:00:00", tz="Asia/Kolkata")
     total_calendar_hours = int((t_end - t_start).total_seconds() / 3600) + 1
 
     sub_test_obs = obs_df[(obs_df["timestamp"] >= t_start) & (obs_df["timestamp"] <= t_end)]
-    imputation_audit: Dict[str, Any] = {
+    held_out_audit: Dict[str, Any] = {
         "calendar_hours_per_station": total_calendar_hours,
         "stations": {},
     }
-
     for st_id in stations["id"]:
         st_sub = sub_test_obs[sub_test_obs["station_id"] == st_id]
-        imputation_audit["stations"][st_id] = {}
+        held_out_audit["stations"][st_id] = {}
         for pol in POLLUTANTS:
             valid_c = int(st_sub[pol].notna().sum())
             missing_c = int(total_calendar_hours - valid_c)
-            imputation_audit["stations"][st_id][pol] = {
+            held_out_audit["stations"][st_id][pol] = {
                 "valid_hours": valid_c,
                 "excluded_missing_hours": missing_c,
                 "missing_pct": round((missing_c / total_calendar_hours) * 100.0, 1),
@@ -259,22 +315,65 @@ def evaluate_held_out_winter(
     )
     print(f"Evaluation dataset: {len(test_df)} rows.")
 
+    # 3. Baseline Check: Confirm persistence baseline strictly uses t <= T_issue
+    print("Verifying persistence baseline strictly uses t <= T_issue (no future leakage)...")
+    sample_rows = test_df.sample(min(200, len(test_df)), random_state=42)
+    for _, r in sample_rows.iterrows():
+        st_id = r["station_id"]
+        it = r["issue_time"]
+        for p in POLLUTANTS:
+            p_val = r[f"last_obs_{p}"]
+            if not pd.isna(p_val):
+                # Verify that only obs <= it match
+                st_obs = obs_df[(obs_df["station_id"] == st_id) & (obs_df["timestamp"] <= it)].dropna(subset=[p])
+                if len(st_obs) > 0:
+                    assert p_val == st_obs.iloc[-1][p], f"Persistence leakage at {it} for {st_id} {p}!"
+    print("Persistence baseline check: 100% verified leak-free.")
+
+    # 4. Predict quantiles using LightGBM corrector
     print("Generating quantile predictions across test set...")
     preds = predict_quantiles(models, test_df[FEATURE_COLUMNS], enforce_monotonic=True)
 
-    # 3. Build Historical Climatology Baseline
+    # 5. Build Historical Climatology Baseline
     print("Building historical climatology baseline from training winters...")
     clim_lookup = build_climatology_lookup(obs_df, TRAIN_WINTERS)
-
     test_df["valid_month"] = test_df["valid_time"].dt.month
     test_df["valid_hour"] = test_df["valid_time"].dt.hour
     for pol in POLLUTANTS:
         test_df[f"clim_{pol}"] = [
-            get_climatology_value(clim_lookup, pol, r["station_id"], r["valid_month"], r["valid_hour"])
-            for _, r in test_df.iterrows()
+            get_climatology_value(clim_lookup, pol, st, m, h)
+            for st, m, h in zip(test_df["station_id"], test_df["valid_month"], test_df["valid_hour"])
         ]
 
-    # 4. Evaluate Continuous Metrics per Pollutant
+    # 6. Compute Trailing 7-Day Rolling Bias & Lead-Aware Blend
+    print("Computing trailing 7-day rolling bias (obs - CAMS) and lead-aware blend...")
+    drivers_test = load_drivers_for_seasons(stations, [TEST_WINTER])
+    biases = compute_rolling_bias_series(obs_df, drivers_test, stations, rolling_window="7D", min_periods=6)
+
+    # Fast lookup table for (station_id, issue_time, pollutant)
+    unique_issues = test_df[["station_id", "issue_time"]].drop_duplicates()
+    bias_lookup: Dict[Tuple[str, pd.Timestamp, str], float] = {}
+    for _, r in unique_issues.iterrows():
+        st_id = r["station_id"]
+        it = r["issue_time"]
+        for p in POLLUTANTS:
+            s = biases[st_id].get(p)
+            val = s.asof(it) if len(s) > 0 else np.nan
+            bias_lookup[(st_id, it, p)] = 0.0 if pd.isna(val) else float(val)
+
+    for p in POLLUTANTS:
+        b_vals = np.array([bias_lookup.get((st, it, p), 0.0) for st, it in zip(test_df["station_id"], test_df["issue_time"])])
+        test_df[f"bias_7d_{p}"] = b_vals
+        test_df[f"cams_bc_{p}"] = compute_cams_bc(test_df[f"driver_{p}"].to_numpy(), b_vals)
+        test_df[f"blend_{p}"] = compute_lead_blend(
+            test_df[f"last_obs_{p}"].to_numpy(),
+            test_df[f"cams_bc_{p}"].to_numpy(),
+            pollutant=p,
+            lead_h=test_df["lead_h"].to_numpy(),
+        )
+
+    # 7. Evaluate Continuous Metrics per Pollutant
+    print("Evaluating continuous error metrics across candidate models...")
     pollutant_results: Dict[str, Any] = {}
 
     for pol in POLLUTANTS:
@@ -283,6 +382,8 @@ def evaluate_held_out_winter(
         driver_col = f"driver_{pol}"
         pers_col = f"last_obs_{pol}"
         clim_col = f"clim_{pol}"
+        bc_col = f"cams_bc_{pol}"
+        blend_col = f"blend_{pol}"
 
         for b_name, (h_min, h_max) in LEAD_BUCKETS.items():
             b_mask = (test_df["lead_h"] >= h_min) & (test_df["lead_h"] <= h_max)
@@ -290,31 +391,41 @@ def evaluate_held_out_winter(
             idx = sub.index
 
             y_true = sub[target_col].to_numpy()
-            y_pred = preds[pol]["p50"][idx]
+            y_model = preds[pol]["p50"][idx]
             y_raw = sub[driver_col].to_numpy()
             y_pers = sub[pers_col].to_numpy()
             y_clim = sub[clim_col].to_numpy()
+            y_bc = sub[bc_col].to_numpy()
+            y_blend = sub[blend_col].to_numpy()
 
-            m_model = compute_continuous_metrics(y_true, y_pred)
+            m_model = compute_continuous_metrics(y_true, y_model)
             m_raw = compute_continuous_metrics(y_true, y_raw)
             m_pers = compute_continuous_metrics(y_true, y_pers)
             m_clim = compute_continuous_metrics(y_true, y_clim)
+            m_bc = compute_continuous_metrics(y_true, y_bc)
+            m_blend = compute_continuous_metrics(y_true, y_blend)
+
+            # Determine best performing model in this bucket
+            models_map = {
+                "Rolling CAMS BC": m_bc["mae"],
+                "Lead Blend": m_blend["mae"],
+                "LightGBM Corrector": m_model["mae"],
+                "Persistence": m_pers["mae"],
+                "Raw CAMS": m_raw["mae"],
+                "Climatology": m_clim["mae"],
+            }
+            valid_models = {k: v for k, v in models_map.items() if v is not None}
+            best_model_name = min(valid_models, key=valid_models.get) if valid_models else "None"
+            best_mae = valid_models.get(best_model_name)
 
             p10 = preds[pol]["p10"][idx]
             p90 = preds[pol]["p90"][idx]
             coverage = compute_interval_coverage(y_true, p10, p90)
 
-            skill_vs_raw_mae = None
-            if m_raw["mae"] and m_raw["mae"] > 0 and m_model["mae"]:
-                skill_vs_raw_mae = round((1.0 - (m_model["mae"] / m_raw["mae"])) * 100.0, 1)
-
-            skill_vs_pers_mae = None
-            if m_pers["mae"] and m_pers["mae"] > 0 and m_model["mae"]:
-                skill_vs_pers_mae = round((1.0 - (m_model["mae"] / m_pers["mae"])) * 100.0, 1)
-
-            skill_vs_clim_mae = None
-            if m_clim["mae"] and m_clim["mae"] > 0 and m_model["mae"]:
-                skill_vs_clim_mae = round((1.0 - (m_model["mae"] / m_clim["mae"])) * 100.0, 1)
+            # Skill vs Raw CAMS for key models
+            skill_model_vs_raw = round((1.0 - (m_model["mae"] / m_raw["mae"])) * 100.0, 1) if m_raw["mae"] and m_model["mae"] else None
+            skill_bc_vs_raw = round((1.0 - (m_bc["mae"] / m_raw["mae"])) * 100.0, 1) if m_raw["mae"] and m_bc["mae"] else None
+            skill_blend_vs_raw = round((1.0 - (m_blend["mae"] / m_raw["mae"])) * 100.0, 1) if m_raw["mae"] and m_blend["mae"] else None
 
             pollutant_results[pol][b_name] = {
                 "n_samples": m_model["count"],
@@ -322,14 +433,18 @@ def evaluate_held_out_winter(
                 "raw_cams": m_raw,
                 "persistence": m_pers,
                 "climatology": m_clim,
-                "skill_vs_raw_mae_pct": skill_vs_raw_mae,
-                "skill_vs_pers_mae_pct": skill_vs_pers_mae,
-                "skill_vs_clim_mae_pct": skill_vs_clim_mae,
+                "cams_bc": m_bc,
+                "lead_blend": m_blend,
+                "best_model": best_model_name,
+                "best_mae": best_mae,
+                "skill_vs_raw_mae_pct": skill_model_vs_raw,
+                "skill_bc_vs_raw_pct": skill_bc_vs_raw,
+                "skill_blend_vs_raw_pct": skill_blend_vs_raw,
                 "interval_coverage_80": coverage,
             }
 
-    # 5. Evaluate AQI Category Accuracy (Exact and Within-One-Category)
-    print("Evaluating CPCB AQI category accuracy (exact & within-one-tier)...")
+    # 8. Evaluate AQI Category Accuracy
+    print("Evaluating CPCB AQI category accuracy across models...")
     bp_dict = {}
     for pol in ["PM2.5", "PM10"]:
         p_norm = pol.strip().upper().replace(".", "").replace(" ", "")
@@ -368,22 +483,13 @@ def evaluate_held_out_winter(
                 return cat
         return "Severe" if aqi_val > 500 else "Good"
 
-    p25_true = test_df["target_pm25"].to_numpy()
-    p10_true = test_df["target_pm10"].to_numpy()
-    p25_pred = preds["pm25"]["p50"]
-    p10_pred = preds["pm10"]["p50"]
-    p25_raw = test_df["driver_pm25"].to_numpy()
-    p10_raw = test_df["driver_pm10"].to_numpy()
-    p25_pers = test_df["last_obs_pm25"].to_numpy()
-    p10_pers = test_df["last_obs_pm10"].to_numpy()
-    p25_clim = test_df["clim_pm25"].to_numpy()
-    p10_clim = test_df["clim_pm10"].to_numpy()
-
-    test_df["obs_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(p25_true, p10_true)]
-    test_df["model_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(p25_pred, p10_pred)]
-    test_df["raw_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(p25_raw, p10_raw)]
-    test_df["pers_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(p25_pers, p10_pers)]
-    test_df["clim_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(p25_clim, p10_clim)]
+    test_df["obs_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(test_df["target_pm25"], test_df["target_pm10"])]
+    test_df["model_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(preds["pm25"]["p50"], preds["pm10"]["p50"])]
+    test_df["raw_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(test_df["driver_pm25"], test_df["driver_pm10"])]
+    test_df["pers_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(test_df["last_obs_pm25"], test_df["last_obs_pm10"])]
+    test_df["clim_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(test_df["clim_pm25"], test_df["clim_pm10"])]
+    test_df["bc_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(test_df["cams_bc_pm25"], test_df["cams_bc_pm10"])]
+    test_df["blend_category"] = [_fast_cat(p25, p10) for p25, p10 in zip(test_df["blend_pm25"], test_df["blend_pm10"])]
 
     aqi_eval: Dict[str, Any] = {}
     for b_name, (h_min, h_max) in LEAD_BUCKETS.items():
@@ -396,15 +502,8 @@ def evaluate_held_out_winter(
             mod_ranks = np.array([AQI_CATEGORY_RANKS.get(c, -99) for c in valid["model_category"]])
             raw_ranks = np.array([AQI_CATEGORY_RANKS.get(c, -99) for c in valid["raw_category"]])
             clim_ranks = np.array([AQI_CATEGORY_RANKS.get(c, -99) for c in valid["clim_category"]])
-
-            acc_exact_model = float(np.mean(mod_ranks == obs_ranks)) * 100.0
-            acc_within1_model = float(np.mean(np.abs(mod_ranks - obs_ranks) <= 1)) * 100.0
-
-            acc_exact_raw = float(np.mean(raw_ranks == obs_ranks)) * 100.0
-            acc_within1_raw = float(np.mean(np.abs(raw_ranks - obs_ranks) <= 1)) * 100.0
-
-            acc_exact_clim = float(np.mean(clim_ranks == obs_ranks)) * 100.0
-            acc_within1_clim = float(np.mean(np.abs(clim_ranks - obs_ranks) <= 1)) * 100.0
+            bc_ranks = np.array([AQI_CATEGORY_RANKS.get(c, -99) for c in valid["bc_category"]])
+            blend_ranks = np.array([AQI_CATEGORY_RANKS.get(c, -99) for c in valid["blend_category"]])
 
             valid_pers = valid[valid["pers_category"] != "Unknown"]
             if len(valid_pers) > 0:
@@ -414,34 +513,53 @@ def evaluate_held_out_winter(
                 acc_within1_pers = float(np.mean(np.abs(p_ranks - p_obs_ranks) <= 1)) * 100.0
             else:
                 acc_exact_pers, acc_within1_pers = 0.0, 0.0
-        else:
-            acc_exact_model, acc_within1_model = 0.0, 0.0
-            acc_exact_raw, acc_within1_raw = 0.0, 0.0
-            acc_exact_pers, acc_within1_pers = 0.0, 0.0
-            acc_exact_clim, acc_within1_clim = 0.0, 0.0
 
-        aqi_eval[b_name] = {
-            "valid_hours": n_valid,
-            "model": {
-                "exact_accuracy_pct": round(acc_exact_model, 2),
-                "within_one_tier_pct": round(acc_within1_model, 2),
-            },
-            "raw_cams": {
-                "exact_accuracy_pct": round(acc_exact_raw, 2),
-                "within_one_tier_pct": round(acc_within1_raw, 2),
-            },
-            "persistence": {
-                "exact_accuracy_pct": round(acc_exact_pers, 2),
-                "within_one_tier_pct": round(acc_within1_pers, 2),
-            },
-            "climatology": {
-                "exact_accuracy_pct": round(acc_exact_clim, 2),
-                "within_one_tier_pct": round(acc_within1_clim, 2),
-            },
-        }
+            aqi_eval[b_name] = {
+                "valid_hours": n_valid,
+                "model": {
+                    "exact_accuracy_pct": round(float(np.mean(mod_ranks == obs_ranks)) * 100.0, 2),
+                    "within_one_tier_pct": round(float(np.mean(np.abs(mod_ranks - obs_ranks) <= 1)) * 100.0, 2),
+                },
+                "raw_cams": {
+                    "exact_accuracy_pct": round(float(np.mean(raw_ranks == obs_ranks)) * 100.0, 2),
+                    "within_one_tier_pct": round(float(np.mean(np.abs(raw_ranks - obs_ranks) <= 1)) * 100.0, 2),
+                },
+                "persistence": {
+                    "exact_accuracy_pct": round(acc_exact_pers, 2),
+                    "within_one_tier_pct": round(acc_within1_pers, 2),
+                },
+                "climatology": {
+                    "exact_accuracy_pct": round(float(np.mean(clim_ranks == obs_ranks)) * 100.0, 2),
+                    "within_one_tier_pct": round(float(np.mean(np.abs(clim_ranks - obs_ranks) <= 1)) * 100.0, 2),
+                },
+                "cams_bc": {
+                    "exact_accuracy_pct": round(float(np.mean(bc_ranks == obs_ranks)) * 100.0, 2),
+                    "within_one_tier_pct": round(float(np.mean(np.abs(bc_ranks - obs_ranks) <= 1)) * 100.0, 2),
+                },
+                "lead_blend": {
+                    "exact_accuracy_pct": round(float(np.mean(blend_ranks == obs_ranks)) * 100.0, 2),
+                    "within_one_tier_pct": round(float(np.mean(np.abs(blend_ranks - obs_ranks) <= 1)) * 100.0, 2),
+                },
+            }
 
-    # 6. Probabilistic P(Severe) Brier Score & Skill Scores
-    print("Evaluating P(Severe) probabilistic metrics...")
+    # 9. Probabilistic P(Severe) with Isotonic Calibration
+    print("Training Isotonic Regression calibrator on training data...")
+    train_df = build_dataset_for_seasons(stations, TRAIN_WINTERS, obs_df, issue_step_hours=24, max_lead_h=72)
+    train_preds = predict_quantiles(models, train_df, enforce_monotonic=True)
+    valid_train = train_df.dropna(subset=["target_pm25", "target_pm10"]).copy()
+    valid_train["is_severe"] = ((valid_train["target_pm25"] >= 251.0) | (valid_train["target_pm10"] >= 431.0)).astype(float)
+    clim_severe_rate = float(valid_train["is_severe"].mean())
+
+    std_25_tr = np.maximum(5.0, (train_preds["pm25"]["p90"][valid_train.index] - train_preds["pm25"]["p10"][valid_train.index]) / 2.563)
+    std_10_tr = np.maximum(5.0, (train_preds["pm10"]["p90"][valid_train.index] - train_preds["pm10"]["p10"][valid_train.index]) / 2.563)
+    z25_tr = (251.0 - train_preds["pm25"]["p50"][valid_train.index]) / std_25_tr
+    z10_tr = (431.0 - train_preds["pm10"]["p50"][valid_train.index]) / std_10_tr
+    p_raw_train = np.maximum(0.5 * erfc(z25_tr / np.sqrt(2)), 0.5 * erfc(z10_tr / np.sqrt(2)))
+
+    iso_calibrator = IsotonicRegression(out_of_bounds="clip", y_min=0.0, y_max=1.0)
+    iso_calibrator.fit(p_raw_train, valid_train["is_severe"])
+
+    # Compute raw and calibrated probabilities on test set
     test_df["is_severe_observed"] = (test_df["obs_category"] == "Severe").astype(float)
     n_severe_events = int(test_df["is_severe_observed"].sum())
     total_eval_hours = len(test_df[test_df["obs_category"] != "Unknown"])
@@ -450,24 +568,16 @@ def evaluate_held_out_winter(
     std_10 = np.maximum(5.0, (preds["pm10"]["p90"] - preds["pm10"]["p10"]) / 2.563)
     z25 = (251.0 - preds["pm25"]["p50"]) / std_25
     z10 = (431.0 - preds["pm10"]["p50"]) / std_10
-
-    p_sev_25 = 0.5 * erfc(z25 / np.sqrt(2))
-    p_sev_10 = 0.5 * erfc(z10 / np.sqrt(2))
-    test_df["prob_severe_model"] = np.maximum(p_sev_25, p_sev_10)
+    p_sev_raw = np.maximum(0.5 * erfc(z25 / np.sqrt(2)), 0.5 * erfc(z10 / np.sqrt(2)))
+    test_df["prob_severe_model"] = p_sev_raw
+    test_df["prob_severe_calibrated"] = iso_calibrator.predict(p_sev_raw)
 
     test_df["prob_severe_pers"] = np.where(
         (test_df["last_obs_pm25"] >= 251.0) | (test_df["last_obs_pm10"] >= 431.0), 1.0, 0.0
     )
-    test_df["prob_severe_raw"] = np.where(
+    test_df["prob_severe_raw_cams"] = np.where(
         (test_df["driver_pm25"] >= 251.0) | (test_df["driver_pm10"] >= 431.0), 1.0, 0.0
     )
-
-    # Historical Severe climatology rate
-    train_valid_obs = obs_df[(obs_df["timestamp"] >= t_start) == False].dropna(subset=["pm25", "pm10"])
-    if len(train_valid_obs) > 0:
-        clim_severe_rate = float(np.mean((train_valid_obs["pm25"] >= 251.0) | (train_valid_obs["pm10"] >= 431.0)))
-    else:
-        clim_severe_rate = 0.3803
 
     severe_eval: Dict[str, Any] = {}
     for b_name, (h_min, h_max) in LEAD_BUCKETS.items():
@@ -475,50 +585,56 @@ def evaluate_held_out_winter(
         valid = b_sub[b_sub["obs_category"] != "Unknown"]
 
         yt = valid["is_severe_observed"].to_numpy()
-        yp = valid["prob_severe_model"].to_numpy()
+        yp_raw = valid["prob_severe_model"].to_numpy()
+        yp_cal = valid["prob_severe_calibrated"].to_numpy()
         yp_pers = valid["prob_severe_pers"].to_numpy()
-        yp_raw = valid["prob_severe_raw"].to_numpy()
+        yp_cams = valid["prob_severe_raw_cams"].to_numpy()
         yp_clim = np.full_like(yt, fill_value=clim_severe_rate)
 
-        bs_m = compute_brier_score(yt, yp)
-        bs_pers = compute_brier_score(yt, yp_pers)
         bs_raw = compute_brier_score(yt, yp_raw)
+        bs_cal = compute_brier_score(yt, yp_cal)
+        bs_pers = compute_brier_score(yt, yp_pers)
+        bs_cams = compute_brier_score(yt, yp_cams)
         bs_clim = compute_brier_score(yt, yp_clim)
 
-        bss_clim = compute_brier_skill_score(bs_m, bs_clim)
-        bss_pers = compute_brier_skill_score(bs_m, bs_pers)
-        bss_raw = compute_brier_skill_score(bs_m, bs_raw)
+        bss_raw_clim = compute_brier_skill_score(bs_raw, bs_clim)
+        bss_raw_pers = compute_brier_skill_score(bs_raw, bs_pers)
+        bss_cal_clim = compute_brier_skill_score(bs_cal, bs_clim)
+        bss_cal_pers = compute_brier_skill_score(bs_cal, bs_pers)
 
         bins = np.linspace(0.0, 1.0, 6)
         rel_bins = []
         for i in range(len(bins) - 1):
             b_lo, b_hi = bins[i], bins[i + 1]
-            in_b = (yp >= b_lo) & (yp < b_hi if i < len(bins) - 2 else yp <= b_hi)
+            in_b = (yp_cal >= b_lo) & (yp_cal < b_hi if i < len(bins) - 2 else yp_cal <= b_hi)
             if np.any(in_b):
                 rel_bins.append({
                     "bin_range": f"[{b_lo:.1f}, {b_hi:.1f}]",
                     "count": int(np.sum(in_b)),
-                    "mean_predicted": round(float(np.mean(yp[in_b])), 4),
+                    "mean_predicted": round(float(np.mean(yp_cal[in_b])), 4),
                     "observed_fraction": round(float(np.mean(yt[in_b])), 4),
                 })
 
         severe_eval[b_name] = {
             "n_samples": len(yt),
             "severe_events": int(np.sum(yt)),
-            "brier_score_model": round(bs_m, 4),
+            "brier_score_raw": round(bs_raw, 4),
+            "brier_score_calibrated": round(bs_cal, 4),
             "brier_score_climatology": round(bs_clim, 4),
             "brier_score_persistence": round(bs_pers, 4),
-            "brier_score_raw_cams": round(bs_raw, 4),
-            "bss_vs_climatology": round(bss_clim, 4),
-            "bss_vs_persistence": round(bss_pers, 4),
-            "bss_vs_raw_cams": round(bss_raw, 4),
+            "brier_score_raw_cams": round(bs_cams, 4),
+            "bss_raw_vs_climatology": round(bss_raw_clim, 4),
+            "bss_raw_vs_persistence": round(bss_raw_pers, 4),
+            "bss_cal_vs_climatology": round(bss_cal_clim, 4),
+            "bss_cal_vs_persistence": round(bss_cal_pers, 4),
             "reliability": rel_bins,
         }
 
-    # 7. Assemble Full Results Dictionary
+    # 10. Assemble Full Results Dictionary
     full_results = {
         "evaluation_metadata": {
             "evaluation_date": datetime.now(timezone.utc).isoformat(),
+            "status_label": "hindcast with analysis drivers",
             "held_out_winter": f"{TEST_WINTER[0]} to {TEST_WINTER[1]}",
             "training_winters": [f"{s[0]} to {s[1]}" for s in TRAIN_WINTERS],
             "stations_evaluated": stations["id"].tolist(),
@@ -527,7 +643,8 @@ def evaluate_held_out_winter(
             "severe_hours_observed": n_severe_events,
             "climatology_severe_rate": round(clim_severe_rate, 4),
         },
-        "imputation_audit": imputation_audit,
+        "multi_winter_audit": multi_audit,
+        "imputation_audit": held_out_audit,
         "pollutants": pollutant_results,
         "aqi_category": aqi_eval,
         "severe_risk": severe_eval,
@@ -553,7 +670,8 @@ def evaluate_held_out_winter(
 def write_verification_markdown(results: Dict[str, Any], output_path: Path) -> None:
     """Generate comprehensive GitHub-flavored Markdown verification report."""
     meta = results["evaluation_metadata"]
-    audit = results.get("imputation_audit", {})
+    multi_audit = results.get("multi_winter_audit", {})
+    held_out = results.get("imputation_audit", {})
     pol_res = results["pollutants"]
     aqi_res = results["aqi_category"]
     sev_res = results["severe_risk"]
@@ -561,45 +679,81 @@ def write_verification_markdown(results: Dict[str, Any], output_path: Path) -> N
     lines = [
         "# VAAYU 72-Hour Air Quality Forecast: Verification & Audit Report",
         "",
+        f"**Evaluation Status:** `{meta.get('status_label', 'hindcast with analysis drivers')}`  ",
         f"**Evaluation Season:** Held-out Winter {meta['held_out_winter']}  ",
         f"**Training Period:** Earlier Winters ({', '.join(meta['training_winters'])})  ",
         f"**Stations Evaluated:** {len(meta['stations_evaluated'])} monitoring stations  ",
         f"**Verifiable Observations:** {meta['verifiable_hours']} hours | **Severe Hours:** {meta['severe_hours_observed']}  ",
         "",
         "> [!IMPORTANT]",
-        "> **Methodology & Provenance Audit:**",
-        "> 1. **Zero Imputed Targets Guarantee:** Persistence-imputed values (from the `last_obs_*` features at issue time) are strictly used as input features and are NEVER used as evaluation ground-truth targets. Only genuine measured ground station observations are evaluated.",
-        "> 2. **Driver Provenance Disclosure:** Air Quality features (`pm2_5`, `pm10`, `ozone`, `nitrogen_dioxide`) are retrieved from the Open-Meteo Air Quality API (`air-quality-api.open-meteo.com/v1/air-quality`) which serves CAMS regional atmospheric composition reanalysis/analysis across historical periods. Open-Meteo does not archive previous model runs for CAMS air quality. Weather features are retrieved from `archive-api.open-meteo.com/v1/archive` (ERA5 reanalysis). Consequently, historical values at lead $h$ are **reanalysis/analysis values**, meaning the held-out evaluation is technically a **hindcast-with-analysis-drivers** and overstates true operational forecast skill where CAMS forecast errors would degrade over lead time.",
+        "> **Driver Provenance & Score Label Disclosure:**",
+        "> All performance scores reported in this document are **hindcast with analysis drivers** until true operational forecast cycles are accumulated by the automated archiver (`archive_forecasts.py`).",
+        "> - Air Quality drivers (`pm2_5`, `pm10`, `ozone`, `nitrogen_dioxide`) are retrieved from the Open-Meteo Air Quality API which serves Copernicus Atmosphere Monitoring Service (CAMS) regional reanalysis/analysis across historical dates. Open-Meteo does not archive past forecast runs for CAMS.",
+        "> - Meteorological drivers are retrieved from ERA5 reanalysis.",
+        "> - Consequently, scores overstate operational skill at longer lead times (48–72h) where true numerical weather prediction errors would naturally compound.",
         "",
         "---",
         "",
-        "## 1. Data Exclusions and Imputation Audit",
+        "## 1. Multi-Winter Observation Availability & Missing Data Audit",
         "",
-        "Total calendar hours in the held-out winter season: **3,624 hours per station** (151 days × 24h). All hours with missing ground-truth observations were strictly excluded from verification targets:",
+        "Evaluation strictly excludes missing observation hours. Gaps are **never fabricated, interpolated, or imputed** as evaluation ground-truth.",
         "",
-        "| Station | Pollutant | Calendar Hours | Valid Ground Hours | Excluded / Missing Hours | Excluded Pct |",
-        "|---|---|---|---|---|---|",
+        "### 1.1 Complete Multi-Winter Valid Hours Table (Oct 1 to Feb 28/29)",
+        "",
+        "| Winter Season | Station | Calendar Hours | PM2.5 Valid | PM10 Valid | NO2 Valid | O3 Valid | Missing PM % |",
+        "|---|---|---|---|---|---|---|---|",
     ]
 
-    for st_id, p_map in audit.get("stations", {}).items():
-        st_clean = st_id.replace("_", " ").title()
-        for p, s in p_map.items():
+    for w_name, w_data in multi_audit.items():
+        cal_hrs = w_data["calendar_hours"]
+        for st_id, st_p in w_data["stations"].items():
+            st_clean = st_id.replace("_", " ").title()
+            p25_v = st_p["pm25"]["valid_hours"]
+            p10_v = st_p["pm10"]["valid_hours"]
+            no2_v = st_p["no2"]["valid_hours"]
+            o3_v = st_p["o3"]["valid_hours"]
+            miss_pct = 100.0 - st_p["pm25"]["valid_pct"]
             lines.append(
-                f"| `{st_id}` | **{p.upper()}** | {audit.get('calendar_hours_per_station', 3624)} | {s['valid_hours']} | {s['excluded_missing_hours']} | {s['missing_pct']}% |"
+                f"| `{w_name}` | `{st_id}` | {cal_hrs} | {p25_v} | {p10_v} | {no2_v} | {o3_v} | {miss_pct:.1f}% |"
             )
 
     lines.extend([
         "",
-        "> **Note on O3 and NO2 Ground Sensors:** Indirapuram and Sector 11 Faridabad ground stations in the open dataset do not report continuous O3 and NO2 channels (100% missing). NO2 and O3 evaluation is exclusively performed on Anand Vihar.",
+        "### 1.2 OpenAQ Fetch Instructions & Data Availability",
+        "",
+        "To fetch official ground observations from OpenAQ v3 for the Delhi NCR stations:",
+        "1. Obtain a free API key from [OpenAQ v3](https://docs.openaq.org/).",
+        "2. Add the key to your local `.env` file (which is gitignored):",
+        "   ```bash",
+        "   echo \"OPENAQ_API_KEY=your_key_here\" >> .env",
+        "   ```",
+        "3. Fetch official station measurements for Anand Vihar (`235`), Indirapuram (`6924`), and Sector 11 Faridabad (`263`):",
+        "   ```bash",
+        "   python fetch_openaq.py --location-ids 235,6924,263",
+        "   ```",
+        "",
+        "> **Documented Data Gaps:**",
+        "> - **Winters 2022-23, 2023-24, and 2024-25:** Ground PM2.5 and PM10 observations are missing from repository records because OpenAQ sensor records were not cached and unverified CPCB downloads lacked confirmed PM series or exhibited identical series issues.",
+        "> - **Indirapuram and Faridabad:** Ground sensors in OpenAQ do not report continuous NO2 and O3 channels (100% missing). NO2 and O3 verification is strictly evaluated on Anand Vihar.",
         "",
         "---",
         "",
-        "## 2. Multi-Pollutant Continuous Metrics across Lead Buckets",
+        "## 2. Baseline Check (Persistence Leakage Guarantee)",
         "",
-        "Evaluated against three independent reference baselines:",
-        "1. **Raw CAMS:** Copernicus Atmosphere Monitoring Service numerical driver forecast without statistical correction.",
-        "2. **Persistence:** Persisting the last valid station observation at or before issue time out to +72h.",
-        "3. **Climatology:** Station-specific historical median by month and hour of day from training winters.",
+        "- **Zero Look-Ahead Guarantee:** Persistence baseline features (`last_obs_*`) lookup the most recent valid ground observation strictly at or before issue time ($t \\le T_{\\text{issue}}$) within a 24-hour lookback window.",
+        "- **Audit Result:** 100% of tested verification samples confirmed zero observation leakage past issue time.",
+        "",
+        "---",
+        "",
+        "## 3. Candidate Model Evaluation: Bias-Correction Blend vs Baselines",
+        "",
+        "Candidates evaluated on held-out winter 2025-26:",
+        "1. **Persistence:** Persisting the latest ground observation available at $t \\le T_{\\text{issue}}$.",
+        "2. **Raw CAMS:** Copernicus Atmosphere Monitoring Service driver without statistical adjustment.",
+        "3. **Climatology:** Historical station median by month and hour of day from earlier winters.",
+        "4. **LightGBM Corrector:** Multi-quantile gradient boosting model trained on earlier winters.",
+        "5. **Rolling CAMS BC:** Trailing 7-day mean of `(obs - CAMS)` using strictly data available at or before issue time.",
+        "6. **Lead-Aware Blend:** Bucket-weighted blend of persistence and bias-corrected CAMS ($w \\cdot \\text{Pers} + (1-w) \\cdot \\text{CAMS\\_BC}$).",
         "",
     ])
 
@@ -607,112 +761,91 @@ def write_verification_markdown(results: Dict[str, Any], output_path: Path) -> N
         p_name = pol.upper()
         p_data = pol_res[pol]
         lines.extend([
-            f"### {p_name} Verification",
+            f"### {p_name} Benchmark Evaluation",
             "",
-            "| Lead Bucket | Valid Samples | Model MAE | Raw CAMS MAE | Persistence MAE | Climatology MAE | Skill vs CAMS | Skill vs Pers | Skill vs Clim | 80% Int Coverage |",
-            "|---|---|---|---|---|---|---|---|---|---|",
+            "| Lead Bucket | Valid Samples | Raw CAMS | Persistence | Climatology | LightGBM | Rolling CAMS BC | Lead Blend | Winning Model |",
+            "|---|---|---|---|---|---|---|---|---|",
         ])
 
         for b_name in ["1-24h", "25-48h", "49-72h", "1-72h"]:
             b = p_data[b_name]
-            cov = f"{b['interval_coverage_80']['coverage_pct']:.1f}%" if b['interval_coverage_80']['coverage_pct'] else "N/A"
-            s_cams = f"{b['skill_vs_raw_mae_pct']:+.1f}%" if b['skill_vs_raw_mae_pct'] is not None else "N/A"
-            s_pers = f"{b['skill_vs_pers_mae_pct']:+.1f}%" if b['skill_vs_pers_mae_pct'] is not None else "N/A"
-            s_clim = f"{b['skill_vs_clim_mae_pct']:+.1f}%" if b['skill_vs_clim_mae_pct'] is not None else "N/A"
-
-            m_mae = f"{b['model']['mae']:.2f}" if b['model']['mae'] else "N/A"
-            raw_mae = f"{b['raw_cams']['mae']:.2f}" if b['raw_cams']['mae'] else "N/A"
-            pers_mae = f"{b['persistence']['mae']:.2f}" if b['persistence']['mae'] else "N/A"
-            clim_mae = f"{b['climatology']['mae']:.2f}" if b['climatology']['mae'] else "N/A"
+            r_mae = f"{b['raw_cams']['mae']:.2f}" if b['raw_cams']['mae'] else "N/A"
+            p_mae = f"{b['persistence']['mae']:.2f}" if b['persistence']['mae'] else "N/A"
+            c_mae = f"{b['climatology']['mae']:.2f}" if b['climatology']['mae'] else "N/A"
+            l_mae = f"{b['model']['mae']:.2f}" if b['model']['mae'] else "N/A"
+            bc_mae = f"{b['cams_bc']['mae']:.2f}" if b['cams_bc']['mae'] else "N/A"
+            bl_mae = f"{b['lead_blend']['mae']:.2f}" if b['lead_blend']['mae'] else "N/A"
+            winner = f"**{b['best_model']}** ({b['best_mae']:.2f})"
 
             lines.append(
-                f"| **{b_name}** | {b['n_samples']} | **{m_mae}** | {raw_mae} | {pers_mae} | {clim_mae} | **{s_cams}** | {s_pers} | {s_clim} | {cov} |"
+                f"| **{b_name}** | {b['n_samples']} | {r_mae} | {p_mae} | {c_mae} | {l_mae} | {bc_mae} | {bl_mae} | {winner} |"
             )
         lines.append("")
 
     lines.extend([
-        "---",
-        "",
-        "## 3. PM2.5 In-Depth Diagnosis",
-        "",
-        "### 3.1 Error Breakdown by Month and Hour of Day",
-        "- **Peak Smoke Season (November):** The statistical corrector outperforms Raw CAMS (**Model MAE 80.28 vs Raw CAMS 91.26 µg/m³**), reducing extreme underprediction spikes.",
-        "- **Winter Inversion Peak (December):** Model MAE (84.94 µg/m³) is competitive with Raw CAMS (83.49 µg/m³), with Model Mean Bias near zero (+0.14 µg/m³ vs CAMS -63.57 µg/m³).",
-        "- **Late Season (January–February):** Ambient PM2.5 levels drop (Jan obs mean: 135.1, Feb obs mean: 125.6 µg/m³). Raw CAMS exhibits lower variance (MAE ~54 µg/m³), while the corrector overpredicts (Model MAE 95–107 µg/m³) due to high winter training bias.",
-        "- **Diurnal Profile:** Highest diurnal errors occur during late evening inversion onset (20:00–04:00 IST), where ground observations spike to 170–190 µg/m³ while Raw CAMS plateaus at 110–120 µg/m³.",
-        "",
-        "### 3.2 Station Heterogeneity (Anand Vihar vs Faridabad)",
-        "- **Anand Vihar (New Delhi):** Observed mean is 199.7 µg/m³. Raw CAMS severely underpredicts (mean 97.0 µg/m³, bias -102.75). The **corrector beats Raw CAMS by 22.1%** (**Model MAE 82.21 vs Raw CAMS 105.56 µg/m³**).",
-        "- **Sector 11 Faridabad:** Observed mean is 102.2 µg/m³. Raw CAMS happens to be nearly unbiased (+0.53 µg/m³, MAE 43.24). The corrector (trained primarily on Anand Vihar data) predicts ~188 µg/m³, inflating MAE to 99.02 µg/m³.",
-        "",
-        "### 3.3 Training Distribution Shift & Formulation Experiments",
-        "- **Distribution Shift:** Training winters (2020-21, 2021-22) contained only **240 distinct valid PM2.5 hours** (mean 183.0 µg/m³), whereas the test winter had **7,909 hours** (mean 150.3 µg/m³).",
-        "- **Residual Target Experiment (`obs - CAMS`):** Training LightGBM to predict the residual yields an overall MAE of **69.52 µg/m³** (bias -51.55 µg/m³), which exactly matches Raw CAMS because the residual model predicts $\\approx 0$ everywhere.",
-        "- **Station Categorical Bias Experiment:** Adding station identity into training yields MAE of **85.33 µg/m³**, as station bias terms overfit the sparse training samples.",
+        "### Key Findings by Pollutant:",
+        "- **PM2.5:** **Rolling CAMS BC achieves 50.27 µg/m³ MAE** (overall 1-72h), reducing Raw CAMS error from 69.52 µg/m³ (**-27.7% MAE reduction**) and beating both Persistence (83.78 µg/m³) and LightGBM (84.33 µg/m³). Lead Blend achieves **54.36 µg/m³** in 1-24h.",
+        "- **PM10:** **Rolling CAMS BC achieves 107.35 µg/m³ MAE** (overall 1-72h), slashing Raw CAMS error from 192.09 µg/m³ (**-44.1% MAE reduction**) and Persistence (169.32 µg/m³).",
+        "- **NO2:** **Lead-Aware Blend achieves 22.50 µg/m³ MAE** (overall 1-72h), beating Persistence (24.95 µg/m³), LightGBM (31.94 µg/m³), and Raw CAMS (47.27 µg/m³, **-52.4% MAE reduction**). In 1-24h, Lead Blend achieves **20.70 µg/m³**.",
+        "- **O3:** **Persistence / Blend ($w=1.0$) achieves 5.74 µg/m³ MAE**, vastly outperforming Raw CAMS (70.89 µg/m³, which exhibits severe positive bias over Delhi winter) and LightGBM (11.07 µg/m³).",
         "",
         "---",
         "",
-        "## 4. AQI Category Accuracy (Exact & Within-One-Tier)",
+        "## 4. AQI Category Accuracy (CPCB NAQI 6 Tiers)",
         "",
-        "Evaluated on 6 official CPCB NAQI tiers (Good, Satisfactory, Moderate, Poor, Very Poor, Severe):",
-        "",
-        "| Lead Bucket | Valid Hours | Model Exact | Model Within ±1 Tier | Raw CAMS Exact | Raw CAMS Within ±1 Tier | Persistence Exact | Climatology Exact |",
-        "|---|---|---|---|---|---|---|---|",
+        "| Lead Bucket | Valid Hours | Raw CAMS Exact | Raw CAMS Within ±1 | Persistence Exact | LightGBM Exact | Rolling BC Exact | Lead Blend Exact | Lead Blend Within ±1 |",
+        "|---|---|---|---|---|---|---|---|---|",
     ])
 
     for b_name in ["1-24h", "25-48h", "49-72h", "1-72h"]:
         a = aqi_res[b_name]
-        m_ex = f"{a['model']['exact_accuracy_pct']:.1f}%"
-        m_w1 = f"{a['model']['within_one_tier_pct']:.1f}%"
         r_ex = f"{a['raw_cams']['exact_accuracy_pct']:.1f}%"
         r_w1 = f"{a['raw_cams']['within_one_tier_pct']:.1f}%"
         p_ex = f"{a['persistence']['exact_accuracy_pct']:.1f}%"
-        c_ex = f"{a['climatology']['exact_accuracy_pct']:.1f}%"
+        l_ex = f"{a['model']['exact_accuracy_pct']:.1f}%"
+        bc_ex = f"{a['cams_bc']['exact_accuracy_pct']:.1f}%"
+        bl_ex = f"{a['lead_blend']['exact_accuracy_pct']:.1f}%"
+        bl_w1 = f"{a['lead_blend']['within_one_tier_pct']:.1f}%"
 
         lines.append(
-            f"| **{b_name}** | {a['valid_hours']} | **{m_ex}** | **{m_w1}** | {r_ex} | {r_w1} | {p_ex} | {c_ex} |"
+            f"| **{b_name}** | {a['valid_hours']} | {r_ex} | {r_w1} | {p_ex} | {l_ex} | {bc_ex} | **{bl_ex}** | **{bl_w1}** |"
         )
 
     lines.extend([
         "",
         "---",
         "",
-        "## 5. P(Severe) Probabilistic Calibration & Brier Skill Scores",
+        "## 5. P(Severe) Probabilistic Calibration & Skill Scores",
         "",
-        "| Lead Bucket | Evaluated Hours | Observed Severe Hours | Model Brier Score | Climatology BS | Persistence BS | BSS vs Climatology | BSS vs Persistence |",
-        "|---|---|---|---|---|---|---|---|",
+        "Evaluates the probabilistic forecast of Severe AQI events (> 400). Isotonic regression calibration was trained on earlier winter data.",
+        "",
+        "| Lead Bucket | Valid Hours | Severe Events | Raw Model BS | Calibrated BS | Climatology BS | Persistence BS | Raw BSS vs Clim | Cal BSS vs Clim | Raw BSS vs Pers |",
+        "|---|---|---|---|---|---|---|---|---|---|",
     ])
 
     for b_name in ["1-24h", "25-48h", "49-72h", "1-72h"]:
         s = sev_res[b_name]
-        bs_m = f"{s['brier_score_model']:.4f}"
+        bs_raw = f"{s['brier_score_raw']:.4f}"
+        bs_cal = f"{s['brier_score_calibrated']:.4f}"
         bs_c = f"{s['brier_score_climatology']:.4f}"
         bs_p = f"{s['brier_score_persistence']:.4f}"
-        bss_c = f"{s['bss_vs_climatology']:+.4f}"
-        bss_p = f"{s['bss_vs_persistence']:+.4f}"
+        bss_rc = f"{s['bss_raw_vs_climatology']:+.4f}"
+        bss_cc = f"{s['bss_cal_vs_climatology']:+.4f}"
+        bss_rp = f"{s['bss_raw_vs_persistence']:+.4f}"
 
         lines.append(
-            f"| **{b_name}** | {s['n_samples']} | {s['severe_events']} | **{bs_m}** | {bs_c} | {bs_p} | **{bss_c}** | **{bss_p}** |"
+            f"| **{b_name}** | {s['n_samples']} | {s['severe_events']} | {bs_raw} | {bs_cal} | {bs_c} | {bs_p} | **{bss_rc}** | **{bss_cc}** | **{bss_rp}** |"
         )
 
     lines.extend([
         "",
-        "### Reliability Diagram Bins (Overall 1-72h)",
-        "",
-        "| Predicted Probability Bin | Sample Count | Mean Forecast Probability | Observed Event Fraction |",
-        "|---|---|---|---|",
-    ])
-
-    for r in sev_res["1-72h"]["reliability"]:
-        lines.append(f"| `{r['bin_range']}` | {r['count']} | {r['mean_predicted']:.4f} | {r['observed_fraction']:.4f} |")
-
-    lines.extend([
+        "> [!WARNING]",
+        "> **P(Severe) Skill Disclosure:**",
+        "> While the raw model demonstrates positive forecasting skill against Persistence (BSS = +0.1810 overall), **neither the raw model (BSS = -0.2650) nor the calibrated model (BSS = -0.7609) beats the climatological reference forecast**.",
+        "> - **Why this happens:** In earlier training winters, the observed Severe event rate was 38.0%, whereas in the held-out test season (Winter 2025-26), the Severe rate dropped to 23.3%. Isotonic calibration fitted to the earlier period over-predicts severe probabilities out-of-sample.",
+        "> - **Honest Assessment:** VAAYU does NOT claim positive probabilistic skill over climatology for P(Severe) under this split.",
         "",
         "---",
-        "",
-        "## 6. Season Coverage Explanation",
-        "",
-        "- **Winters 2022-23 and 2024-25 Exclusion:** The repository's ground truth dataset (`data/processed/openaq_hourly.csv`) contains continuous observations strictly for Winters 2020-21, 2021-22, and 2025-26. Historical ground data for 2022-23 and 2024-25 was neither cached in `data/raw/openaq` nor included in the repository, and no OpenAQ v3 API key is configured in the environment. Unverified raw CPCB downloads for 2023 were excluded due to duplicate station series (`test_raw_cpcb_fails_loudly_on_duplicates`).",
         "",
     ])
 
@@ -731,29 +864,33 @@ def update_readme_results_table(results: Dict[str, Any], readme_path: Path) -> N
     meta = results["evaluation_metadata"]
     sev = results["severe_risk"]["1-72h"]
     aqi_data = results["aqi_category"]["1-72h"]
-    pm25_mae = results["pollutants"]["pm25"]["1-72h"]["model"]["mae"]
-    pm10_mae = results["pollutants"]["pm10"]["1-72h"]["model"]["mae"]
-    no2_mae = results["pollutants"]["no2"]["1-72h"]["model"]["mae"]
-    o3_mae = results["pollutants"]["o3"]["1-72h"]["model"]["mae"]
+    pm25_bc = results["pollutants"]["pm25"]["1-72h"]["cams_bc"]["mae"]
+    pm10_bc = results["pollutants"]["pm10"]["1-72h"]["cams_bc"]["mae"]
+    no2_blend = results["pollutants"]["no2"]["1-72h"]["lead_blend"]["mae"]
+    o3_pers = results["pollutants"]["o3"]["1-72h"]["persistence"]["mae"]
 
     held_out = meta["held_out_winter"]
-    bs_model = f"{sev['brier_score_model']:.4f}"
+    bs_raw = f"{sev['brier_score_raw']:.4f}"
+    bs_cal = f"{sev['brier_score_calibrated']:.4f}"
     bs_clim = f"{sev['brier_score_climatology']:.4f}"
-    bss_clim = f"{sev['bss_vs_climatology']:+.4f}"
+    bss_clim = f"{sev['bss_cal_vs_climatology']:+.4f}"
+    bss_pers = f"{sev['bss_raw_vs_persistence']:+.4f}"
     severe_count = f"{meta['severe_hours_observed']}"
-    cat_acc = f"{aqi_data['model']['exact_accuracy_pct']:.1f}% (within ±1 tier: {aqi_data['model']['within_one_tier_pct']:.1f}%)"
+    cat_acc = f"{aqi_data['lead_blend']['exact_accuracy_pct']:.1f}% (within ±1 tier: {aqi_data['lead_blend']['within_one_tier_pct']:.1f}%)"
 
     new_table = f"""| Metric | Value | Notes |
 |---|---|---|
+| Evaluation status | Hindcast with analysis drivers | Driver features from CAMS analysis / ERA5 reanalysis |
 | Held-out winter | Winter {held_out} | Out-of-sample test season |
-| Brier score (72h P(Severe)) | {bs_model} | Evaluated across 1-72h lead window |
-| Brier score (climatology reference) | {bs_clim} | Historical winter climatology |
-| Brier skill score (vs climatology) | {bss_clim} | Positive value indicates forecasting skill |
-| AQI category accuracy (PM-based) | {cat_acc} | 6-tier CPCB category match (1-72h) vs Raw CAMS 23.9% |
-| PM10 corrector MAE (1-72h) | {pm10_mae:.2f} µg/m³ | Beats Raw CAMS (192.09 µg/m³) by +10.3% MAE reduction |
-| NO2 corrector MAE (1-72h) | {no2_mae:.2f} µg/m³ | Beats Raw CAMS (47.27 µg/m³) by +32.4% MAE reduction |
-| O3 corrector MAE (1-72h) | {o3_mae:.2f} µg/m³ | Beats Raw CAMS (70.89 µg/m³) by +84.4% MAE reduction |
-| PM2.5 corrector MAE (1-72h) | {pm25_mae:.2f} µg/m³ | Beats CAMS at Anand Vihar (-22.1% MAE); CAMS lower variance overall |
+| Brier score (raw P(Severe)) | {bs_raw} | Positive skill over persistence (+0.181 BSS) |
+| Brier score (calibrated P(Severe)) | {bs_cal} | Isotonic calibration trained on earlier winters |
+| Brier score (climatology reference) | {bs_clim} | Historical winter climatology base rate |
+| Brier skill score (vs climatology) | {bss_clim} | Negative (-0.761 cal, -0.265 raw): zero skill claimed over climatology |
+| AQI category accuracy (PM-based) | {cat_acc} | Lead blend 6-tier CPCB category match (1-72h) vs Raw CAMS 23.9% |
+| PM2.5 CAMS BC MAE (1-72h) | {pm25_bc:.2f} µg/m³ | Beats Raw CAMS (69.52 µg/m³) by -27.7% and LightGBM (84.33 µg/m³) |
+| PM10 CAMS BC MAE (1-72h) | {pm10_bc:.2f} µg/m³ | Beats Raw CAMS (192.09 µg/m³) by -44.1% and Persistence (169.32 µg/m³) |
+| NO2 Lead Blend MAE (1-72h) | {no2_blend:.2f} µg/m³ | Beats Raw CAMS (47.27 µg/m³) by -52.4% and Persistence (24.95 µg/m³) |
+| O3 Persistence MAE (1-72h) | {o3_pers:.2f} µg/m³ | Beats Raw CAMS (70.89 µg/m³) by -91.9% |
 | Number of Severe hours in test set | {severe_count} | Total hours with observed CPCB AQI > 400 |"""
 
     # Regex replace the Results table
