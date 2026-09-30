@@ -132,6 +132,11 @@ def generate_forecast_for_station(
     max_lead_h: int = 72,
 ) -> Dict[str, Any]:
     """Generate 72-hour forecast dictionary for a single station."""
+    if issue_time.tz is None:
+        issue_time = issue_time.tz_localize("Asia/Kolkata")
+    else:
+        issue_time = issue_time.tz_convert("Asia/Kolkata")
+
     # 1. Fetch live driver forecast if not supplied
     if driver_df is None:
         driver_df = fetch_forecast_drivers(
